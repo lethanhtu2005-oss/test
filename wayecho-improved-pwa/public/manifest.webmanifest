@@ -1,0 +1,22 @@
+{
+  "name": "WayEcho — Du lịch tiếp cận",
+  "short_name": "WayEcho",
+  "description": "Nền tảng demo hỗ trợ người mù và người nhìn kém trong hành trình du lịch.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fffaf1",
+  "theme_color": "#f8ae38",
+  "lang": "vi",
+  "orientation": "any",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "shortcuts": [
+    { "name": "Tìm kiếm", "short_name": "Tìm kiếm", "url": "/search" },
+    { "name": "Chuyến đi", "short_name": "Chuyến đi", "url": "/my-trip" },
+    { "name": "SOS", "short_name": "SOS", "url": "/sos" }
+  ]
+}

@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Biến --font-display / --font-body / --font-quote do next/font định nghĩa
+   qua class trên thẻ <html> (xem app/layout.jsx). Không khai báo lại ở :root
+   kẻo ghi đè và làm font không tải được. */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-surface text-ink font-body antialiased;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3 {
+    @apply font-display tracking-tight;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  /* Rõ ràng khi điều hướng bằng bàn phím — quan trọng cho accessibility */
+  :focus-visible {
+    outline: 3px solid var(--focus, #1d68a7);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: #f8ae38;
+    color: #212529;
+  }
+}
+
+/* Chế độ chữ lớn — người khiếm thị nhẹ (thị lực kém) bật để đọc dễ hơn */
+html[data-textsize="large"] body {
+  font-size: 19px;
+}
+html[data-textsize="large"] {
+  --scale-h1: 1.12;
+}
+
+/* Chế độ tương phản cao — nền tối, chữ trắng, viền vàng đậm */
+html[data-contrast="high"] body {
+  background: #000000;
+  color: #ffffff;
+}
+html[data-contrast="high"] {
+  --focus: #f8ae38;
+}
+html[data-contrast="high"] .hc-surface {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+html[data-contrast="high"] .hc-muted {
+  color: #ffe9c2 !important;
+}
+html[data-contrast="high"] .hc-border {
+  border-color: #ffffff !important;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto max-w-content px-4 sm:px-6 lg:px-12;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill font-semibold transition-colors;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px 24px;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-ink hover:bg-primary-hover;
+  }
+  .btn-dark {
+    @apply btn bg-black text-surface-alt hover:bg-neutral-800 border border-surface-alt;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-ink border border-black hover:text-accent hover:border-accent;
+  }
+  .card {
+    @apply bg-surface text-ink rounded-[10px] shadow-card transition-all;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-pill bg-surface-alt px-3 py-1 text-sm font-semibold text-ink;
+  }
+}
+
+/* Chỉ đọc bằng screen reader, ẩn về mặt hình ảnh */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hiện dần khi cuộn tới (kèm dịch lên nhẹ) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Tôn trọng người dùng tắt hiệu ứng chuyển động — tắt mọi animation/transition */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Toggle "giảm chuyển động" thủ công (ngoài media query của hệ điều hành) */
+html[data-reduce="reduce"] *,
+html[data-reduce="reduce"] *::before,
+html[data-reduce="reduce"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+html[data-reduce="reduce"] .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Hiệu ứng sóng âm khi "đang nghe" */
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.listening-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(248, 174, 56, 0.5);
+  animation: pulse-ring 1.6s ease-out infinite;
+}
