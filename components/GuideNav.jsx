@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { getGuide, DEMO_GUIDE_ID } from "@/data/guides";
+import { endGuideSession } from "@/lib/guideSession";
 import { GridIcon, CalendarIcon, UserIcon, CheckIcon } from "./Icons";
 
 const TOP_LINKS = [
@@ -141,7 +142,7 @@ export default function GuideNav() {
                 <Link role="menuitem" href="/help" onClick={() => setMenuOpen(false)} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 hover:bg-surface-alt"><HelpIcon /> Trung tâm trợ giúp</Link>
                 <div className="my-1 border-t border-line" />
                 <Link role="menuitem" href="/" onClick={() => setMenuOpen(false)} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 hover:bg-surface-alt"><span aria-hidden="true">ⓘ</span> Về WayEcho</Link>
-                <Link role="menuitem" href="/guide/login" onClick={() => setMenuOpen(false)} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 font-semibold text-red-700 hover:bg-red-50"><LogOutIcon /> Đăng xuất</Link>
+                <Link role="menuitem" href="/guide/login" onClick={() => { endGuideSession(); setMenuOpen(false); }} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 font-semibold text-red-700 hover:bg-red-50"><LogOutIcon /> Đăng xuất</Link>
               </div>
             )}
           </div>

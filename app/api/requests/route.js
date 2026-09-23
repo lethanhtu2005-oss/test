@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { list, add, update } from "@/lib/store";
+import { readJson, badRequest, cleanText, REQUEST_STATUSES } from "@/lib/validate";
 
 export const dynamic = "force-dynamic";
 
@@ -12,11 +13,11 @@ export async function GET(req) {
 
 // Doanh nghiệp accept/reject một accessibility request
 export async function PATCH(req) {
-  const body = await req.json();
-  if (!body?.id || !body?.status) {
-    return NextResponse.json({ error: "Thiếu id hoặc status" }, { status: 400 });
+  const body = await readJson(req);
+  if (!body?.id || !REQUEST_STATUSES.includes(body?.status)) {
+    return badRequest("Thiếu id hoặc status không hợp lệ (accepted / rejected)");
   }
-  const updated = await update("requests", body.id, { status: body.status, note: body.note || "" });
+  const updated = await update("requests", body.id, { status: body.status, note: cleanText(body.note) });
   if (updated) {
     await add("notifications", {
       role: "traveler",

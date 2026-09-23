@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { list, add, remove } from "@/lib/store";
+import { readJson, badRequest, cleanText } from "@/lib/validate";
 
 export const dynamic = "force-dynamic";
 
@@ -8,16 +9,16 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const body = await req.json();
-  if (!body?.refId) return NextResponse.json({ error: "Thiếu refId" }, { status: 400 });
+  const body = await readJson(req);
+  if (!body || !cleanText(body.refId)) return badRequest("Thiếu refId");
   const existing = (await list("trip")).find((x) => x.refId === body.refId);
   if (existing) return NextResponse.json(existing);
   const record = await add("trip", {
-    refId: body.refId,
-    name: body.name || "",
-    cat: body.cat || "",
-    image: body.image || "",
-    area: body.area || "",
+    refId: cleanText(body.refId, 100),
+    name: cleanText(body.name, 300),
+    cat: cleanText(body.cat, 300),
+    image: cleanText(body.image, 300),
+    area: cleanText(body.area, 300),
   });
   return NextResponse.json(record, { status: 201 });
 }

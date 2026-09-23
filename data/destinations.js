@@ -213,5 +213,5 @@ export const destinations = [
 ];
 
 export function getDestination(slug) {
-  return destinations.find((d) => d.slug === slug) || destinations[0];
+  return destinations.find((d) => d.slug === slug) || null;
 }

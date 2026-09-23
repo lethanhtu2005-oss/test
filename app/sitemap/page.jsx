@@ -43,7 +43,7 @@ const JOURNEY = [
   ["After", "Viết đánh giá tiếp cận: lối vào, di chuyển, nhân viên, WC…"],
 ];
 
-export const metadata = { title: "Sơ đồ website — WayEcho" };
+export const metadata = { title: "Sơ đồ website" };
 
 export default function SitemapPage() {
   return (

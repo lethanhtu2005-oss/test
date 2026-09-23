@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AccessibleIcon, PhoneIcon, MicIcon, SpeakerIcon } from "@/components/Icons";
 
-export const metadata = { title: "Hỗ trợ & giới hạn demo — WayEcho" };
+export const metadata = { title: "Hỗ trợ & giới hạn demo" };
 
 const STEPS = [
   ["Tạo Accessibility Profile", "Chọn Blind/Low Vision và các nhu cầu như screen reader, audio description, staff assistance."],
