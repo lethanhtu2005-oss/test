@@ -1,4 +1,4 @@
-# WayEcho — Accessible Travel Prototype (Improved PWA)
+# WayEcho — Accessible Travel Prototype 
 
 WayEcho là prototype nền tảng du lịch tiếp cận dành cho **người mù (Blind)** và **người nhìn kém (Low Vision)**. Bản này được cải thiện từ web demo ban đầu và đối chiếu với tài liệu **BẢNG TỔNG HỢP FUNCTION & REQUIREMENT**.
 
