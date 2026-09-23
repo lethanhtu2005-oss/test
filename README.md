@@ -60,10 +60,18 @@ npm run build
 npm start
 ```
 
-## Lưu ý kiểm thử
-- Toàn bộ file JS/JSX đã qua kiểm tra cú pháp bằng TypeScript parser.
-- `manifest.webmanifest` đã được kiểm tra JSON hợp lệ và service worker đã qua `node --check`.
-- Trong môi trường tạo bản bàn giao, `npm ci` không hoàn tất do kết nối tải dependency bị timeout, vì vậy chưa thể chạy `next build` end-to-end trong sandbox. Khi chạy trên máy có kết nối npm bình thường, hãy chạy `npm ci && npm run build` trước khi deploy.
+## Kiểm thử
+Yêu cầu Node.js 20.9 trở lên (Next.js 16, React 19).
+```bash
+npm run lint   # ESLint (eslint-config-next)
+npm test       # Unit test cho phần kiểm tra dữ liệu API (node:test)
+npm run build  # Build production
+```
+
+## Dữ liệu demo
+- `data/db.seed.json` là dữ liệu mẫu được commit. Khi chạy, API ghi vào `data/db.json` (đã có trong `.gitignore`), nên dữ liệu test không bị commit nhầm. Xóa `data/db.json` để reset về dữ liệu mẫu.
+- Trên Vercel, file system chỉ đọc nên dữ liệu chỉ nằm trong bộ nhớ: dữ liệu mất khi server khởi động lại và không đồng bộ giữa các instance. Muốn demo ổn định cần một database thật (ví dụ Vercel Postgres, Supabase).
+- Đăng nhập Guide chỉ ở mức prototype (cờ `sessionStorage`), không phải cơ chế bảo mật. Portal Business/Admin chưa có đăng nhập.
 
 ## Nguyên tắc dữ liệu
 - Không dùng rating, hotline, availability, “real-time hazard”, accessibility facilities hoặc đối tác thật nếu chưa có nguồn/verification.

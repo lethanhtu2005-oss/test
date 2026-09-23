@@ -20,7 +20,7 @@ export default function AccessibilityToolbar() {
     speak(text || "Chưa có nội dung để đọc.");
   }
 
-  const Toggle = ({ label, on, onClick, icon: Icon }) => (
+  const renderToggle = (label, on, onClick, Icon) => (
     <button
       type="button"
       onClick={onClick}
@@ -47,9 +47,9 @@ export default function AccessibilityToolbar() {
             <button onClick={() => setOpen(false)} aria-label="Đóng bảng" className="rounded-full p-1 text-ink-soft hover:bg-surface-alt">✕</button>
           </div>
           <div className="space-y-2">
-            <Toggle label="Tương phản cao" on={contrast} onClick={toggleContrast} icon={ContrastIcon} />
-            <Toggle label="Chữ lớn" on={largeText} onClick={toggleLargeText} icon={TextSizeIcon} />
-            <Toggle label="Giảm chuyển động" on={reduceMotion} onClick={toggleReduceMotion} icon={AccessibleIcon} />
+            {renderToggle("Tương phản cao", contrast, toggleContrast, ContrastIcon)}
+            {renderToggle("Chữ lớn", largeText, toggleLargeText, TextSizeIcon)}
+            {renderToggle("Giảm chuyển động", reduceMotion, toggleReduceMotion, AccessibleIcon)}
             <button onClick={listenPage} className="btn-primary w-full !min-h-[44px]"><SpeakerIcon size={18} /> Nghe nội dung trang</button>
             <button onClick={stop} className="btn-ghost hc-border w-full !min-h-[40px] !py-2 text-sm">Dừng đọc</button>
           </div>

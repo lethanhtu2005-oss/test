@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { startGuideSession } from "@/lib/guideSession";
 import Logo from "@/components/Logo";
 import { CalendarIcon, CheckIcon, UserIcon } from "@/components/Icons";
 
@@ -27,7 +28,9 @@ export default function GuideLoginPage() {
       return;
     }
     // Prototype: khi kết nối backend, thay bằng API xác thực + session/token an toàn.
-    router.push("/guide");
+    startGuideSession();
+    const next = new URLSearchParams(window.location.search).get("next");
+    router.push(next && next.startsWith("/guide/") && !next.startsWith("//") ? next : "/guide");
   }
 
   return (

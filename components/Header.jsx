@@ -22,7 +22,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   if (pathname.startsWith("/guide") || pathname.startsWith("/admin") || pathname.startsWith("/business")) return null;
 
-  const NavLinks = ({ mobile = false }) => (
+  const renderNavLinks = (mobile = false) => (
     <ul className={mobile ? "grid gap-1" : "flex items-center gap-1"}>
       {NAV.map((item) => {
         const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -46,7 +46,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur hc-surface hc-border">
       <div className="container-page flex min-h-[72px] items-center justify-between gap-3 py-2">
         <Link href="/" aria-label="WayEcho — về trang chủ" className="flex items-center"><Logo height={31} /></Link>
-        <nav aria-label="Điều hướng chính" className="hidden xl:block"><NavLinks /></nav>
+        <nav aria-label="Điều hướng chính" className="hidden xl:block">{renderNavLinks()}</nav>
         <div className="flex items-center gap-2" role="group" aria-label="Tùy chọn truy cập và tài khoản">
           <button type="button" onClick={toggleContrast} aria-pressed={contrast} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><ContrastIcon size={18} /> Tương phản</button>
           <button type="button" onClick={toggleLargeText} aria-pressed={largeText} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><TextSizeIcon size={18} /> Chữ lớn</button>
@@ -57,7 +57,7 @@ export default function Header() {
       {open && (
         <div id="mobile-menu" className="border-t border-line bg-white px-4 py-4 hc-surface hc-border xl:hidden">
           <div className="container-page !px-0">
-            <nav aria-label="Điều hướng chính trên điện thoại"><NavLinks mobile /></nav>
+            <nav aria-label="Điều hướng chính trên điện thoại">{renderNavLinks(true)}</nav>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <button type="button" onClick={toggleContrast} aria-pressed={contrast} className="btn-ghost hc-border !px-3"><ContrastIcon size={19} /> Tương phản</button>
               <button type="button" onClick={toggleLargeText} aria-pressed={largeText} className="btn-ghost hc-border !px-3"><TextSizeIcon size={19} /> Chữ lớn</button>

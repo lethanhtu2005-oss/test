@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { list, add } from "@/lib/store";
+import { readJson, badRequest, cleanText, rating } from "@/lib/validate";
+
+const CRITERIA = ["entrance", "navigation", "staff", "toilet", "info", "audio"];
 
 export const dynamic = "force-dynamic";
 
@@ -11,22 +14,22 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-  const body = await req.json();
-  if (!body?.itemId) return NextResponse.json({ error: "Thiếu itemId" }, { status: 400 });
+  const body = await readJson(req);
+  if (!body) return badRequest("Dữ liệu gửi lên không phải JSON hợp lệ");
+  if (!cleanText(body.itemId)) return badRequest("Thiếu itemId");
+  const ratings = {};
+  for (const key of CRITERIA) {
+    const value = rating(body.ratings?.[key]);
+    if (value === null) return badRequest(`Điểm "${key}" phải là số nguyên từ 1 đến 5`);
+    ratings[key] = value;
+  }
   const record = await add("reviews", {
-    itemId: body.itemId,
-    itemName: body.itemName || "",
-    author: body.author || "Khách ẩn danh",
-    comment: body.comment || "",
+    itemId: cleanText(body.itemId, 100),
+    itemName: cleanText(body.itemName, 200),
+    author: cleanText(body.author, 80) || "Khách ẩn danh",
+    comment: cleanText(body.comment, 2000),
     // Đánh giá tiếp cận theo tiêu chí (1–5)
-    ratings: {
-      entrance: Number(body.ratings?.entrance) || 0,
-      navigation: Number(body.ratings?.navigation) || 0,
-      staff: Number(body.ratings?.staff) || 0,
-      toilet: Number(body.ratings?.toilet) || 0,
-      info: Number(body.ratings?.info) || 0,
-      audio: Number(body.ratings?.audio) || 0,
-    },
+    ratings,
   });
   return NextResponse.json(record, { status: 201 });
 }

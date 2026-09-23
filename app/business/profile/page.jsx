@@ -18,7 +18,7 @@ export default function BusinessProfile() {
   function set(k, v) { setForm((f) => ({ ...f, [k]: v })); setSaved(false); }
   function submit(e) { e.preventDefault(); setSaved(true); speak("Đã lưu hồ sơ doanh nghiệp."); }
 
-  const Field = ({ label, k, type = "text" }) => (
+  const renderField = (label, k, type = "text") => (
     <div>
       <label htmlFor={k} className="mb-1 block font-semibold">{label}</label>
       <input id={k} type={type} value={form[k]} onChange={(e) => set(k, e.target.value)} className="w-full rounded-pill border border-line bg-white px-5 py-3 text-lg outline-none hc-surface hc-border" />
@@ -33,12 +33,12 @@ export default function BusinessProfile() {
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
         <form onSubmit={submit} className="space-y-4 lg:col-span-2">
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Tên doanh nghiệp" k="name" />
-            <Field label="Loại hình" k="type" />
-            <Field label="Khu vực" k="area" />
-            <Field label="Người đại diện" k="rep" />
-            <Field label="Điện thoại" k="phone" />
-            <Field label="Giờ hoạt động" k="hours" />
+            {renderField("Tên doanh nghiệp", "name")}
+            {renderField("Loại hình", "type")}
+            {renderField("Khu vực", "area")}
+            {renderField("Người đại diện", "rep")}
+            {renderField("Điện thoại", "phone")}
+            {renderField("Giờ hoạt động", "hours")}
           </div>
           <div>
             <label htmlFor="desc" className="mb-1 block font-semibold">Mô tả</label>

@@ -50,3 +50,15 @@ Payment, booking inventory realtime, guide availability thật, business verific
 - Link Staff được đặt nhỏ ở legal bar thay vì phơi Admin Dashboard trong navigation công khai.
 - Thêm trang prototype `/privacy`, `/terms`, `/staff`; bổ sung anchor Accessibility, Contact và Credits ở `/help`.
 - Footer không hiển thị trong các portal `/guide`, `/business`, `/admin` để dashboard vận hành gọn và tách khỏi website Traveler.
+
+## Update 2026-09-23 — Audit & sửa lỗi
+
+- **Bảo mật:** nâng Next.js 14 → 16.3.6 để vá lỗ hổng RCE ở Image Optimization (GHSA-2xp9-vwfh-vxw4); nâng React 19, react-leaflet 5, postcss 8.5. `npm audit`: 0 lỗ hổng.
+- **Service worker:** không còn cache `/api/*` và payload RSC, nên booking/thông báo luôn là dữ liệu mới. Chỉ cache-first cho file tĩnh.
+- **Điểm đến không tồn tại:** hiện "Không tìm thấy" thay vì tự mở Hồ Gươm, tránh việc người khiếm thị nghe nhầm mô tả địa điểm.
+- **API:** kiểm tra dữ liệu đầu vào (JSON hỏng → 400, số khách 1–20, ngày YYYY-MM-DD, điểm 1–5, vai trò/status hợp lệ, giới hạn độ dài chuỗi). Booking đã hủy/từ chối không được mở lại (409).
+- **Form hồ sơ doanh nghiệp:** sửa lỗi input mất focus sau mỗi ký tự (component tạo lại mỗi lần render). Header và thanh Accessibility cũng được sửa theo cùng cách.
+- **Guide Portal:** chưa đăng nhập thì chuyển về `/guide/login` rồi quay lại trang cũ; đăng xuất sẽ xóa phiên.
+- **Tiêu đề trang:** mỗi route có `<title>` riêng; trang điểm đến/dịch vụ lấy theo tên địa điểm; bỏ chữ "WayEcho" bị lặp.
+- **Dữ liệu demo:** tách `data/db.seed.json` (commit) khỏi `data/db.json` (runtime, ignore).
+- **Chất lượng:** thêm ESLint (`npm run lint`) và unit test (`npm test`).

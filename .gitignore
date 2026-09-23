@@ -7,3 +7,6 @@
 npm-debug.log*
 .env*.local
 .vercel
+
+# Dữ liệu runtime của prototype (tạo tự động từ data/db.seed.json)
+/data/db.json
