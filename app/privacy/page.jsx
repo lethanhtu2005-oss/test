@@ -1,38 +1,4 @@
-export const metadata = {
-  description:
-    "Cách WayEcho prototype xử lý dữ liệu, tùy chọn lưu cục bộ và quyền riêng tư trong các luồng minh họa.",
-  alternates: { canonical: "/privacy" },
-  title: "Chính sách bảo mật",
-};
+export const metadata = { title: "Chính sách bảo mật" };
 export default function PrivacyPage() {
-  return (
-    <div className="container-page py-12">
-      <div className="mx-auto max-w-3xl">
-        <h1 className="text-4xl sm:text-5xl">Chính sách bảo mật</h1>
-        <p className="hc-muted mt-4 text-lg text-ink-soft">
-          Trang này mô tả nguyên tắc bảo mật của prototype WayEcho. Trong sản
-          phẩm thật, location, itinerary, emergency contact, payment và
-          accessibility profile chỉ được xử lý trong phạm vi cần thiết và theo
-          quyền người dùng cấp.
-        </p>
-        <div className="mt-8 space-y-6">
-          <section>
-            <h2 className="text-2xl">Dữ liệu nhạy cảm</h2>
-            <p className="hc-muted mt-2 text-ink-soft">
-              Không chia sẻ dữ liệu vị trí hoặc nhu cầu accessibility cho
-              Business/Guide ngoài phạm vi cần thiết của booking và quyền
-              Traveler đã chọn.
-            </p>
-          </section>
-          <section>
-            <h2 className="text-2xl">Prototype</h2>
-            <p className="hc-muted mt-2 text-ink-soft">
-              Dữ liệu hiện tại chủ yếu là mô phỏng phục vụ demo học phần; đây
-              chưa phải văn bản pháp lý hoàn chỉnh của một dịch vụ thương mại.
-            </p>
-          </section>
-        </div>
-      </div>
-    </div>
-  );
+  return <div className="container-page py-12"><div className="mx-auto max-w-3xl"><h1 className="text-4xl sm:text-5xl">Chính sách bảo mật</h1><p className="hc-muted mt-4 text-lg text-ink-soft">Trang này mô tả nguyên tắc bảo mật của prototype WayEcho. Trong sản phẩm thật, location, itinerary, emergency contact, payment và accessibility profile chỉ được xử lý trong phạm vi cần thiết và theo quyền người dùng cấp.</p><div className="mt-8 space-y-6"><section><h2 className="text-2xl">Dữ liệu nhạy cảm</h2><p className="hc-muted mt-2 text-ink-soft">Không chia sẻ dữ liệu vị trí hoặc nhu cầu accessibility cho Business/Guide ngoài phạm vi cần thiết của booking và quyền Traveler đã chọn.</p></section><section><h2 className="text-2xl">Prototype</h2><p className="hc-muted mt-2 text-ink-soft">Dữ liệu hiện tại chủ yếu là mô phỏng phục vụ demo học phần; đây chưa phải văn bản pháp lý hoàn chỉnh của một dịch vụ thương mại.</p></section></div></div></div>;
 }

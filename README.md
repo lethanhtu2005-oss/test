@@ -1,5 +1,3 @@
-> **Bản nâng cấp giao diện & nội dung:** xem [HUONG_DAN_CAP_NHAT.md](./HUONG_DAN_CAP_NHAT.md) để cập nhật GitHub/Vercel và cấu hình Search Console. Báo cáo phạm vi, dữ liệu và kết quả kiểm tra: [BAO_CAO_NANG_CAP.md](./BAO_CAO_NANG_CAP.md). Tài liệu bên dưới mô tả nền tảng prototype trước đó; các tính năng chưa tích hợp thật vẫn giữ trạng thái demo.
-
 # WayEcho — Accessible Travel Prototype 
 
 WayEcho là prototype nền tảng du lịch tiếp cận dành cho **người mù (Blind)** và **người nhìn kém (Low Vision)**. Bản này được cải thiện từ web demo ban đầu và đối chiếu với tài liệu **BẢNG TỔNG HỢP FUNCTION & REQUIREMENT**.

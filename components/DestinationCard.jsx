@@ -25,14 +25,12 @@ export default function DestinationCard({ d, priority = false }) {
           priority={priority}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
-        <span
-          className={`absolute left-3 top-3 rounded-pill px-3 py-1 text-xs font-bold ${levelColor[d.access.level] || "bg-white text-ink"}`}
-        >
+        <span className={`absolute left-3 top-3 rounded-pill px-3 py-1 text-xs font-bold ${levelColor[d.access.level] || "bg-white text-ink"}`}>
           <AccessibleIcon size={14} className="mr-1 inline align-[-2px]" />
           {d.access.level}
         </span>
         <span className="absolute bottom-3 right-3 rounded-pill bg-black/80 px-3 py-1 text-xs font-semibold text-white">
-          Ảnh có nguồn
+          Ảnh đã đối chiếu
         </span>
       </div>
 
@@ -42,15 +40,10 @@ export default function DestinationCard({ d, priority = false }) {
         </p>
         <h3 className="mt-1 text-2xl">{d.name}</h3>
         <p className="mt-2 flex-1 text-ink-soft hc-muted">{d.summary}</p>
-        <p className="mt-3 text-sm font-semibold text-ink">
-          Accessibility: {d.access.status}
-        </p>
+        <p className="mt-3 text-sm font-semibold text-ink">Accessibility: {d.access.status}</p>
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <Link
-            href={`/destination/${d.slug}`}
-            className="btn-primary !min-h-[44px] !py-2 text-sm"
-          >
+          <Link href={`/destination?d=${d.slug}`} className="btn-primary !min-h-[44px] !py-2 text-sm">
             Xem dữ liệu
           </Link>
           <button

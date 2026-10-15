@@ -1,3 +1,5 @@
-export default function ExploreLayout({ children }) {
+export const metadata = { title: "Khám phá" };
+
+export default function Layout({ children }) {
   return children;
 }
