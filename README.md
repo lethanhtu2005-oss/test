@@ -83,3 +83,5 @@ npm run build  # Build production
 
 ## Nguồn ảnh
 Xem `public/assets/images/CREDITS.md` và nguồn cụ thể trên từng trang chi tiết địa điểm.
+
+Kiểm tra triển khai
