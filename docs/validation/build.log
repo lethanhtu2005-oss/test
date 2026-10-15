@@ -1,0 +1,119 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> wayecho@0.1.0 build
+> next build
+
+▲ Next.js 16.3.6 (Turbopack)
+✓ Running next.config.mjs took 13ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1819ms
+  Running TypeScript ...
+  Finished TypeScript in 4ms ...
+  Collecting page data using 8 workers ...
+  Generating static pages using 8 workers (0/59) ...
+  Generating static pages using 8 workers (14/59) 
+  Generating static pages using 8 workers (29/59) 
+  Generating static pages using 8 workers (44/59) 
+✓ Generating static pages using 8 workers (59/59) in 972ms
+Turbopack build encountered 1 warning:
+./lib/store.js:24:21
+Warning: Dynamic filesystem access causes tracing of the whole project
+  [90m22 |[0m [36masync[0m [36mfunction[0m readDB() {
+  [90m23 |[0m   [36mif[0m (globalThis.__TE_DB) [36mreturn[0m globalThis.__TE_DB;
+[33m[1m>[0m [90m24 |[0m   [36mconst[0m raw = [36mawait[0m fs
+  [90m   |[0m                     [33m[1m^[0m
+[33m[1m>[0m [90m25 |[0m     .readFile([33mDB_PATH[0m, [32m"utf8"[0m)
+  [90m   |[0m [33m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m26 |[0m     .[36mcatch[0m(() => fs.readFile([33mSEED_PATH[0m, [32m"utf8"[0m))
+  [90m27 |[0m     .[36mcatch[0m(() => [36mnull[0m);
+  [90m28 |[0m   [36mtry[0m {
+
+Static analysis determined that this filesystem access causes the whole project to be traced and included in the output.
+This is usually unintentional and leads to all source files (including the public folder) to be deployed as part of the server code.
+This can slow down deployments or lead to failures when size limits are exceeded.
+To resolve this, you can
+- make sure the path is statically scoped to some subfolder, for example path.join(process.cwd(), 'data', bar), or
+- only use them in development, or
+- opt out by adding an ignore comment to the highlighted call: fs.readFile(/*turbopackIgnore: true*/ ...), or
+- remove them.
+
+Import trace:
+  App Route:
+    ./lib/store.js
+    ./app/api/trip/route.js
+
+
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /admin
+├ ○ /admin/ads
+├ ○ /admin/businesses
+├ ○ /admin/moderation
+├ ƒ /api/bookings
+├ ƒ /api/notifications
+├ ƒ /api/requests
+├ ƒ /api/reviews
+├ ƒ /api/saved
+├ ƒ /api/trip
+├ ○ /app
+├ ○ /apple-icon.png
+├ ○ /articles
+├   /articles/[slug]
+│ ├ ● /articles/chuan-bi-chuyen-di
+│ ├ ● /articles/hoi-ve-kha-nang-tiep-can
+│ ├ ● /articles/kham-pha-ha-noi-bang-am-thanh
+│ └ ● /articles/dong-hanh-ton-trong
+├ ○ /assistant
+├ ○ /booking
+├ ○ /business
+├ ○ /business/bookings
+├ ○ /business/profile
+├ ○ /business/requests
+├ ○ /business/reviews
+├ ○ /business/services
+├ ƒ /destination
+├   /destination/[slug]
+│ ├ ● /destination/ho-guom
+│ ├ ● /destination/van-mieu
+│ ├ ● /destination/pho-co
+│ └ ● [+4 more paths]
+├ ƒ /explore
+├   /explore/[topic]
+│ ├ ● /explore/support
+│ ├ ● /explore/guide-dogs
+│ └ ● /explore/assistive-technology
+├ ○ /guide
+├ ○ /guide/bookings
+├ ○ /guide/login
+├ ○ /guide/notifications
+├ ○ /guide/profile
+├ ○ /guide/register
+├ ○ /guide/schedule
+├ ○ /help
+├ ○ /icon.png
+├ ƒ /item
+├ ○ /my-booking
+├ ○ /my-trip
+├ ○ /navigation
+├ ○ /notifications
+├ ○ /privacy
+├ ○ /profile
+├ ○ /review
+├ ○ /robots.txt
+├ ○ /search
+├ ○ /sitemap
+├ ○ /sitemap.xml
+├ ○ /sos
+├ ○ /staff
+└ ○ /terms
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

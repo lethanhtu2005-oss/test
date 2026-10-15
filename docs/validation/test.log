@@ -1,0 +1,30 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> wayecho@0.1.0 test
+> node --test "tests/**/*.test.mjs"
+
+(node:25) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/work/test-main/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/work/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Mỗi bài có bài đọc tiếp thực sự khác và mọi điểm đến/chủ đề liên kết đều tồn tại (1.333406ms)
+✔ Ảnh cho điểm đến, bài viết, hướng dẫn và quảng cáo tồn tại cục bộ, có alt (0.55511ms)
+✔ Không phát hành quảng cáo demo hoặc đối tác chưa xác minh (1.574739ms)
+✔ Cặp màu chữ/nền chính của cả hai theme đạt 4.5:1, đường focus đạt 3:1 (1.130406ms)
+(node:26) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/work/test-main/lib/validate.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/work/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ readJson trả null khi body hỏng hoặc không phải object (7.174884ms)
+✔ cleanText cắt khoảng trắng và giới hạn độ dài (0.204344ms)
+✔ intInRange chỉ nhận số nguyên trong khoảng (0.16765ms)
+✔ rating: 0/trống là không đánh giá, 1–5 hợp lệ, còn lại bị từ chối (0.24841ms)
+✔ booking đã hủy/từ chối không được mở lại (0.147761ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 149.192161

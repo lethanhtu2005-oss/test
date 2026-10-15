@@ -35,3 +35,9 @@ Các ảnh dưới đây đều là ảnh chụp thật từ Wikimedia Commons; 
 | Ảnh minh họa hỗ trợ định hướng / gậy trắng | Wikimedia Commons — `File:O&M instructor.jpg` — 定向行動-林宜靜 | CC BY-SA 4.0 |
 
 Mỗi thẻ ảnh trên trang chủ có `alt` mô tả nội dung thực tế của ảnh. Nếu ảnh nguồn không tải được, `VerifiedImage` chuyển sang placeholder trung tính thay vì thay bằng ảnh địa điểm khác.
+
+## Bộ ảnh WebP trong bản nâng cấp
+
+Nguồn đầy đủ và metadata cấp phép: `media-sources.json`. Dữ liệu hiển thị tác giả/giấy phép nằm tại `data/media.js` và trang `/about#image-credits`. Các bản `-480.webp`, `-960.webp` được đổi kích thước, nén và có thể crop bằng CSS. Ảnh gốc và ảnh dẫn xuất giữ điều kiện giấy phép tương ứng.
+
+Ảnh `guide-dog.webp` lấy từ `File:Guidedogcindy.jpg` của Joandcindy, CC BY-SA 3.0. Ảnh `hoang-thanh.webp` lấy từ `File:Doan_Mon_Gate_1.jpg` của Christophe95, CC BY-SA 4.0.

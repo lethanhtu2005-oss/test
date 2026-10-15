@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useA11y } from "./A11yProvider";
 import { useSpeechRecognition } from "@/lib/useSpeechRecognition";
 import { MicIcon, WaveIcon, SpeakerIcon } from "./Icons";
@@ -8,11 +8,15 @@ import { MicIcon, WaveIcon, SpeakerIcon } from "./Icons";
 // Chọn câu trả lời phù hợp nhất với nội dung người dùng nói (theo từ khóa trùng).
 function bestMatch(text, samples) {
   const t = text.toLowerCase();
-  let best = null, score = 0;
+  let best = null,
+    score = 0;
   for (const s of samples) {
     const words = s.utterance.toLowerCase().split(/\s+/);
     const hit = words.filter((w) => w.length > 2 && t.includes(w)).length;
-    if (hit > score) { score = hit; best = s; }
+    if (hit > score) {
+      score = hit;
+      best = s;
+    }
   }
   return score > 0 ? best : null;
 }
@@ -25,8 +29,7 @@ export default function VoiceBar({
   const { speak } = useA11y();
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
-  const [simListening, setSimListening] = useState(false);
-  const timer = useRef(null);
+  const simListening = false;
 
   function handleResult(text) {
     setTranscript(text);
@@ -38,7 +41,11 @@ export default function VoiceBar({
     speak(response);
   }
 
-  const { supported, listening: realListening, start } = useSpeechRecognition({ onResult: handleResult });
+  const {
+    supported,
+    listening: realListening,
+    start,
+  } = useSpeechRecognition({ onResult: handleResult });
   const listening = realListening || simListening;
 
   function respond(utterance, response) {
@@ -56,18 +63,16 @@ export default function VoiceBar({
       start();
       return;
     }
-    // Fallback: trình duyệt không hỗ trợ nhận diện → mô phỏng
-    setSimListening(true);
-    speak("WayEcho đang nghe.");
-    timer.current = setTimeout(() => {
-      setSimListening(false);
-      const s = samples[0] || { utterance: "Gợi ý điểm đến gần Hồ Gươm", response: "Gần Hồ Gươm có đền Ngọc Sơn và phố cổ. Bạn muốn nghe thông tin tiếp cận của điểm nào?" };
-      respond(s.utterance, s.response);
-    }, 1600);
+    speak(
+      "Trình duyệt chưa hỗ trợ nhận giọng nói. Hãy chọn một câu mẫu hoặc dùng tìm kiếm bằng chữ.",
+    );
   }
 
   return (
-    <section aria-label="Trợ lý giọng nói" className="hc-surface rounded-[10px] border border-line bg-white p-6 shadow-card sm:p-8">
+    <section
+      aria-label="Trợ lý giọng nói"
+      className="hc-surface rounded-[10px] border border-line bg-white p-6 shadow-card sm:p-8"
+    >
       <h2 className="text-2xl sm:text-3xl">{title}</h2>
       <p className="hc-muted mt-2 text-ink-soft">{hint}</p>
 
@@ -76,9 +81,13 @@ export default function VoiceBar({
           type="button"
           onClick={handleMic}
           aria-pressed={listening}
-          aria-label={listening ? "Đang nghe, nhấn để dừng" : "Nhấn để nói với WayEcho"}
+          aria-label={
+            listening ? "Đang nghe, nhấn để dừng" : "Nhấn để nói với WayEcho"
+          }
           className={`relative flex h-24 w-24 shrink-0 items-center justify-center rounded-full text-ink transition-transform focus-visible:scale-105 ${
-            listening ? "bg-primary listening-ring" : "bg-primary hover:bg-primary-hover"
+            listening
+              ? "bg-primary listening-ring"
+              : "bg-primary hover:bg-primary-hover"
           }`}
         >
           <MicIcon size={40} />
@@ -102,18 +111,26 @@ export default function VoiceBar({
             </div>
           )}
           <p className="mt-2 text-xs text-ink-soft hc-muted">
-            {supported ? "🎙️ Nhận diện giọng nói thật (cần cấp quyền micro, dùng Chrome/Edge)." : "Trình duyệt chưa hỗ trợ nhận diện giọng nói — đang dùng chế độ mô phỏng."}
+            {supported
+              ? "🎙️ Nhận diện giọng nói thật (cần cấp quyền micro, dùng Chrome/Edge)."
+              : "Trình duyệt chưa hỗ trợ nhận diện giọng nói — đang dùng chế độ mô phỏng."}
           </p>
         </div>
       </div>
 
       {samples.length > 0 && (
         <div className="mt-6">
-          <p className="mb-2 text-sm font-semibold text-ink-soft hc-muted">Câu nói mẫu</p>
+          <p className="mb-2 text-sm font-semibold text-ink-soft hc-muted">
+            Câu nói mẫu
+          </p>
           <ul className="flex flex-wrap gap-2">
             {samples.map((s, i) => (
               <li key={i}>
-                <button type="button" onClick={() => respond(s.utterance, s.response)} className="chip hc-surface hc-border hover:bg-primary">
+                <button
+                  type="button"
+                  onClick={() => respond(s.utterance, s.response)}
+                  className="chip hc-surface hc-border hover:bg-primary"
+                >
                   “{s.utterance}”
                 </button>
               </li>
