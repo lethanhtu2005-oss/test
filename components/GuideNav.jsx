@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import SOSLink from "./SOSLink";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { getGuide, DEMO_GUIDE_ID } from "@/data/guides";
@@ -114,7 +113,7 @@ export default function GuideNav() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2" ref={menuRef}><SOSLink />
+          <div className="flex items-center gap-2" ref={menuRef}>
             <button type="button" className="relative flex h-11 w-11 items-center justify-center rounded-full hover:bg-surface-alt" aria-label="Thông báo">
               <BellIcon />
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
@@ -143,7 +142,7 @@ export default function GuideNav() {
                 <Link role="menuitem" href="/help" onClick={() => setMenuOpen(false)} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 hover:bg-surface-alt"><HelpIcon /> Trung tâm trợ giúp</Link>
                 <div className="my-1 border-t border-line" />
                 <Link role="menuitem" href="/" onClick={() => setMenuOpen(false)} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 hover:bg-surface-alt"><span aria-hidden="true">ⓘ</span> Về WayEcho</Link>
-                <Link role="menuitem" href="/guide/login" onClick={async (event) => { event.preventDefault(); try { await endGuideSession(); window.location.assign("/guide/login"); } catch { window.alert("Chưa đăng xuất được. Hãy thử lại."); } }} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 font-semibold text-red-700 hover:bg-red-50"><LogOutIcon /> Đăng xuất</Link>
+                <Link role="menuitem" href="/guide/login" onClick={() => { endGuideSession(); setMenuOpen(false); }} className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 py-2 font-semibold text-red-700 hover:bg-red-50"><LogOutIcon /> Đăng xuất</Link>
               </div>
             )}
           </div>
@@ -157,7 +156,7 @@ export default function GuideNav() {
             <div className="flex items-center gap-4">
               <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#2f95dc] text-3xl font-bold text-white">{g.avatar}</span>
               <div>
-                <p className="text-sm text-ink-soft hc-muted">Hồ sơ hướng dẫn viên minh họa — DEMO</p>
+                <p className="text-sm text-ink-soft hc-muted">Tài khoản hướng dẫn viên</p>
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-3xl">{g.name}</h1>
                   {g.verified && <span className="inline-flex items-center gap-1 rounded-pill bg-green-100 px-2.5 py-1 text-xs font-bold text-green-800"><CheckIcon size={14} /> Đã xác minh</span>}

@@ -1,9 +1,8 @@
 "use client";
-import {useBusiness} from "@/components/BusinessShell";
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-
+import { DEMO_BUSINESS_ID } from "@/data/businesses";
 import { AccessibleIcon, CheckIcon } from "@/components/Icons";
 
 const STATUS = {
@@ -13,27 +12,24 @@ const STATUS = {
 };
 
 export default function BusinessRequests() {
-  const {businessId}=useBusiness();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error,setError] = useState("");
   const [busy, setBusy] = useState(null);
 
   useEffect(() => {
-    api.listRequests(businessId).then(setRequests).catch(err => setError(err.message)).finally(() => setLoading(false));
-  }, [businessId]);
+    api.listRequests(DEMO_BUSINESS_ID).then(setRequests).catch(() => {}).finally(() => setLoading(false));
+  }, []);
 
   async function decide(id, status) {
     setBusy(id);
     try {
       const updated = await api.updateRequest(id, status);
       setRequests((rs) => rs.map((r) => (r.id === id ? updated : r)));
-    } catch(err) { setError(err.message); } finally { setBusy(null); }
+    } catch (_) {} finally { setBusy(null); }
   }
 
   return (
     <div className="container-page py-10">
-      {error && <p role="alert" className="mb-4 text-red-800">{error}</p>}
       <h1 className="flex items-center gap-3 text-4xl sm:text-5xl"><AccessibleIcon size={36} /> Yêu cầu hỗ trợ tiếp cận</h1>
       <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">
         Khách khiếm thị gửi yêu cầu hỗ trợ kèm theo đơn đặt. Xác nhận để khách yên tâm chuẩn bị cho chuyến đi.

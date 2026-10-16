@@ -1,10 +1,9 @@
 "use client";
-import {useBusiness} from "@/components/BusinessShell";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
-import { getBusiness } from "@/data/businesses";
+import { DEMO_BUSINESS_ID, getBusiness } from "@/data/businesses";
 import { CalendarIcon, AccessibleIcon, StarIcon, BedIcon } from "@/components/Icons";
 
 function money(list) {
@@ -13,21 +12,19 @@ function money(list) {
 }
 
 export default function BusinessDashboard() {
-  const {businessId}=useBusiness();
-  const biz = getBusiness(businessId);
+  const biz = getBusiness(DEMO_BUSINESS_ID);
   const [bookings, setBookings] = useState([]);
   const [requests, setRequests] = useState([]);
   const [notifs, setNotifs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error,setError] = useState("");
 
   useEffect(() => {
     Promise.all([
-      api.listBusinessBookings(businessId),
-      api.listRequests(businessId),
-      api.listNotifications({ role: "business", business: businessId }),
-    ]).then(([b, r, n]) => { setBookings(b); setRequests(r); setNotifs(n); }).catch(err => setError(err.message)).finally(() => setLoading(false));
-  }, [businessId]);
+      api.listBusinessBookings(DEMO_BUSINESS_ID),
+      api.listRequests(DEMO_BUSINESS_ID),
+      api.listNotifications({ role: "business", business: DEMO_BUSINESS_ID }),
+    ]).then(([b, r, n]) => { setBookings(b); setRequests(r); setNotifs(n); }).catch(() => {}).finally(() => setLoading(false));
+  }, []);
 
   const pendingReq = requests.filter((r) => r.status === "pending").length;
 
@@ -40,7 +37,6 @@ export default function BusinessDashboard() {
 
   return (
     <div className="container-page py-10">
-      {error && <p role="alert" className="mb-4 text-red-800">{error}</p>}
       <h1 className="text-4xl sm:text-5xl">Tổng quan</h1>
       <p className="hc-muted mt-2 text-lg text-ink-soft">Cổng Business Partner mẫu của {biz?.name}. Toàn bộ dữ liệu hiện là demo, chưa phải doanh nghiệp đã xác minh.</p>
 

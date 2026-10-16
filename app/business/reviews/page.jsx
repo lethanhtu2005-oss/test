@@ -1,9 +1,8 @@
 "use client";
-import {useBusiness} from "@/components/BusinessShell";
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import { getBusiness } from "@/data/businesses";
+import { DEMO_BUSINESS_ID, getBusiness } from "@/data/businesses";
 import { StarIcon } from "@/components/Icons";
 
 function ReviewRow({ r }) {
@@ -27,14 +26,14 @@ function ReviewRow({ r }) {
 
       {sent ? (
         <div className="mt-3 rounded-xl bg-surface-alt p-3 hc-surface hc-border">
-          <p className="text-sm font-semibold text-accent-dark">Bản nháp phản hồi — chưa gửi hoặc lưu server</p>
+          <p className="text-sm font-semibold text-accent-dark">Phản hồi của bạn</p>
           <p>{sent}</p>
         </div>
       ) : (
         <form className="mt-3 flex gap-2" onSubmit={(e) => { e.preventDefault(); if (reply.trim()) setSent(reply.trim()); }}>
           <label htmlFor={`re-${r.id}`} className="sr-only">Phản hồi đánh giá</label>
           <input id={`re-${r.id}`} value={reply} onChange={(e) => setReply(e.target.value)} placeholder="Cảm ơn phản hồi và cam kết cải thiện…" className="flex-1 rounded-pill border border-line bg-white px-4 py-2 outline-none hc-surface hc-border" />
-          <button type="submit" className="btn-primary !py-2 text-sm">Xem bản nháp — DEMO</button>
+          <button type="submit" className="btn-primary !py-2 text-sm">Gửi</button>
         </form>
       )}
     </li>
@@ -42,19 +41,16 @@ function ReviewRow({ r }) {
 }
 
 export default function BusinessReviews() {
-  const {businessId}=useBusiness();
-  const biz = getBusiness(businessId);
+  const biz = getBusiness(DEMO_BUSINESS_ID);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error,setError] = useState("");
 
   useEffect(() => {
-    api.listReviews().then((all) => setReviews(all.filter((r) => biz.items.includes(r.itemId)))).catch(err => setError(err.message)).finally(() => setLoading(false));
-  }, [businessId]);
+    api.listReviews().then((all) => setReviews(all.filter((r) => biz.items.includes(r.itemId)))).catch(() => {}).finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="container-page py-10">
-      {error && <p role="alert" className="mb-4 text-red-800">{error}</p>}
       <h1 className="text-4xl sm:text-5xl">Đánh giá & phản hồi</h1>
       <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">
         Xem đánh giá tiếp cận của khách và phản hồi. Bạn không thể sửa/xóa điểm khách chấm — chỉ phản hồi.

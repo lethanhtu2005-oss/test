@@ -1,8 +1,23 @@
 "use client";
-import { usePathname } from "next/navigation";
+
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import GuideNav from "@/components/GuideNav";
-export default function GuideShell({children}) {
- const path=usePathname();
- if(path==="/guide/login" || path==="/guide/register")return <div>{children}</div>;
- return <div><GuideNav/><p className="container-page pt-4" role="note">DEMO: hồ sơ và lịch minh họa; chưa có phân công hoặc xác minh Guide thực tế.</p>{children}</div>;
+import { hasGuideSession } from "@/lib/guideSession";
+
+export default function GuideShell({ children }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isPublicGuidePage = pathname === "/guide/login" || pathname === "/guide/register";
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    if (isPublicGuidePage) return;
+    if (hasGuideSession()) setAllowed(true);
+    else router.replace(`/guide/login?next=${encodeURIComponent(pathname)}`);
+  }, [isPublicGuidePage, pathname, router]);
+
+  if (isPublicGuidePage) return <div>{children}</div>;
+  if (!allowed) return <p className="container-page py-16 text-lg" role="status">Đang kiểm tra đăng nhập…</p>;
+  return <div><GuideNav />{children}</div>;
 }

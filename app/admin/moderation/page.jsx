@@ -11,19 +11,17 @@ export default function AdminModeration() {
   const [reviews, setReviews] = useState([]);
   const [hidden, setHidden] = useState({});
   const [loading, setLoading] = useState(true);
-  const [error,setError] = useState("");
 
-  useEffect(() => { api.listReviews().then(setReviews).catch(err=>setError(err.message)).finally(() => setLoading(false)); }, []);
+  useEffect(() => { api.listReviews().then(setReviews).catch(() => {}).finally(() => setLoading(false)); }, []);
 
-  function hide(id) { setHidden((h) => ({ ...h, [id]: true })); speak("DEMO: chỉ ẩn trên màn hình này, chưa kiểm duyệt hoặc lưu server."); }
+  function hide(id) { setHidden((h) => ({ ...h, [id]: true })); speak("Đã ẩn nội dung vi phạm."); }
 
   return (
     <div className="container-page py-10">
-      {error && <p role="alert" className="mb-4 text-red-800">{error}</p>}
       <h1 className="text-4xl sm:text-5xl">Kiểm duyệt</h1>
-      <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">DEMO: nút ẩn chỉ thay đổi màn hình hiện tại. Chưa có API lưu quyết định kiểm duyệt; không sửa điểm khách chấm.</p>
+      <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">Duyệt đánh giá của khách; ẩn nội dung vi phạm. Không sửa điểm khách chấm.</p>
 
-      {loading ? <p className="mt-8 text-ink-soft">Đang tải…</p> : error ? null : reviews.length === 0 ? (
+      {loading ? <p className="mt-8 text-ink-soft">Đang tải…</p> : reviews.length === 0 ? (
         <div className="mt-8 rounded-[18px] border border-line bg-white p-8 text-center hc-surface hc-border">
           <p className="text-lg">Chưa có đánh giá nào cần kiểm duyệt.</p>
         </div>

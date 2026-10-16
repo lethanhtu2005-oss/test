@@ -1,9 +1,3 @@
-> Prompt 10: **NO-GO production**. Xem `reports/P10_RELEASE_READINESS.md`: thiếu DB production, ingress xác thực nguồn, browser QA và diễn tập vận hành. Source Prompt 9 giữ nguyên trong audit.
-
-> **Bản cập nhật Prompt 8–9.** Xem `reports/P8.md`, `reports/P9.md`, `reports/P10_RELEASE_READINESS.md` và hướng dẫn review. Báo cáo A–G được giữ làm lịch sử.
-
-> **Bản nâng cấp A–G theo PROMPT.docx, ngày 16/10/2026.** Bắt đầu với [HUONG_DAN_REVIEW.md](HUONG_DAN_REVIEW.md), báo cáo từng đợt trong `reports/` và diff trong `patches/`. Chưa push hoặc deploy. Xem giới hạn production trước khi dùng dữ liệu thật.
-
 # WayEcho — Accessible Travel Prototype 
 
 WayEcho là prototype nền tảng du lịch tiếp cận dành cho **người mù (Blind)** và **người nhìn kém (Low Vision)**. Bản này được cải thiện từ web demo ban đầu và đối chiếu với tài liệu **BẢNG TỔNG HỢP FUNCTION & REQUIREMENT**.
@@ -76,8 +70,8 @@ npm run build  # Build production
 
 ## Dữ liệu demo
 - `data/db.seed.json` là dữ liệu mẫu được commit. Khi chạy, API ghi vào `data/db.json` (đã có trong `.gitignore`), nên dữ liệu test không bị commit nhầm. Xóa `data/db.json` để reset về dữ liệu mẫu.
-- Bản A–G đã bỏ fallback bộ nhớ. Trên Vercel, thao tác cần lưu trả 503; chưa tích hợp database production. JSON chỉ dùng cho một host có filesystem bền vững và cấu hình phù hợp. Xem HUONG_DAN_REVIEW.md.
-- Đăng nhập kiểm tài khoản được cấp và phiên cookie ở server; các portal Business/Admin/Guide được kiểm vai trò. Hồ sơ/lịch và các tác vụ quản trị còn demo được ghi rõ trong giao diện.
+- Trên Vercel, file system chỉ đọc nên dữ liệu chỉ nằm trong bộ nhớ: dữ liệu mất khi server khởi động lại và không đồng bộ giữa các instance. Muốn demo ổn định cần một database thật (ví dụ Vercel Postgres, Supabase).
+- Đăng nhập Guide chỉ ở mức prototype (cờ `sessionStorage`), không phải cơ chế bảo mật. Portal Business/Admin chưa có đăng nhập.
 
 ## Nguyên tắc dữ liệu
 - Không dùng rating, hotline, availability, “real-time hazard”, accessibility facilities hoặc đối tác thật nếu chưa có nguồn/verification.

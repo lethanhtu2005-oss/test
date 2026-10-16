@@ -9,8 +9,7 @@ import { itemA11y, A11Y_FILTERS } from "@/data/businesses";
 
 function ExploreContent() {
   const params = useSearchParams();
-  const requestedCat = params.get("cat") || "destination";
-  const cat = CATEGORIES.some(c=>c.id === requestedCat) ? requestedCat : "destination";
+  const cat = params.get("cat") || "destination";
   const [filters, setFilters] = useState({});
 
   const active = Object.keys(filters).filter((k) => filters[k]);
@@ -34,8 +33,6 @@ function ExploreContent() {
         Mỗi mục hiển thị trạng thái dữ liệu tiếp cận. Dịch vụ chưa có nhà cung cấp thật được gắn nhãn DEMO; tiêu chí chưa xác minh không được coi là “Có”. Chọn danh mục:
       </p>
 
-      <div className="mt-4 flex flex-wrap gap-3"><Link href="/articles" className="btn-ghost hc-border">Cẩm nang</Link><Link href="/services/guide-dogs" className="btn-ghost hc-border">Chó dẫn đường</Link><Link href="/item?id=demo-guide-tour" className="btn-ghost hc-border">Guide & Assistant — DEMO</Link><Link href="/profile" className="btn-ghost hc-border">Nhu cầu tiếp cận</Link><Link href="/sos" className="btn-ghost hc-border">SOS — DEMO</Link></div>
-      {requestedCat !== cat && <p role="status" className="mt-3">Danh mục không tồn tại; đang hiển thị điểm đến.</p>}
       {/* Tabs danh mục */}
       <nav aria-label="Danh mục" className="mt-5 flex flex-wrap gap-2">
         {CATEGORIES.map((c) => (

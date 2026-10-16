@@ -210,22 +210,6 @@ export const destinations = [
     ],
     checkedAt: "21/09/2026",
   },
-  {
-    slug: "hoang-thanh-thang-long", name: "Hoàng thành Thăng Long", area: "Ba Đình, Hà Nội",
-    address: "Số 19C đường Hoàng Diệu, phường Ba Đình, Hà Nội",
-    image: "/assets/images/location-image-unavailable.svg", imageFallback: "/assets/images/location-image-unavailable.svg",
-    alt: "Chưa có ảnh Hoàng thành Thăng Long được bổ sung trong bộ tài nguyên này.",
-    imageCredit: "Chưa có ảnh được cấp quyền trong bộ tài nguyên", imageSource: null,
-    summary: "Quần thể di tích gắn với lịch sử kinh thành Thăng Long – Hà Nội. Địa chỉ được đối chiếu website của Trung tâm Bảo tồn Di sản Thăng Long – Hà Nội.",
-    facts: ["Địa chỉ công bố: 19C Hoàng Diệu.", "Website đơn vị quản lý cung cấp thông tin tham quan; hãy kiểm tra trước ngày đi."],
-    visit: { hours: "Xem lịch hiện hành trên website đơn vị quản lý", price: "Chưa bổ sung giá vé đã đối chiếu trong WayEcho" },
-    access: { level: "Cần khảo sát", status: "Chưa có dữ liệu tiếp cận được WayEcho khảo sát xác nhận.", blind: "Chưa công bố", lowVision: "Chưa công bố", staff: "Chưa công bố", audio: "Chưa công bố", braille: "Chưa công bố", elevator: "Chưa công bố", stepFree: "Chưa công bố", note: "Cần hỏi đơn vị quản lý về lối vào, bề mặt đường, các khu vực đang mở và hỗ trợ tại chỗ. Không suy ra khả năng tiếp cận từ giá trị di sản." },
-    audio: "Hoàng thành Thăng Long là quần thể di tích lịch sử tại Hà Nội. Địa chỉ công bố là 19C Hoàng Diệu. WayEcho chưa xác nhận lối vào, dịch vụ hỗ trợ người khiếm thị hoặc tọa độ dùng cho điều hướng. Hãy đối chiếu website đơn vị quản lý trước khi đến.",
-    tags: ["Di sản", "Lịch sử", "Cần khảo sát accessibility"],
-    sources: [{ label: "Trung tâm Bảo tồn Di sản Thăng Long – Hà Nội", url: "https://hoangthanhthanglong.vn/gioi-thieu/" }],
-    checkedAt: "16/10/2026",
-  },
-
 ];
 
 export function getDestination(slug) {

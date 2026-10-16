@@ -6,7 +6,6 @@ const A11yContext = createContext(null);
 export function useA11y() { const ctx = useContext(A11yContext); if (!ctx) throw new Error("useA11y phải nằm trong A11yProvider"); return ctx; }
 
 export default function A11yProvider({ children }) {
-  const [prefsReady,setPrefsReady]=useState(false);
   const [contrast, setContrast] = useState(false);
   const [largeText, setLargeText] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -21,12 +20,11 @@ export default function A11yProvider({ children }) {
       const savedRate = Number(localStorage.getItem("we-speech-rate"));
       if (savedRate >= 0.6 && savedRate <= 1.6) setSpeechRateState(savedRate);
     } catch (_) {}
-    setPrefsReady(true);
   }, []);
 
-  useEffect(() => { if(!prefsReady)return; const el = document.documentElement; reduceMotion ? el.setAttribute("data-reduce", "reduce") : el.removeAttribute("data-reduce"); try { localStorage.setItem("dl-motion", reduceMotion ? "reduce" : "no"); } catch (_) {} }, [reduceMotion,prefsReady]);
-  useEffect(() => { if(!prefsReady)return; const el = document.documentElement; contrast ? el.setAttribute("data-contrast", "high") : el.removeAttribute("data-contrast"); try { localStorage.setItem("dl-contrast", contrast ? "1" : "0"); } catch (_) {} }, [contrast,prefsReady]);
-  useEffect(() => { if(!prefsReady)return; const el = document.documentElement; largeText ? el.setAttribute("data-textsize", "large") : el.removeAttribute("data-textsize"); try { localStorage.setItem("dl-textsize", largeText ? "large" : "normal"); } catch (_) {} }, [largeText,prefsReady]);
+  useEffect(() => { const el = document.documentElement; reduceMotion ? el.setAttribute("data-reduce", "reduce") : el.removeAttribute("data-reduce"); try { localStorage.setItem("dl-motion", reduceMotion ? "reduce" : "no"); } catch (_) {} }, [reduceMotion]);
+  useEffect(() => { const el = document.documentElement; contrast ? el.setAttribute("data-contrast", "high") : el.removeAttribute("data-contrast"); try { localStorage.setItem("dl-contrast", contrast ? "1" : "0"); } catch (_) {} }, [contrast]);
+  useEffect(() => { const el = document.documentElement; largeText ? el.setAttribute("data-textsize", "large") : el.removeAttribute("data-textsize"); try { localStorage.setItem("dl-textsize", largeText ? "large" : "normal"); } catch (_) {} }, [largeText]);
 
   const setSpeechRate = useCallback((rate) => { const safe = Math.max(0.6, Math.min(1.6, Number(rate) || 1)); setSpeechRateState(safe); try { localStorage.setItem("we-speech-rate", String(safe)); } catch (_) {} }, []);
 

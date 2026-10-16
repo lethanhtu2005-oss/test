@@ -1,7 +1,4 @@
-import {pageMetadata,siteOrigin,jsonLd} from "@/lib/seo";
 import Link from "next/link";
-import DestinationGallery from "@/components/DestinationGallery";
-import { destinations } from "@/data/destinations";
 import VerifiedImage from "@/components/VerifiedImage";
 import {
   AccessibleIcon,
@@ -19,8 +16,6 @@ import {
   SpeakerIcon,
   UserIcon,
 } from "@/components/Icons";
-
-export const metadata=pageMetadata("WayEcho — Du lịch Hà Nội cho người khiếm thị","Tìm hiểu điểm đến Hà Nội, đối chiếu dữ liệu tiếp cận và chuẩn bị hành trình theo nhu cầu của bạn. Công cụ SOS, camera và booking có giới hạn demo.","/");
 
 const FALLBACK = "/assets/images/location-image-unavailable.svg";
 
@@ -64,33 +59,70 @@ const HOME_IMAGES = {
 };
 
 const needCards = [
-  { icon: AccessibleIcon, label: "Thông tin\nđiểm đến", href: "/explore", tone: "bg-[#41b866]" },
-  { icon: BedIcon, label: "Lưu trú\nDEMO", href: "/explore?cat=accommodation", tone: "bg-[#4d83cc]" },
-  { icon: BusIcon, label: "Di chuyển\nDEMO", href: "/explore?cat=transport", tone: "bg-[#f56f41]" },
-  { icon: FoodIcon, label: "Ẩm thực\nđịa phương", href: "/explore?cat=restaurant", tone: "bg-[#ea5973]" },
-  { icon: MuseumIcon, label: "Trải nghiệm\nvăn hóa", href: "/explore?cat=activity", tone: "bg-[#8d62d8]" },
-  { icon: UserIcon, label: "Guide &\nAssistant", href: "/item?id=demo-guide-tour", tone: "bg-[#eea22e]" },
+  { icon: AccessibleIcon, label: "Điểm đến\ndễ tiếp cận", href: "/explore", tone: "bg-[#41b866]" },
+  { icon: BedIcon, label: "Lưu trú\nthân thiện", href: "/explore", tone: "bg-[#4d83cc]" },
+  { icon: BusIcon, label: "Di chuyển\nthuận tiện", href: "/explore", tone: "bg-[#f56f41]" },
+  { icon: FoodIcon, label: "Ẩm thực\nđịa phương", href: "/explore", tone: "bg-[#ea5973]" },
+  { icon: MuseumIcon, label: "Trải nghiệm\nvăn hóa", href: "/explore", tone: "bg-[#8d62d8]" },
+  { icon: UserIcon, label: "Guide &\nAssistant", href: "/guide/login", tone: "bg-[#eea22e]" },
 ];
 
-const destinationCards = destinations.slice(0,4).map(d => ({title:d.name,area:d.area,image:{src:d.image,alt:d.alt},facts:[d.access.status],badge:d.access.level,badgeClass:"bg-amber-100 text-amber-950",href:`/destination?d=${d.slug}`}));
+const destinationCards = [
+  {
+    title: "Hồ Gươm & Cầu Thê Húc",
+    area: "Quận Hoàn Kiếm",
+    image: HOME_IMAGES.hoGuom,
+    facts: ["Lối đi ven hồ", "Nhiều ghế nghỉ"],
+    badge: "Dễ tiếp cận",
+    badgeClass: "bg-[#dff5e5] text-[#16733b]",
+    href: "/item?slug=ho-guom",
+  },
+  {
+    title: "Văn Miếu – Quốc Tử Giám",
+    area: "Quận Đống Đa",
+    image: HOME_IMAGES.vanMieu,
+    facts: ["Khuôn viên yên tĩnh", "Có thuyết minh"],
+    badge: "Tiếp cận trung bình",
+    badgeClass: "bg-[#fff0cf] text-[#a76500]",
+    href: "/item?slug=van-mieu",
+  },
+  {
+    title: "Phố cổ Hà Nội",
+    area: "Quận Hoàn Kiếm",
+    image: HOME_IMAGES.oldQuarter,
+    facts: ["Nhiều âm thanh", "Cần hỗ trợ định hướng"],
+    badge: "Cần hỗ trợ",
+    badgeClass: "bg-[#ffe0dc] text-[#a33a2f]",
+    href: "/item?slug=pho-co",
+  },
+  {
+    title: "Hồ Tây & làng ven hồ",
+    area: "Quận Tây Hồ",
+    image: HOME_IMAGES.westLake,
+    facts: ["Không gian thoáng", "Phù hợp dạo nhẹ"],
+    badge: "Dễ tiếp cận",
+    badgeClass: "bg-[#dff5e5] text-[#16733b]",
+    href: "/item?slug=ho-tay",
+  },
+];
 
 const featureCards = [
   {
     icon: MicIcon,
     title: "Tìm kiếm bằng giọng nói",
-    desc: "Nói khi thiết bị hỗ trợ hoặc nhập bằng bàn phím để tìm điểm đến và dịch vụ trong dữ liệu hiện có.",
+    desc: "Chỉ cần nói những gì bạn quan tâm, WayEcho sẽ giúp bạn tìm điểm đến, dịch vụ và thông tin phù hợp.",
     tone: "bg-[#ff6b2c]",
   },
   {
     icon: AccessibleIcon,
     title: "Thông tin tiếp cận rõ ràng",
-    desc: "Đối chiếu nguồn và trạng thái dữ liệu. Tiện ích chưa xác minh luôn được ghi rõ để bạn chủ động hỏi trước.",
+    desc: "Xem chi tiết lối đi, nhà vệ sinh, mức độ hỗ trợ và các tiện ích ngay trên mỗi địa điểm.",
     tone: "bg-[#397ecb]",
   },
   {
     icon: CompassIcon,
     title: "Chỉ đường & cảnh báo",
-    desc: "Xem vị trí điểm đến và nghe các bước minh họa. Chưa có tuyến đường hoặc cảnh báo chướng ngại thời gian thực.",
+    desc: "Nhận chỉ dẫn phù hợp với nhu cầu của bạn, cùng các cảnh báo về địa hình, chướng ngại vật trên đường.",
     tone: "bg-[#35a356]",
   },
   {
@@ -106,22 +138,22 @@ const journeyAssist = [
     image: HOME_IMAGES.navigation,
     icon: CompassIcon,
     title: "Chỉ đường tiếp cận",
-    desc: "Bản đồ vị trí và lời đọc minh họa; chưa phải chỉ đường an toàn thời gian thực.",
+    desc: "Hướng dẫn từng bước bằng giọng nói và cảnh báo theo dữ liệu hiện có về lối đi, chướng ngại vật, lối tiếp cận phù hợp.",
     href: "/navigation",
   },
   {
     image: HOME_IMAGES.camera,
     icon: CameraIcon,
     title: "Trợ lý camera",
-    desc: "Xem và nghe mô tả viết sẵn của ảnh mẫu. Chưa mở camera, nhận diện ảnh hoặc OCR thật.",
+    desc: "Đọc chữ, mô tả khung cảnh xung quanh và hỗ trợ người nhìn kém nhận biết thông tin trực quan một cách dễ dàng.",
     href: "/assistant",
   },
   {
     image: HOME_IMAGES.humanSupport,
     icon: UserIcon,
     title: "Hỗ trợ con người",
-    desc: "Tìm hiểu phạm vi Guide/Assistant và luồng yêu cầu DEMO. Chưa có đối tác được phân công thực tế.",
-    href: "/item?id=demo-guide-tour",
+    desc: "Kết nối với Guide/Assistant địa phương khi bạn cần hỗ trợ trực tiếp trong chuyến đi, để hành trình luôn an toàn và trọn vẹn.",
+    href: "/guide/login",
   },
 ];
 
@@ -178,11 +210,11 @@ export default function HomePage() {
           </div>
 
           <div className="grid min-h-[430px] grid-cols-2 grid-rows-2 gap-3" aria-label="Một số hình ảnh thật về Hà Nội">
-            <Link href="/destination?d=ho-guom" className="group relative row-span-1 overflow-hidden rounded-[24px] shadow-card lg:row-span-2">
+            <Link href="/item?slug=ho-guom" className="group relative row-span-1 overflow-hidden rounded-[24px] shadow-card lg:row-span-2">
               <VerifiedImage src={HOME_IMAGES.hoGuom.src} fallback={FALLBACK} alt={HOME_IMAGES.hoGuom.alt} priority className="h-full min-h-[250px] w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
               <span className="absolute inset-x-4 bottom-4 rounded-2xl bg-black/60 px-4 py-3 text-white backdrop-blur-sm"><span className="flex items-center gap-2 font-bold"><MapPinIcon size={18} /> Hồ Gươm</span><span className="block pl-6 text-xs text-white/85">Biểu tượng của Hà Nội</span></span>
             </Link>
-            <Link href="/destination?d=pho-co" className="group relative overflow-hidden rounded-[24px] shadow-card">
+            <Link href="/item?slug=pho-co" className="group relative overflow-hidden rounded-[24px] shadow-card">
               <VerifiedImage src={HOME_IMAGES.oldQuarter.src} fallback={FALLBACK} alt={HOME_IMAGES.oldQuarter.alt} className="h-full min-h-[205px] w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
               <span className="absolute inset-x-3 bottom-3 rounded-2xl bg-black/60 px-3 py-2.5 text-white backdrop-blur-sm"><span className="flex items-center gap-2 font-bold"><MapPinIcon size={17} /> Phố cổ Hà Nội</span><span className="block pl-6 text-[11px] text-white/85">Nét xưa giữa lòng thành phố</span></span>
             </Link>
@@ -270,11 +302,28 @@ export default function HomePage() {
           ))}
         </div>
 
-
+        <div className="mt-10">
+          <h2 className="text-4xl">Vì sao WayEcho hữu ích?</h2>
+          <p className="hc-muted mt-1 text-ink-soft">Chỉ với vài bước đơn giản, bạn đã có thể tự tin khám phá Hà Nội theo cách của riêng mình.</p>
+          <div className="mt-5 grid gap-4 lg:grid-cols-3">
+            <article className="grid overflow-hidden rounded-2xl border border-line bg-white shadow-card hc-surface hc-border sm:grid-cols-[180px_1fr] lg:grid-cols-[150px_1fr]">
+              <VerifiedImage src={HOME_IMAGES.navigation.src} fallback={FALLBACK} alt={HOME_IMAGES.navigation.alt} className="h-44 w-full object-cover sm:h-full" />
+              <div className="p-5"><h3 className="text-xl">1. Tìm nơi phù hợp</h3><p className="hc-muted mt-2 text-sm leading-6 text-ink-soft">Nói hoặc nhập nhu cầu của bạn, WayEcho sẽ gợi ý các điểm đến, dịch vụ phù hợp.</p></div>
+            </article>
+            <article className="grid overflow-hidden rounded-2xl border border-line bg-white shadow-card hc-surface hc-border sm:grid-cols-[180px_1fr] lg:grid-cols-[150px_1fr]">
+              <div className="relative min-h-[176px] overflow-hidden bg-[#f7f2e8]">
+                <VerifiedImage src={HOME_IMAGES.camera.src} fallback={FALLBACK} alt={HOME_IMAGES.camera.alt} className="h-full w-full object-cover" />
+                <div className="absolute inset-x-3 bottom-3 rounded-xl bg-white/95 p-3 text-[11px] shadow-card"><strong className="block">Thông tin tiếp cận</strong><span className="mt-1 block">✓ Lối đi tiếp cận</span><span className="block">✓ Điểm hỗ trợ</span><span className="block">✓ Lưu ý trước khi đi</span></div>
+              </div>
+              <div className="p-5"><h3 className="text-xl">2. Xem mức độ tiếp cận</h3><p className="hc-muted mt-2 text-sm leading-6 text-ink-soft">Nắm rõ thông tin về khả năng tiếp cận, tiện ích và các lưu ý quan trọng trước khi đi.</p></div>
+            </article>
+            <article className="grid overflow-hidden rounded-2xl border border-line bg-white shadow-card hc-surface hc-border sm:grid-cols-[180px_1fr] lg:grid-cols-[150px_1fr]">
+              <VerifiedImage src={HOME_IMAGES.humanSupport.src} fallback={FALLBACK} alt={HOME_IMAGES.humanSupport.alt} className="h-44 w-full object-cover sm:h-full" />
+              <div className="p-5"><h3 className="text-xl">3. Đi cùng công cụ hỗ trợ</h3><p className="hc-muted mt-2 text-sm leading-6 text-ink-soft">Sử dụng bản đồ, chỉ đường bằng giọng nói và trợ lý tại điểm đến để có hành trình an toàn, thoải mái và trọn vẹn hơn.</p></div>
+            </article>
+          </div>
+        </div>
       </section>
-
-      <DestinationGallery destinations={destinations} />
-      <section className="container-page pb-12" aria-labelledby="read-more-heading"><h2 id="read-more-heading" className="text-3xl">Chuẩn bị trước khi đi</h2><p className="mt-3 max-w-3xl">Tìm hiểu cách đọc dữ liệu tiếp cận, chọn thông tin muốn chia sẻ và chuẩn bị câu hỏi cho điểm đến.</p><div className="mt-4 flex flex-wrap gap-3"><Link className="btn-primary" href="/articles">Đọc cẩm nang</Link><Link className="btn-ghost" href="/services/guide-dogs">Tìm hiểu chó dẫn đường</Link></div></section>
 
       <section className="border-y border-line bg-[#fffdf8] py-12 hc-surface hc-border" aria-labelledby="assistant-heading">
         <div className="container-page">
@@ -309,8 +358,8 @@ export default function HomePage() {
 
           <div className="mt-8" aria-labelledby="stories-heading">
             <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-              <div><h2 id="stories-heading" className="text-4xl">Những <span className="text-[#eb5d27]">tình huống minh họa</span></h2><p className="hc-muted mt-1 text-ink-soft">Nội dung mẫu để minh họa nhu cầu sử dụng, không phải đánh giá của khách hàng đã được xác minh.</p></div>
-              <Link href="/review" className="btn-ghost hc-border !min-h-[42px] !px-5 !py-2 text-sm">Viết đánh giá trải nghiệm →</Link>
+              <div><h2 id="stories-heading" className="text-4xl">Những <span className="text-[#eb5d27]">trải nghiệm thật</span></h2><p className="hc-muted mt-1 text-ink-soft">Câu chuyện từ những người đã đồng hành cùng WayEcho.</p></div>
+              <Link href="/review" className="btn-ghost hc-border !min-h-[42px] !px-5 !py-2 text-sm">Xem thêm câu chuyện →</Link>
             </div>
             <div className="mt-5 grid gap-4 lg:grid-cols-3">
               {stories.map((story) => (

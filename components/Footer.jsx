@@ -28,7 +28,7 @@ export default function Footer() {
 
           <nav aria-label="Khám phá">
             <p className="mb-4 text-lg font-bold text-primary">Khám phá</p>
-            <ul className="space-y-1"><li><Link className={linkClass} href="/explore">Điểm đến & dịch vụ</Link></li><li><Link className={linkClass} href="/my-trip">Chuyến đi của tôi</Link></li><li><Link className={linkClass} href="/navigation">Bản đồ tiếp cận</Link></li><li><Link className={linkClass} href="/item?id=demo-guide-tour">Hướng dẫn viên & trợ lý — DEMO</Link></li></ul>
+            <ul className="space-y-1"><li><Link className={linkClass} href="/explore">Điểm đến & dịch vụ</Link></li><li><Link className={linkClass} href="/my-trip">Chuyến đi của tôi</Link></li><li><Link className={linkClass} href="/navigation">Bản đồ tiếp cận</Link></li><li><Link className={linkClass} href="/guide/login">Hướng dẫn viên & trợ lý</Link></li></ul>
           </nav>
 
           <nav aria-label="Hỗ trợ và Accessibility">
@@ -38,14 +38,14 @@ export default function Footer() {
 
           <nav aria-label="Đối tác">
             <p className="mb-4 text-lg font-bold text-primary">Đối tác</p>
-            <ul className="space-y-1"><li><Link className={linkClass} href="/partners/business">Dành cho doanh nghiệp</Link></li><li><Link className={linkClass} href="/partners/guide">Dành cho Guide & Assistant</Link></li><li><Link className={linkClass} href="/partners/cooperate">Hợp tác cùng WayEcho</Link></li></ul>
+            <ul className="space-y-1"><li><Link className={linkClass} href="/business">Dành cho doanh nghiệp</Link></li><li><Link className={linkClass} href="/guide/login">Dành cho Guide & Assistant</Link></li><li><Link className={linkClass} href="/guide/register">Hợp tác cùng WayEcho</Link></li></ul>
           </nav>
 
           <section aria-labelledby="footer-connect-title">
             <h2 id="footer-connect-title" className="mb-4 text-lg font-bold text-primary">Kết nối với chúng tôi</h2>
             <div className="flex flex-wrap gap-2" aria-label="Các kênh mạng xã hội minh họa"><SocialBadge label="Facebook">f</SocialBadge><SocialBadge label="YouTube">▶</SocialBadge><SocialBadge label="Instagram">◎</SocialBadge><SocialBadge label="TikTok">♪</SocialBadge><SocialBadge label="LinkedIn">in</SocialBadge></div>
-            <Link href="/sos" className="mt-6 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#ff5b2f] px-5 py-3 font-bold text-white transition hover:bg-[#ff7048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"><PhoneIcon /> Mở SOS demo <span aria-hidden="true">›</span></Link>
-            <p className="mt-3 text-center text-xs text-neutral-400">Chưa kết nối đầu nhận hoặc tự gọi cứu hộ</p>
+            <Link href="/sos" className="mt-6 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#ff5b2f] px-5 py-3 font-bold text-white transition hover:bg-[#ff7048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"><PhoneIcon /> Gọi SOS <span aria-hidden="true">›</span></Link>
+            <p className="mt-3 text-center text-xs text-neutral-400">Yêu cầu hỗ trợ khẩn cấp khi cần</p>
           </section>
         </div>
 

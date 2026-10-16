@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -22,17 +21,9 @@ function dot(color) {
   });
 }
 
-function MapFocus({ center, zoom }) {
-  const map = useMap();
-  const [lat, lng] = center;
-  useEffect(() => { map.setView([lat, lng], zoom); }, [map, lat, lng, zoom]);
-  return null;
-}
-
 export default function MapView({ points = [], route = [], center = [21.0287, 105.8524], zoom = 14 }) {
   return (
     <MapContainer center={center} zoom={zoom} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
-      <MapFocus center={center} zoom={zoom} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
