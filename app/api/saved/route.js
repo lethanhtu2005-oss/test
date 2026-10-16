@@ -1,30 +1,6 @@
-import { NextResponse } from "next/server";
-import { list, add, remove } from "@/lib/store";
-import { readJson, badRequest, cleanText } from "@/lib/validate";
-
+import { personalCollection } from "@/lib/personalCollection";
 export const dynamic = "force-dynamic";
-
-export async function GET() {
-  return NextResponse.json(await list("saved"));
-}
-
-export async function POST(req) {
-  const body = await readJson(req);
-  if (!body || !cleanText(body.refId)) return badRequest("Thiếu refId");
-  const existing = (await list("saved")).find((x) => x.refId === body.refId);
-  if (existing) return NextResponse.json(existing);
-  const record = await add("saved", {
-    refId: cleanText(body.refId, 100),
-    name: cleanText(body.name, 300),
-    cat: cleanText(body.cat, 300),
-    image: cleanText(body.image, 300),
-  });
-  return NextResponse.json(record, { status: 201 });
-}
-
-export async function DELETE(req) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("refId") || searchParams.get("id");
-  if (!id) return NextResponse.json({ error: "Thiếu id" }, { status: 400 });
-  return NextResponse.json(await remove("saved", id));
-}
+const handlers = personalCollection("saved");
+export const GET = handlers.GET;
+export const POST = handlers.POST;
+export const DELETE = handlers.DELETE;

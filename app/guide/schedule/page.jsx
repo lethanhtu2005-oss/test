@@ -8,7 +8,7 @@ export default function GuideSchedulePage() {
       <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">Xem những lịch đã nhận và khung thời gian cần chuẩn bị.</p>
       <div className="mt-7 grid gap-4">
         {guideAssignments.map((a) => (
-          <article key={a.id} className="card hc-surface hc-border p-5">
+          <article id={a.id} key={a.id} className="card hc-surface hc-border p-5">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <h3 className="text-xl">{a.service}</h3>

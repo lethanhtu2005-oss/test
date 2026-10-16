@@ -13,7 +13,7 @@ export default function AdminBusinesses() {
 
   function setStatus(id, status, name) {
     setState((s) => ({ ...s, [id]: status }));
-    speak(`${name}: ${status === "verified" ? "đã xác minh" : status === "suspended" ? "đã tạm ngưng" : "chờ duyệt"}.`);
+    speak(`DEMO: thay đổi trên màn hình, chưa lưu server. ${name}: ${status === "verified" ? "đã xác minh" : status === "suspended" ? "đã tạm ngưng" : "chờ duyệt"}.`);
   }
 
   const STATUS = {
@@ -25,7 +25,7 @@ export default function AdminBusinesses() {
   return (
     <div className="container-page py-10">
       <h1 className="text-4xl sm:text-5xl">Quản lý doanh nghiệp</h1>
-      <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">Xác minh, tạm ngưng đối tác. Chỉ doanh nghiệp đã xác minh mới được bán dịch vụ.</p>
+      <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">DEMO: thay đổi nhãn trên màn hình để minh họa. Chưa có quy trình xác minh hay API lưu quyết định; không cấp quyền bán dịch vụ thật.</p>
 
       <ul className="mt-8 space-y-4">
         {businesses.map((b) => {

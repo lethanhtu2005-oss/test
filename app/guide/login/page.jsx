@@ -21,15 +21,15 @@ export default function GuideLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
     if (!email.trim() || !password.trim()) {
       setError("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
       return;
     }
-    // Prototype: khi kết nối backend, thay bằng API xác thực + session/token an toàn.
-    startGuideSession();
+    try { await startGuideSession(email,password); } catch(e) { setError(e.message); return; }
     const next = new URLSearchParams(window.location.search).get("next");
+    router.refresh();
     router.push(next && next.startsWith("/guide/") && !next.startsWith("//") ? next : "/guide");
   }
 
@@ -78,8 +78,8 @@ export default function GuideLoginPage() {
             </div>
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm">
-              <label className="inline-flex items-center gap-2"><input type="checkbox" className="h-5 w-5 accent-[#f8ae38]" /> Ghi nhớ đăng nhập</label>
-              <a href="#" onClick={(e)=>e.preventDefault()} className="font-semibold text-[#1267a5] hover:underline">Quên mật khẩu?</a>
+              <span>Phiên tối đa 8 giờ.</span>
+              <span>Chưa có khôi phục mật khẩu tự động.</span>
             </div>
 
             {error && <p role="alert" className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p>}
@@ -89,7 +89,7 @@ export default function GuideLoginPage() {
             <Link href="/guide/register" className="btn-ghost hc-border w-full"><UserIcon size={19}/> Trở thành Guide WayEcho</Link>
           </form>
 
-          <p className="mt-6 rounded-xl bg-[#fff7e8] px-4 py-3 text-sm text-ink-soft">Tài khoản Guide cần được xác minh trước khi nhận lịch. Bản prototype hiện mô phỏng bước đăng nhập; chưa kết nối hệ thống xác thực thật.</p>
+          <p className="mt-6 rounded-xl bg-[#fff7e8] px-4 py-3 text-sm text-ink-soft">Đăng nhập kiểm tra tài khoản Guide được cấp ở server. Hồ sơ và lịch trong portal vẫn là DEMO, chưa có phân công hoặc xác minh thật.</p>
         </section>
       </div>
     </div>

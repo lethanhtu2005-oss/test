@@ -1,5 +1,5 @@
-const CACHE = "wayecho-shell-v3";
-const SHELL = ["/", "/app", "/profile", "/search", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
+const CACHE = "wayecho-shell-v4-private";
+const SHELL = ["/", "/app", "/search", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).catch(() => null));
@@ -17,6 +17,8 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
   // API và payload RSC luôn phải lấy mới — không cache để tránh hiện booking/thông báo cũ.
   if (url.pathname.startsWith("/api/") || url.searchParams.has("_rsc")) return;
+
+  if (/^\/(business|admin|guide|my-booking|my-trip|notifications|login|booking|profile)(\/|$)/.test(url.pathname)) return;
 
   if (event.request.mode === "navigate") {
     event.respondWith(fetch(event.request).then((response) => {

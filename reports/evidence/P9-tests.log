@@ -1,0 +1,99 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> wayecho@0.1.0 test
+> node --test "tests/**/*.test.mjs"
+
+✔ C: voice không giả kết quả; panel có Escape và giới hạn màn hình (6.843946ms)
+(node:27) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ E: mỗi bài có nội dung riêng, related và điểm đến tồn tại (1.019317ms)
+✔ E: điểm đến mới ghi thiếu dữ liệu, không lấy tọa độ/ảnh tùy ý (0.221974ms)
+(node:28) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/search.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ D: tìm không dấu, khu vực, nhiều từ và rỗng (1.302904ms)
+✔ D: gallery có native dialog và link thật; homepage bỏ block trùng, giữ tính năng (10.377048ms)
+(node:29) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/inquiryValidation.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ G: validation liên hệ/loại/giới hạn/consent rõ ràng (1.405148ms)
+(node:35) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/loginLimiter.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ P8 limiter: chặn theo account+source, không khóa account từ nguồn khác (2.041367ms)
+✔ P8 limiter: số email/cardinality không khóa toàn hệ thống, nguồn flood vẫn bị giới hạn (4.503489ms)
+✔ P8 source: không tin X-Forwarded-For hoặc chữ ký sai/hết hạn (6.856926ms)
+✔ P8 active bucket cap không chặn người dùng mới (4.97899ms)
+(node:37) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/bookingStatus.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ booking trạng thái thực và fallback không xác nhận (1.130264ms)
+✔ navigation slug/id, thiếu, sai và tọa độ không hợp lệ (1.446971ms)
+✔ SOS chỉ yêu cầu vị trí khi gọi hàm, không gọi mạng; thành công và lỗi (0.725643ms)
+✔ SOS không tự xin vị trí khi mount; link desktop/portal và mobile/footer được giữ (16.823621ms)
+✔ P9 SOS chỉ mở số người dùng đã lưu, bỏ chuỗi mơ hồ hoặc nhiều số (0.500444ms)
+(node:52) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/store.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ API nhạy cảm chặn chưa login, cookie giả, role từ client, CSRF (13.157824ms)
+✔ booking server gán owner/status; consent thiếu hoặc false không tạo/chia sẻ request (13.136923ms)
+✔ ownership và Business scope chặn sửa ID người khác; consent true tạo nguyên tử (23.31169ms)
+✔ Saved/trip: không xóa chéo, không trùng khi request đồng thời (235.961198ms)
+WayEcho storage unavailable { code: 'EACCES' }
+✔ lỗi ghi không trả thành công; transaction booking/request/notification rollback cùng nhau (4.372401ms)
+WayEcho storage unavailable { code: 'STORAGE_ERROR' }
+WayEcho storage read failed { code: 'STORAGE_ERROR' }
+✔ storage bảo toàn key lạ, không ghi đè JSON hỏng và fail closed trên Vercel (4.583199ms)
+✔ session server: băm mật khẩu/token, expiry, revoke, role hiện tại và redirect (152.188568ms)
+WayEcho storage unavailable { code: 'EACCES' }
+✔ G: tiếp nhận chỉ khi cấu hình/consent đúng; inbox chỉ Admin; gửi lặp trả một receipt (79.051489ms)
+✔ G: nhiều tiến trình cùng host không ghi đè dữ liệu nhau (136.831988ms)
+✔ P8 review: ID phải tồn tại, tên chuẩn server, strict types và quyền (10.858078ms)
+✔ P8 booking: idempotency cùng owner, conflict khác body, PATCH lặp không tạo notification (16.701266ms)
+WayEcho storage unavailable { code: 'STORAGE_ERROR' }
+✔ P8 storage: DB đã khởi tạo bị mất không tự tạo seed (2.020736ms)
+WayEcho storage unavailable { code: 'STORAGE_ERROR' }
+WayEcho storage unavailable { code: 'STORAGE_ERROR' }
+✔ P8 storage: writer đang sống hoặc chết để lại lock không bị tự xóa (4177.204888ms)
+WayEcho storage unavailable { code: 'EACCES' }
+✔ P8 login: storage limiter lỗi thì không tạo session và không cho đăng nhập (3.545485ms)
+✔ P9 booking từ chối ngày lịch sai, giờ sai và số khách boolean (5.042ms)
+(node:90) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/seo.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ F: không dựng canonical/domain giả khi thiếu cấu hình (1.405158ms)
+✔ F: canonical query chính xác và JSON-LD escape script (0.514786ms)
+(node:100) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/theme.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ P9 theme bootstrap: đúng trước nội dung, reload, system và lỗi storage (3.677143ms)
+✔ P9 màu token: chữ/nền, muted, placeholder và nút >=4.5; không chứng nhận mọi UI (0.601607ms)
+✔ P9 theme và navigation: bootstrap ở head, đủ 5 nhóm và giữ link cũ (5.775356ms)
+(node:101) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/validate.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ readJson trả null khi body hỏng hoặc không phải object (5.279348ms)
+✔ cleanText cắt khoảng trắng và giới hạn độ dài (0.213772ms)
+✔ intInRange chỉ nhận số nguyên trong khoảng (0.135815ms)
+✔ rating: 0/trống là không đánh giá, 1–5 hợp lệ, còn lại bị từ chối (0.126491ms)
+✔ booking đã hủy/từ chối không được mở lại (0.115554ms)
+✔ readJson giới hạn body 64 KiB và không chấp nhận JSON lớn (0.656299ms)
+✔ P9 ngày booking phải có thật trên lịch, không chỉ đúng mẫu (2.01006ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 42
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5337.674463

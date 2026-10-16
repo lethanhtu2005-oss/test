@@ -16,7 +16,7 @@ function DrawnMark({ size = 34 }) {
 
 export default function Logo({ tagline = false, className = "", height = 34, dark = false }) {
   const iconSize = Math.round(height * 1.1);
-  const wordColor = dark ? "#ffffff" : "#212529";
+  const wordColor = dark ? "#ffffff" : "rgb(var(--we-ink, 33 37 41))";
 
   return (
     <span className={`inline-flex flex-col ${className}`} role="img" aria-label="WayEcho — Hear Your Way">
@@ -27,12 +27,12 @@ export default function Logo({ tagline = false, className = "", height = 34, dar
           <img src="/assets/brand/logo.png" alt="" aria-hidden="true" width={iconSize} height={iconSize} style={{ height: iconSize, width: iconSize, objectFit: "contain" }} />
         )}
         <span className="font-display font-bold leading-none tracking-tight" style={{ fontSize: height }}>
-          <span style={{ color: wordColor }}>Way</span>
+          <span data-brand-word style={{ color: wordColor }}>Way</span>
           <span style={{ color: ORANGE }}>Echo</span>
         </span>
       </span>
       {tagline && (
-        <span className="mt-1 pl-1 text-[11px] font-bold tracking-[0.35em]" style={{ color: dark ? "#9a938c" : "#6b6560" }}>
+        <span className="hc-muted mt-1 pl-1 text-[11px] font-bold tracking-[0.35em]" style={{ color: dark ? "#9a938c" : "rgb(var(--we-ink-soft, 107 101 96))" }}>
           HEAR YOUR WAY
         </span>
       )}

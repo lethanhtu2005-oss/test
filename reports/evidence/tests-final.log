@@ -1,0 +1,72 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> wayecho@0.1.0 test
+> node --test "tests/**/*.test.mjs"
+
+✔ C: voice không giả kết quả; panel có Escape và giới hạn màn hình (5.507257ms)
+(node:27) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/data/articles.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ E: mỗi bài có nội dung riêng, related và điểm đến tồn tại (1.11399ms)
+✔ E: điểm đến mới ghi thiếu dữ liệu, không lấy tọa độ/ảnh tùy ý (0.303588ms)
+(node:38) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/search.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ D: tìm không dấu, khu vực, nhiều từ và rỗng (1.752894ms)
+✔ D: gallery có native dialog và link thật; homepage bỏ block trùng, giữ tính năng (6.146445ms)
+(node:39) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/inquiryValidation.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ G: validation liên hệ/loại/giới hạn/consent rõ ràng (1.255544ms)
+(node:40) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/bookingStatus.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ booking trạng thái thực và fallback không xác nhận (1.078486ms)
+✔ navigation slug/id, thiếu, sai và tọa độ không hợp lệ (0.99483ms)
+✔ SOS chỉ yêu cầu vị trí khi gọi hàm, không gọi mạng; thành công và lỗi (0.486674ms)
+✔ SOS không tự xin vị trí khi mount; link desktop/portal và mobile/footer được giữ (13.582305ms)
+(node:42) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/store.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ API nhạy cảm chặn chưa login, cookie giả, role từ client, CSRF (13.783548ms)
+✔ booking server gán owner/status; consent thiếu hoặc false không tạo/chia sẻ request (11.63691ms)
+✔ ownership và Business scope chặn sửa ID người khác; consent true tạo nguyên tử (21.214076ms)
+✔ Saved/trip: không xóa chéo, không trùng khi request đồng thời (226.955444ms)
+WayEcho storage unavailable { code: 'EACCES' }
+✔ lỗi ghi không trả thành công; transaction booking/request/notification rollback cùng nhau (6.988059ms)
+WayEcho storage unavailable { code: 'STORAGE_ERROR' }
+WayEcho storage read failed { code: 'STORAGE_ERROR' }
+✔ storage bảo toàn key lạ, không ghi đè JSON hỏng và fail closed trên Vercel (4.783255ms)
+✔ session server: băm mật khẩu/token, expiry, revoke, role hiện tại và redirect (191.140683ms)
+WayEcho storage unavailable { code: 'EACCES' }
+✔ G: tiếp nhận chỉ khi cấu hình/consent đúng; inbox chỉ Admin; gửi lặp trả một receipt (69.814894ms)
+✔ G: nhiều tiến trình cùng host không ghi đè dữ liệu nhau (104.500242ms)
+(node:47) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/seo.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ F: không dựng canonical/domain giả khi thiếu cấu hình (1.407118ms)
+✔ F: canonical query chính xác và JSON-LD escape script (0.414525ms)
+(node:94) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/069cf2c1ec88/delivery-v2/test-main/lib/validate.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/scratch/069cf2c1ec88/delivery-v2/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ readJson trả null khi body hỏng hoặc không phải object (5.145922ms)
+✔ cleanText cắt khoảng trắng và giới hạn độ dài (0.1791ms)
+✔ intInRange chỉ nhận số nguyên trong khoảng (0.187473ms)
+✔ rating: 0/trống là không đánh giá, 1–5 hợp lệ, còn lại bị từ chối (0.155725ms)
+✔ booking đã hủy/từ chối không được mở lại (0.133381ms)
+✔ readJson giới hạn body 64 KiB và không chấp nhận JSON lớn (0.857593ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1085.359095

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { requestSOSLocation, networkMessage, emergencyPhone } from "@/lib/sos";
 import Link from "next/link";
 import { useA11y } from "@/components/A11yProvider";
 import { PhoneIcon, MapPinIcon, CheckIcon } from "@/components/Icons";
@@ -10,27 +11,31 @@ export default function SOSPage() {
   const [contact, setContact] = useState("");
   const [locationStatus, setLocationStatus] = useState("Chưa yêu cầu quyền vị trí");
   const [active, setActive] = useState(false);
+  const [online, setOnline] = useState(true);
+  useEffect(() => {
+    const sync = () => setOnline(navigator.onLine);
+    sync();
+    window.addEventListener("online", sync);
+    window.addEventListener("offline", sync);
+    return () => { window.removeEventListener("online", sync); window.removeEventListener("offline", sync); };
+  }, []);
 
   useEffect(() => { try { setContact(localStorage.getItem("we-emergency") || ""); } catch (_) {} }, []);
 
   function startSOS() {
     setActive(true);
     speak("SOS demo đã được kích hoạt. WayEcho sẽ chỉ lấy vị trí nếu bạn cho phép. Bản demo không tự động gọi dịch vụ khẩn cấp.");
-    if (!navigator.geolocation) { setLocationStatus("Thiết bị không hỗ trợ Geolocation"); return; }
-    setLocationStatus("Đang chờ bạn cấp quyền vị trí…");
-    navigator.geolocation.getCurrentPosition(
-      () => setLocationStatus("Đã nhận vị trí trên thiết bị — bản demo không gửi vị trí ra ngoài."),
-      () => setLocationStatus("Không có quyền hoặc không lấy được vị trí. SOS vẫn hiển thị trạng thái để bạn xử lý thủ công."),
-      { enableHighAccuracy: true, timeout: 8000 }
-    );
+    requestSOSLocation(navigator.geolocation, setLocationStatus);
   }
 
+  const phone=emergencyPhone(contact);
   return (
     <div className="container-page py-10">
       <p className="font-semibold text-red-700">Safety</p>
       <h1 className="mt-1 text-4xl sm:text-5xl">SOS & hỗ trợ khẩn cấp</h1>
       <p className="hc-muted mt-3 max-w-3xl text-lg text-ink-soft">Nút SOS phải nhanh, nhưng cũng phải minh bạch về quyền location và trạng thái xử lý. Bản demo này không tự gọi cơ quan khẩn cấp và không gửi vị trí tới máy chủ.</p>
 
+      <p className="mt-4 text-red-900" role="status">{networkMessage(online)}</p>
       <div className="mt-8 grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
         <section className="rounded-[24px] bg-red-700 p-7 text-white" aria-labelledby="activate-sos">
           <h2 id="activate-sos" className="text-3xl">Cần trợ giúp?</h2>
@@ -41,9 +46,11 @@ export default function SOSPage() {
         <section className="rounded-[18px] border border-line bg-white p-6 shadow-card hc-surface hc-border" aria-labelledby="status-sos">
           <h2 id="status-sos" className="text-2xl">Trạng thái</h2>
           <div className="mt-4 space-y-3">
-            <div className="flex items-start gap-3 rounded-xl bg-surface-alt p-4 hc-surface hc-border"><MapPinIcon size={20} className="mt-1 shrink-0" /><div><p className="font-semibold">Vị trí</p><p className="hc-muted text-sm text-ink-soft">{locationStatus}</p></div></div>
+            <div className="flex items-start gap-3 rounded-xl bg-surface-alt p-4 hc-surface hc-border"><MapPinIcon size={20} className="mt-1 shrink-0" /><div><p className="font-semibold">Vị trí</p><p role="status" className="hc-muted text-sm text-ink-soft">{locationStatus}</p></div></div>
             <div className="flex items-start gap-3 rounded-xl bg-surface-alt p-4 hc-surface hc-border"><CheckIcon size={20} className="mt-1 shrink-0" /><div><p className="font-semibold">Emergency contact</p><p className="hc-muted text-sm text-ink-soft">{contact || "Chưa thiết lập liên hệ khẩn cấp."}</p></div></div>
           </div>
+          {phone && <a className="btn-primary mt-5" href={`tel:${phone}`}>Mở số liên hệ đã lưu để gọi</a>}
+          {contact && !phone && <p className="mt-3 text-sm">Chưa xác định được một số điện thoại duy nhất. Hãy dùng chức năng gọi điện của thiết bị và đối chiếu liên hệ đã lưu.</p>}
           {!contact && <Link href="/profile" className="btn-primary mt-5">Thiết lập emergency contact</Link>}
         </section>
       </div>

@@ -1,0 +1,51 @@
+
+> wayecho@0.1.0 test
+> node --test "tests/**/*.test.mjs"
+
+✔ C: voice không giả kết quả; panel có Escape và giới hạn màn hình (5.046841ms)
+(node:202) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/wayecho-patch-review-vip5rk3l/test-main/lib/search.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/wayecho-patch-review-vip5rk3l/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ D: tìm không dấu, khu vực, nhiều từ và rỗng (1.269535ms)
+✔ D: gallery có native dialog và link thật; homepage bỏ block trùng, giữ tính năng (4.261166ms)
+(node:203) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/wayecho-patch-review-vip5rk3l/test-main/lib/bookingStatus.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/wayecho-patch-review-vip5rk3l/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ booking trạng thái thực và fallback không xác nhận (1.029263ms)
+✔ navigation slug/id, thiếu, sai và tọa độ không hợp lệ (1.131286ms)
+✔ SOS chỉ yêu cầu vị trí khi gọi hàm, không gọi mạng; thành công và lỗi (0.471321ms)
+✔ SOS không tự xin vị trí khi mount; link desktop/portal và mobile/footer được giữ (9.678357ms)
+(node:209) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/wayecho-patch-review-vip5rk3l/test-main/lib/store.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/wayecho-patch-review-vip5rk3l/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ API nhạy cảm chặn chưa login, cookie giả, role từ client, CSRF (10.735621ms)
+✔ booking server gán owner/status; consent thiếu hoặc false không tạo/chia sẻ request (11.589414ms)
+✔ ownership và Business scope chặn sửa ID người khác; consent true tạo nguyên tử (20.244581ms)
+✔ Saved/trip: không xóa chéo, không trùng khi request đồng thời (230.088779ms)
+WayEcho storage unavailable { code: 'EACCES' }
+✔ lỗi ghi không trả thành công; transaction booking/request/notification rollback cùng nhau (3.907423ms)
+WayEcho storage unavailable { code: 'STORAGE_ERROR' }
+WayEcho storage read failed { code: 'STORAGE_ERROR' }
+✔ storage bảo toàn key lạ, không ghi đè JSON hỏng và fail closed trên Vercel (5.795481ms)
+✔ session server: băm mật khẩu/token, expiry, revoke, role hiện tại và redirect (152.991798ms)
+(node:215) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/wayecho-patch-review-vip5rk3l/test-main/lib/validate.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/wayecho-patch-review-vip5rk3l/test-main/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ readJson trả null khi body hỏng hoặc không phải object (6.972105ms)
+✔ cleanText cắt khoảng trắng và giới hạn độ dài (0.213472ms)
+✔ intInRange chỉ nhận số nguyên trong khoảng (0.219401ms)
+✔ rating: 0/trống là không đánh giá, 1–5 hợp lệ, còn lại bị từ chối (0.193482ms)
+✔ booking đã hủy/từ chối không được mở lại (0.193572ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 848.286771
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.

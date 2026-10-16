@@ -21,7 +21,7 @@ export default function GuideDashboard() {
 
   function accept(id) {
     setItems((current) => current.map((item) => item.id === id ? { ...item, status: "accepted" } : item));
-    speak("Đã xác nhận lịch hỗ trợ.");
+    speak("Đã đổi trạng thái minh họa trên màn hình; chưa nhận lịch thực tế.");
   }
 
   return (

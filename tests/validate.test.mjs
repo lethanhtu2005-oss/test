@@ -40,3 +40,8 @@ test("booking đã hủy/từ chối không được mở lại", () => {
   assert.equal(canTransitionBooking("rejected", "confirmed"), false);
   assert.equal(canTransitionBooking("demo", "confirmed"), false);
 });
+
+test("readJson giới hạn body 64 KiB và không chấp nhận JSON lớn",async()=>{assert.equal(await readJson(jsonReq(JSON.stringify({text:"x".repeat(70000)}))),null);});
+
+import {validBookingDate} from "../lib/validate.js";
+test("P9 ngày booking phải có thật trên lịch, không chỉ đúng mẫu",()=>{assert.equal(validBookingDate("2028-02-29"),true);for(const value of ["2027-02-29","2026-13-01","2026-04-31",{},null])assert.equal(validBookingDate(value),false);});

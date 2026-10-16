@@ -46,7 +46,7 @@ export default function GuideProfile() {
               </label>
             ))}
           </div>
-          <button className="btn-primary mt-4"><CheckIcon size={20} /> Lưu lịch rảnh</button>
+          <button type="button" onClick={()=>speak("Đây là lịch rảnh minh họa trên màn hình, chưa được lưu lên server.")} className="btn-primary mt-4"><CheckIcon size={20} /> Lịch rảnh — DEMO chưa lưu</button>
         </section>
       </div>
 

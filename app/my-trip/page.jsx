@@ -37,23 +37,25 @@ export default function MyTripPage() {
   const [trip, setTrip] = useState([]);
   const [saved, setSaved] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error,setError] = useState("");
 
   async function refresh() {
     try {
       const [t, s] = await Promise.all([api.listTrip(), api.listSaved()]);
       setTrip(t); setSaved(s);
-    } catch (_) {} finally { setLoading(false); }
+    } catch(err) { setError(err.message); } finally { setLoading(false); }
   }
   useEffect(() => { refresh(); }, []);
 
-  async function removeTrip(refId) { await api.removeFromTrip(refId); setTrip((x) => x.filter((i) => i.refId !== refId)); speak("Đã xóa khỏi chuyến đi."); }
-  async function removeSaved(refId) { await api.unsavePlace(refId); setSaved((x) => x.filter((i) => i.refId !== refId)); speak("Đã bỏ lưu."); }
+  async function removeTrip(refId) { try { await api.removeFromTrip(refId); setTrip((x) => x.filter((i) => i.refId !== refId)); speak("Đã xóa khỏi chuyến đi."); } catch(err) { setError(err.message); speak(err.message); } }
+  async function removeSaved(refId) { try { await api.unsavePlace(refId); setSaved((x) => x.filter((i) => i.refId !== refId)); speak("Đã bỏ lưu."); } catch(err) { setError(err.message); speak(err.message); } }
 
   return (
     <div className="container-page py-10">
+      {error && <p role="alert" className="mb-4 text-red-800">{error}</p>}
       <h1 className="text-4xl sm:text-5xl">Chuyến đi của tôi</h1>
       <p className="hc-muted mt-3 max-w-2xl text-lg text-ink-soft">
-        Kế hoạch chuyến đi và những nơi bạn đã lưu — đọc được bằng giọng nói, chỉ đường trực tiếp.
+        Kế hoạch chuyến đi và những nơi bạn đã lưu — đọc được bằng giọng nói và mở bản đồ demo.
       </p>
       <div className="mt-5 flex flex-wrap gap-3">
         <Link href="/explore" className="btn-primary"><CompassIcon size={20} /> Thêm điểm đến</Link>
@@ -62,7 +64,7 @@ export default function MyTripPage() {
 
       {loading ? (
         <p className="mt-8 text-ink-soft">Đang tải…</p>
-      ) : (
+      ) : error ? null : (
         <>
           <List title="Lịch trình chuyến đi" empty="Chưa có điểm nào. Hãy thêm từ trang Khám phá." items={trip} onRemove={removeTrip} speak={speak} />
           <List title="Địa điểm đã lưu" empty="Bạn chưa lưu địa điểm nào." items={saved} onRemove={removeSaved} speak={speak} />

@@ -1,7 +1,8 @@
 "use client";
+import {useBusiness} from "@/components/BusinessShell";
 
 import Link from "next/link";
-import { DEMO_BUSINESS_ID, getBusiness } from "@/data/businesses";
+import { getBusiness } from "@/data/businesses";
 import { getItem, catLabel } from "@/data/catalog";
 import { AccessibleIcon } from "@/components/Icons";
 
@@ -13,7 +14,8 @@ const DECL_LABELS = {
 const valCls = (v) => v === "Tốt" || v === "Có" ? "text-green-700" : v === "Trung bình" ? "text-amber-700" : "text-red-600";
 
 export default function BusinessServices() {
-  const biz = getBusiness(DEMO_BUSINESS_ID);
+  const {businessId}=useBusiness();
+  const biz = getBusiness(businessId);
   const items = biz.items.map(getItem).filter(Boolean);
 
   return (

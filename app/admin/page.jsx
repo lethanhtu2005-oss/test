@@ -8,13 +8,14 @@ import { guides } from "@/data/guides";
 import { UserIcon, CalendarIcon, StarIcon, AccessibleIcon } from "@/components/Icons";
 
 export default function AdminDashboard() {
+  const [error,setError] = useState("");
   const [bookings, setBookings] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     Promise.all([api.listBookings(), api.listReviews(), api.listRequests()])
-      .then(([b, r, q]) => { setBookings(b); setReviews(r); setRequests(q); }).catch(() => {});
+      .then(([b, r, q]) => { setBookings(b); setReviews(r); setRequests(q); }).catch(err=>setError(err.message));
   }, []);
 
   const STATS = [
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="container-page py-10">
+      {error && <p role="alert" className="mb-4 text-red-800">{error}</p>}
       <h1 className="text-4xl sm:text-5xl">Tổng quan hệ thống</h1>
       <p className="hc-muted mt-2 text-lg text-ink-soft">Toàn cảnh hoạt động của nền tảng WayEcho.</p>
 

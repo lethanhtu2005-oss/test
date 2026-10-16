@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import SOSLink from "./SOSLink";
 import { usePathname } from "next/navigation";
 import { GridIcon, UserIcon, StarIcon, AccessibleIcon } from "./Icons";
 
 const LINKS = [
   { href: "/admin", label: "Tổng quan", icon: GridIcon, exact: true },
   { href: "/admin/businesses", label: "Doanh nghiệp", icon: UserIcon },
+  { href: "/admin/inquiries", label: "Quan tâm hợp tác", icon: UserIcon },
   { href: "/admin/moderation", label: "Kiểm duyệt", icon: StarIcon },
 ];
 
@@ -19,10 +21,11 @@ export default function AdminNav() {
           <div className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-ink"><AccessibleIcon size={22} /></span>
             <div>
-              <p className="text-sm text-neutral-400">Bảng quản trị · đăng nhập demo</p>
+              <p className="text-sm text-neutral-400">Bảng quản trị · phiên kiểm tra tại server</p>
               <p className="font-display text-xl leading-none">WayEcho Admin</p>
             </div>
           </div>
+          <SOSLink />
           <Link href="/" className="rounded-pill border border-neutral-600 px-4 py-2 text-sm font-semibold hover:bg-neutral-800">← Về trang Traveler</Link>
         </div>
         <nav aria-label="Điều hướng quản trị" className="mt-4 flex flex-wrap gap-2">

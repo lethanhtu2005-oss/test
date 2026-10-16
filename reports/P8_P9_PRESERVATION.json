@@ -1,0 +1,20 @@
+{
+  "base_commit": "aa5035a",
+  "missing_paths": [],
+  "unchanged_assets_and_dependencies": [
+    "components/VoiceBar.jsx",
+    "components/Reveal.jsx",
+    "components/FeaturedCarousel.jsx",
+    "public/assets/brand/logo.png",
+    "data/db.seed.json",
+    "package.json",
+    "package-lock.json"
+  ],
+  "intentionally_changed_existing_features": [
+    "assistant labels/TTS clarification",
+    "SOS manual dialer link",
+    "A11y preference hydration",
+    "Header grouping",
+    "Logo wordmark theme color"
+  ]
+}

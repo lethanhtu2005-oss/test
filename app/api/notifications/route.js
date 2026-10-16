@@ -1,31 +1,19 @@
-import { NextResponse } from "next/server";
 import { list, add } from "@/lib/store";
-import { readJson, badRequest, cleanText, NOTIFICATION_ROLES } from "@/lib/validate";
-
+import { secured, fail, json } from "@/lib/auth";
+import { filterBusiness } from "@/lib/permissions";
+import { readJson, cleanText, NOTIFICATION_ROLES } from "@/lib/validate";
 export const dynamic = "force-dynamic";
-
-export async function GET(req) {
-  const { searchParams } = new URL(req.url);
-  const role = searchParams.get("role");
-  const business = searchParams.get("business");
-  let all = await list("notifications");
-  if (role) all = all.filter((n) => n.role === role);
-  if (business) all = all.filter((n) => !n.businessId || n.businessId === business);
-  return NextResponse.json(all);
-}
-
-export async function POST(req) {
-  const body = await readJson(req);
-  if (!body) return badRequest("Dữ liệu gửi lên không phải JSON hợp lệ");
-  const role = body.role || "traveler";
-  if (!NOTIFICATION_ROLES.includes(role)) return badRequest("Vai trò không hợp lệ");
-  const message = cleanText(body.message);
-  if (!message) return badRequest("Thiếu nội dung thông báo");
-  const record = await add("notifications", {
-    role,
-    businessId: cleanText(body.businessId, 50) || null,
-    type: cleanText(body.type, 50) || "info",
-    message,
-  });
-  return NextResponse.json(record, { status: 201 });
-}
+export const GET = secured(async(req,user)=>{
+  const params=new URL(req.url).searchParams;
+  const role=params.get("role") || user.role;
+  if(user.role !== "admin" && user.role !== role) fail(403,"Không có quyền đọc thông báo của vai trò khác.");
+  return json(filterBusiness(user,(await list("notifications")).filter(x=>x.role===role),params.get("business")));
+});
+export const POST = secured(async(req)=>{
+  const body=await readJson(req);
+  if(!body || !NOTIFICATION_ROLES.includes(body.role) || !cleanText(body.message)) fail(400,"Thông báo không hợp lệ.");
+  // Không broadcast vào dữ liệu chung. Recipient phải là user đang hoạt động.
+  const target=(await list("users")).find(x=>x.id===body.ownerId && x.active && x.role===body.role);
+  if(!target) fail(400,"Thiếu người nhận hợp lệ.");
+  return json(await add("notifications",{ownerId:target.id,role:target.role,businessId:target.businessId||null,guideId:target.guideId||null,message:cleanText(body.message),type:cleanText(body.type,50)||"info"}),201);
+},["admin"]);
