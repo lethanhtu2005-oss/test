@@ -27,7 +27,7 @@ function request(route,method="GET",body,user="t1",extra={}) {
 }
 async function call(route,method="GET",body,user="t1",extra={}){const name=route.split("?")[0];return modules[name][method](request(route,method,body,user,extra));}
 const cookieOf=res=>(res.headers.get("set-cookie")||"").split(";")[0];
-const payload={itemId:"demo-hotel",itemName:"ignored",date:"2026-12-01",guests:2,assist:true,accessibilityRequests:["Staff assistance"],requestNote:"private",ownerId:"t2",status:"confirmed",businessId:"b2"};
+const payload={itemId:"demo-hotel",itemName:"ignored",date:"2099-12-01",guests:2,assist:true,accessibilityRequests:["Staff assistance"],requestNote:"private",ownerId:"t2",status:"confirmed",businessId:"b2"};
 after(async()=>{await fs.rm(folder,{recursive:true,force:true});delete process.env.WAYECHO_DATA_PATH;});
 
 test("Chưa đăng nhập chỉ nhận phiên khách rỗng; cookie giả, role từ client, CSRF bị chặn",async()=>{
@@ -221,4 +221,4 @@ test("P8 storage: writer đang sống hoặc chết để lại lock không bị
 
 test("P8 login: storage limiter lỗi thì không cho đăng nhập",async()=>{const original=fs.rename;fs.rename=async()=>{throw Object.assign(Error(),{code:"EACCES"});};try{await assert.rejects(login("t1@test.invalid",password),{status:503});}finally{fs.rename=original;}});
 
-test("P9 booking từ chối ngày lịch sai, giờ sai và số khách boolean",async()=>{for(const patch of [{date:"2026-02-30"},{date:0},{time:"25:00"},{time:0},{guests:true}])assert.equal((await call("bookings","POST",{itemId:"demo-hotel",...patch})).status,400);});
+test("P9 booking từ chối ngày lịch sai, giờ sai và số khách boolean",async()=>{for(const patch of [{date:"2020-01-01"},{date:"2026-02-30"},{date:0},{time:"25:00"},{time:0},{guests:true}])assert.equal((await call("bookings","POST",{itemId:"demo-hotel",...patch})).status,400);});

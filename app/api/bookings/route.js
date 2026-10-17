@@ -1,7 +1,7 @@
 import { list, transaction, insert } from "@/lib/store";
 import { businessIdForItem } from "@/data/businesses";
 import { getItem } from "@/data/catalog";
-import { readJson, cleanText, intInRange, canTransitionBooking, MAX_GUESTS, validBookingDate } from "@/lib/validate";
+import { readJson, cleanText, intInRange, canTransitionBooking, MAX_GUESTS, validBookingDate, isPastBookingDate } from "@/lib/validate";
 import { secured, fail, json, digest } from "@/lib/auth";
 import { filterBusiness, findVisible } from "@/lib/permissions";
 export const dynamic = "force-dynamic";
@@ -16,6 +16,7 @@ export const POST = secured(async (req, user) => {
   if (body.guests !== undefined && !["number","string"].includes(typeof body.guests)) fail(400,"Số khách không hợp lệ.");
   if (guests === null) fail(400,`Số khách phải từ 1 đến ${MAX_GUESTS}`);
   if (body.date !== undefined && body.date !== null && body.date !== "" && !validBookingDate(body.date)) fail(400,"Ngày không hợp lệ (YYYY-MM-DD).");
+  if (body.date && isPastBookingDate(body.date)) fail(400,"Không đặt được ngày đã qua. Hãy chọn từ hôm nay trở đi.");
   if(body.time !== undefined && body.time !== null && body.time !== "" && (typeof body.time!=="string" || !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(body.time)))fail(400,"Giờ không hợp lệ.");
   if (body.shareAccessibility !== undefined && typeof body.shareAccessibility !== "boolean") fail(400,"Quyền chia sẻ phải là boolean.");
   // Mặc định từ chối. Không dùng assist, prefs hoặc requestNote làm bằng chứng đồng ý.

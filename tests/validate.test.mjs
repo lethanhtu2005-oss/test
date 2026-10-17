@@ -45,3 +45,12 @@ test("readJson giới hạn body 64 KiB và không chấp nhận JSON lớn",asy
 
 import {validBookingDate} from "../lib/validate.js";
 test("P9 ngày booking phải có thật trên lịch, không chỉ đúng mẫu",()=>{assert.equal(validBookingDate("2028-02-29"),true);for(const value of ["2027-02-29","2026-13-01","2026-04-31",{},null])assert.equal(validBookingDate(value),false);});
+
+import {todayInVietnam,isPastBookingDate} from "../lib/validate.js";
+test("BK02 ngày hôm nay theo giờ Việt Nam; ngày đã qua bị chặn, hôm nay vẫn đặt được",()=>{
+ const lateUtc=new Date("2026-10-17T18:30:00Z"); // 01:30 ngày 18/10 ở Việt Nam
+ assert.equal(todayInVietnam(lateUtc),"2026-10-18");
+ assert.equal(isPastBookingDate("2026-10-17",lateUtc),true);
+ assert.equal(isPastBookingDate("2026-10-18",lateUtc),false);
+ assert.equal(isPastBookingDate("2099-01-01",lateUtc),false);
+});
