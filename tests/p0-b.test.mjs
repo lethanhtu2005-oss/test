@@ -14,7 +14,7 @@ delete process.env.VERCEL;delete process.env.WAYECHO_STORAGE_MODE;delete process
 const { transaction, insert, list, add }=await import("../lib/store.js");
 const { login, hashPassword, authenticate, signSession, sessionCookie, fail }=await import("../lib/auth.js");
 const { safeNext }=await import("../lib/redirect.js");
-const modules={};for(const name of ["bookings","saved","trip","requests","notifications","reviews","inquiries"])modules[name]=await import(`../app/api/${name}/route.js`);
+const modules={};for(const name of ["bookings","saved","trip","requests","notifications","reviews","inquiries","reports"])modules[name]=await import(`../app/api/${name}/route.js`);
 const password=randomBytes(24).toString("hex");
 const hash=await hashPassword(password);
 await transaction(db=>{
@@ -222,3 +222,16 @@ test("P8 storage: writer đang sống hoặc chết để lại lock không bị
 test("P8 login: storage limiter lỗi thì không cho đăng nhập",async()=>{const original=fs.rename;fs.rename=async()=>{throw Object.assign(Error(),{code:"EACCES"});};try{await assert.rejects(login("t1@test.invalid",password),{status:503});}finally{fs.rename=original;}});
 
 test("P9 booking từ chối ngày lịch sai, giờ sai và số khách boolean",async()=>{for(const patch of [{date:"2020-01-01"},{date:"2026-02-30"},{date:0},{time:"25:00"},{time:0},{guests:true}])assert.equal((await call("bookings","POST",{itemId:"demo-hotel",...patch})).status,400);});
+
+test("RV02 báo thông tin sai: khách gửi được, kiểm dữ liệu, chỉ Admin đọc, không lộ người gửi",async()=>{
+ const ok={itemId:"ho-guom",topic:"entrance",detail:"Lối vào phía đền Ngọc Sơn đang sửa chữa, cần cập nhật."};
+ const res=await call("reports","POST",ok,null);assert.equal(res.status,201);assert.equal((await res.json()).status,"received");
+ for(const bad of [{...ok,itemId:"made-up"},{...ok,topic:"price"},{...ok,detail:"ngắn"},{...ok,detail:"x".repeat(1001)},{...ok,detail:123}])assert.equal((await call("reports","POST",bad)).status,400);
+ assert.equal((await call("reports","POST",ok,"t1",{Origin:"https://evil.invalid"})).status,403);
+ assert.equal((await call("reports","GET",undefined,null)).status,401);
+ for(const who of ["t1","b1","g1"])assert.equal((await call("reports","GET",undefined,who)).status,403);
+ const inbox=await (await call("reports","GET",undefined,"a1")).json();
+ assert.ok(inbox.some(r=>r.detail===ok.detail&&r.itemName&&r.topicLabel==="Lối vào"));assert.ok(inbox.every(r=>r.ownerId===undefined));
+ for(let i=0;i<10;i++)assert.equal((await call("reports","POST",{...ok,detail:`Báo cáo lặp số ${i} để thử giới hạn.`},"t2")).status,201);
+ assert.equal((await call("reports","POST",{...ok,detail:"Báo cáo thứ mười một trong giờ."},"t2")).status,429);
+});

@@ -1,6 +1,7 @@
 "use client";
 
 import DestinationActions from "@/components/DestinationActions";
+import ReportIssue from "@/components/ReportIssue";
 import { articles } from "@/data/articles";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -92,6 +93,7 @@ function DestinationContent() {
           </button>
 
           <DestinationActions destination={d} />
+          <ReportIssue itemId={d.slug} itemName={d.name} />
           <div className="mt-4 rounded-2xl border border-line bg-surface-alt p-4 hc-surface hc-border">
             <p className="text-sm font-semibold text-ink-soft hc-muted">Mô tả âm thanh có cảnh báo mức độ chắc chắn</p>
             <p className="mt-1 text-lg">{d.audio}</p>

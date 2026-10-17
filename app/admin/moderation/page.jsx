@@ -12,8 +12,11 @@ export default function AdminModeration() {
   const [hidden, setHidden] = useState({});
   const [loading, setLoading] = useState(true);
   const [error,setError] = useState("");
+  const [reports, setReports] = useState([]);
+  const [reportError, setReportError] = useState("");
 
   useEffect(() => { api.listReviews().then(setReviews).catch(err=>setError(err.message)).finally(() => setLoading(false)); }, []);
+  useEffect(() => { api.listReports().then(setReports).catch(err=>setReportError(err.message)); }, []);
 
   function hide(id) { setHidden((h) => ({ ...h, [id]: true })); speak("DEMO: chỉ ẩn trên màn hình này, chưa kiểm duyệt hoặc lưu server."); }
 
@@ -44,6 +47,24 @@ export default function AdminModeration() {
           ))}
         </ul>
       )}
+
+      <section className="mt-12" aria-labelledby="reports-heading">
+        <h2 id="reports-heading" className="text-3xl">Báo cáo thông tin tiếp cận chưa đúng</h2>
+        <p className="hc-muted mt-2 max-w-2xl text-ink-soft">Người dùng gửi từ trang chi tiết điểm đến. Đây là gợi ý cần kiểm tra lại với nguồn, không tự sửa dữ liệu.</p>
+        {reportError ? <p role="alert" className="mt-4 text-red-800">{reportError}</p> : reports.length === 0 ? (
+          <p className="mt-4">Chưa có báo cáo nào.</p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {reports.map((r) => (
+              <li key={r.id} className="card hc-surface hc-border p-4">
+                <p className="font-semibold">{r.itemName} · {r.topicLabel}</p>
+                <p className="mt-1">{r.detail}</p>
+                <p className="hc-muted mt-1 text-sm text-ink-soft">Đã tiếp nhận {new Date(r.createdAt).toLocaleString("vi-VN")}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }
