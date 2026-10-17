@@ -219,6 +219,8 @@ html[data-theme="dark"]:not([data-contrast="high"]) .text-primary { color: #ffd0
 /* Chữ đỏ (SOS, cảnh báo) và nút nền đen phải đọc được trên nền tối. */
 html[data-theme="dark"]:not([data-contrast="high"]) :is(.text-red-700,.text-red-800,.text-red-900) { color: #ff9db1; }
 html[data-theme="dark"]:not([data-contrast="high"]) .btn-dark { color: #edf2f8; border-color: #8396ae; }
+.leaflet-container .leaflet-control-attribution { color: #1f2937; }
+.leaflet-container .leaflet-control-attribution a { color: #075985; }
 html[data-theme="dark"]:not([data-contrast="high"]) .leaflet-popup-content-wrapper,
 html[data-theme="dark"]:not([data-contrast="high"]) .leaflet-popup-tip { background: #172233; color: #edf2f8; }
 html[data-contrast="high"] { --focus: #f8ae38; color-scheme: dark; }
