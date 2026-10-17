@@ -114,7 +114,7 @@ export default function GuideNav() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2" ref={menuRef}>
+          <div className="flex items-center gap-2 max-[359px]:gap-1" ref={menuRef}>
             <SOSLink />
             <button type="button" className="relative hidden h-11 w-11 items-center justify-center rounded-full hover:bg-surface-alt sm:flex" aria-label="Thông báo">
               <BellIcon />
@@ -125,14 +125,14 @@ export default function GuideNav() {
               aria-haspopup="menu"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex min-h-[48px] items-center gap-3 rounded-xl px-2 text-left hover:bg-surface-alt"
+              className="flex min-h-[48px] items-center gap-3 rounded-xl px-2 text-left hover:bg-surface-alt max-[359px]:gap-0 max-[359px]:px-1"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#2f95dc] font-bold text-white">{g.avatar}</span>
               <span className="hidden xl:block">
                 <span className="block text-sm font-bold leading-tight">{g.name}</span>
                 <span className="block text-xs text-ink-soft hc-muted">{g.role}</span>
               </span>
-              <ChevronDown />
+              <span className="max-[359px]:hidden"><ChevronDown /></span>
             </button>
 
             {menuOpen && (
