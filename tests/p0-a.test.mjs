@@ -47,3 +47,18 @@ test("SV09 trạng thái yêu cầu hỗ trợ hiển thị đúng, không tự 
  assert.match(requestStatus("pending"),/đang chờ/);assert.match(requestStatus("accepted"),/chấp nhận/);assert.match(requestStatus("rejected"),/từ chối/);
  for(const s of ["unknown",undefined,null])assert.doesNotMatch(requestStatus(s),/chấp nhận/);
 });
+
+import {cameraErrorMessage,cameraSupported} from "../lib/camera.js";
+test("AI01 camera: thông báo riêng cho từng lỗi, không giả là đã mở",()=>{
+ assert.match(cameraErrorMessage({name:"NotAllowedError"}),/từ chối/);
+ assert.match(cameraErrorMessage({name:"NotFoundError"}),/Không tìm thấy/);
+ assert.match(cameraErrorMessage({name:"NotReadableError"}),/ứng dụng khác/);
+ assert.match(cameraErrorMessage({name:"SecurityError"}),/HTTPS/);
+ assert.match(cameraErrorMessage(undefined),/Không mở được/);
+ assert.equal(cameraSupported({}),false);assert.equal(cameraSupported({mediaDevices:{getUserMedia(){}}}),true);
+});
+test("AI11 camera không tự mở và không gửi ảnh đi",async()=>{
+ const src=await readFile(new URL("../components/CameraCapture.jsx",import.meta.url),"utf8");
+ assert.equal(src.match(/getUserMedia\(/g).length,1);assert.match(src,/async function openCamera[\s\S]*getUserMedia/);
+ assert.doesNotMatch(src,/fetch\(|api\.|XMLHttpRequest|sendBeacon/);
+});

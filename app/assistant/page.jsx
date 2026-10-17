@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useA11y } from "@/components/A11yProvider";
 import VerifiedImage from "@/components/VerifiedImage";
+import CameraCapture from "@/components/CameraCapture";
 import { CameraIcon, SpeakerIcon, PhoneIcon, WaveIcon } from "@/components/Icons";
 
 const SCENES = [
@@ -27,8 +28,10 @@ export default function AssistantPage() {
       <h1 className="mt-1 text-4xl sm:text-5xl">Trợ lý mô tả hình ảnh</h1>
       <p className="hc-muted mt-3 max-w-3xl text-lg text-ink-soft">Tính năng này mô phỏng FR-12: zoom/OCR/mô tả cho người nhìn kém và người mù. AI là công cụ hỗ trợ, không phải hệ thống bảo đảm an toàn.</p>
 
-      <p role="note" className="mt-4 rounded-xl border border-amber-400 p-4">Chỉ có ảnh mẫu và mô tả viết sẵn. Chưa mở camera, nhận diện hình ảnh hoặc OCR thật; không gửi ảnh của bạn ra ngoài.</p>
-      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+      <p role="note" className="mt-4 rounded-xl border border-amber-400 p-4">Bạn có thể mở camera hoặc chọn ảnh để xem trước trên thiết bị. Chưa có nhận diện hình ảnh hay OCR thật, và ảnh của bạn không được gửi ra ngoài. Phần ví dụ bên dưới dùng ảnh mẫu với mô tả viết sẵn.</p>
+      <CameraCapture />
+      <h2 className="mt-10 text-2xl">Ví dụ mô tả với ảnh mẫu</h2>
+      <div className="mt-4 grid gap-8 lg:grid-cols-2">
         <div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] border border-line bg-surface-alt shadow-card hc-border">
             <VerifiedImage src={current.img} fallback={current.fallback} alt={current.alt} className={`h-full w-full object-cover transition ${scanning ? "blur-[2px] brightness-75" : ""}`} />
