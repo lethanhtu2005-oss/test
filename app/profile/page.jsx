@@ -18,7 +18,7 @@ export default function ProfilePage() {
   const [userType, setUserType] = useState("lowvision");
   const [emergency, setEmergency] = useState("");
   const [prefs, setPrefs] = useState(DEFAULT_PREFS);
-  const [shareWithBusiness, setShareWithBusiness] = useState(true);
+  const [shareWithBusiness, setShareWithBusiness] = useState(false);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function ProfilePage() {
       setEmergency(localStorage.getItem("we-emergency") || "");
       const savedPrefs = JSON.parse(localStorage.getItem("we-access-prefs") || "null");
       if (savedPrefs) setPrefs(savedPrefs);
-      setShareWithBusiness(localStorage.getItem("we-share-business") !== "0");
+      setShareWithBusiness(localStorage.getItem("we-share-business") === "1");
     } catch (_) {}
   }, []);
 

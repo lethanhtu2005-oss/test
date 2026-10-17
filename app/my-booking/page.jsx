@@ -24,7 +24,7 @@ export default function MyBookingPage() {
     <div className="container-page py-10">
       <h1 className="text-4xl sm:text-5xl">Đặt chỗ của tôi</h1>
       <p className="hc-muted mt-3 max-w-2xl text-lg text-ink-soft">
-        Các bản ghi đặt chỗ của bạn. Chưa có nhà cung cấp, tồn chỗ hoặc thanh toán thật; xác nhận trong demo không bảo đảm dịch vụ thực tế.
+        Các bản ghi đặt chỗ của bạn. Chưa có nhà cung cấp, tồn chỗ hoặc thanh toán thật; xác nhận trong demo không bảo đảm dịch vụ thực tế. Nếu chưa đăng nhập, đặt chỗ gắn với trình duyệt này; xóa cookie hoặc đổi thiết bị sẽ không xem lại được.
       </p>
 
       {loading ? (

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import AccessibilityToolbar from "@/components/AccessibilityToolbar";
 import PWARegister from "@/components/PWARegister";
 import MobileNav from "@/components/MobileNav";
+import StorageNotice from "@/components/StorageNotice";
 
 const display = Barlow_Condensed({ subsets: ["latin", "vietnamese"], weight: ["600", "700"], variable: "--font-display", display: "swap" });
 const lato = Lato({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-body", display: "swap" });
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
       <body className="pb-20 md:pb-0">
         <A11yProvider>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-black focus:px-4 focus:py-3 focus:text-white">Bỏ qua, tới nội dung chính</a>
+          <StorageNotice />
           <Header />
           <main id="main">{children}</main>
           <Footer />

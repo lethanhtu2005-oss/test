@@ -1,86 +1,56 @@
-import { NextResponse } from "next/server";
-import { list, add, update } from "@/lib/store";
+import { list, transaction, insert } from "@/lib/store";
 import { businessIdForItem } from "@/data/businesses";
-import { readJson, badRequest, cleanText, intInRange, canTransitionBooking, MAX_GUESTS } from "@/lib/validate";
-
+import { getItem } from "@/data/catalog";
+import { readJson, cleanText, intInRange, canTransitionBooking, MAX_GUESTS, validBookingDate } from "@/lib/validate";
+import { secured, fail, json, digest } from "@/lib/auth";
+import { filterBusiness, findVisible } from "@/lib/permissions";
 export const dynamic = "force-dynamic";
 
-export async function GET(req) {
-  const { searchParams } = new URL(req.url);
-  const business = searchParams.get("business");
-  const all = await list("bookings");
-  return NextResponse.json(business ? all.filter((b) => b.businessId === business) : all);
-}
-
-export async function POST(req) {
+export const GET = secured(async (req, user) => json(filterBusiness(user, await list("bookings"), new URL(req.url).searchParams.get("business"))), undefined, { guest: true });
+export const POST = secured(async (req, user) => {
   const body = await readJson(req);
-  if (!body) return badRequest("Dữ liệu gửi lên không phải JSON hợp lệ");
-  if (!cleanText(body.itemId) || !cleanText(body.itemName)) {
-    return badRequest("Thiếu thông tin đặt chỗ");
-  }
-  const guests = body.guests === undefined ? 1 : intInRange(body.guests, 1, MAX_GUESTS);
-  if (guests === null) return badRequest(`Số khách phải từ 1 đến ${MAX_GUESTS}`);
-  if (body.date && !/^\d{4}-\d{2}-\d{2}$/.test(String(body.date))) return badRequest("Ngày không hợp lệ (định dạng YYYY-MM-DD)");
-  const businessId = businessIdForItem(body.itemId);
-  const record = await add("bookings", {
-    itemId: cleanText(body.itemId, 100),
-    itemName: cleanText(body.itemName, 200),
-    businessId,
-    date: body.date || null,
-    time: cleanText(body.time, 20) || null,
-    guests,
-    assist: !!body.assist,
-    price: cleanText(body.price, 50) || null,
-    status: businessId ? "pending" : "demo", // Business phải xác nhận; item không có provider thật chỉ là demo
+  if (!body) fail(400,"Dữ liệu gửi lên không hợp lệ.");
+  const item = getItem(body.itemId);
+  if (!item) fail(400,"Dịch vụ không tồn tại.");
+  const guests = body.guests === undefined ? 1 : intInRange(body.guests,1,MAX_GUESTS);
+  if (body.guests !== undefined && !["number","string"].includes(typeof body.guests)) fail(400,"Số khách không hợp lệ.");
+  if (guests === null) fail(400,`Số khách phải từ 1 đến ${MAX_GUESTS}`);
+  if (body.date !== undefined && body.date !== null && body.date !== "" && !validBookingDate(body.date)) fail(400,"Ngày không hợp lệ (YYYY-MM-DD).");
+  if(body.time !== undefined && body.time !== null && body.time !== "" && (typeof body.time!=="string" || !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(body.time)))fail(400,"Giờ không hợp lệ.");
+  if (body.shareAccessibility !== undefined && typeof body.shareAccessibility !== "boolean") fail(400,"Quyền chia sẻ phải là boolean.");
+  // Mặc định từ chối. Không dùng assist, prefs hoặc requestNote làm bằng chứng đồng ý.
+  const shareAccessibility = body.shareAccessibility === true;
+  const requests = shareAccessibility && Array.isArray(body.accessibilityRequests) ? body.accessibilityRequests.slice(0,20).filter(x=>typeof x === "string").map(x=>cleanText(x,100)).filter(Boolean) : [];
+  const note = shareAccessibility ? cleanText(body.requestNote) : "";
+  const assist = shareAccessibility && body.assist === true && !!(requests.length || note);
+  const businessId = businessIdForItem(item.id);
+  const requestId=body.requestId;
+  if(requestId!==undefined&&(typeof requestId!=="string"||!/^[A-Za-z0-9_-]{16,128}$/.test(requestId)))fail(400,"Mã yêu cầu không hợp lệ.");
+  const requestHash=digest(JSON.stringify({itemId:item.id,date:body.date||null,time:cleanText(body.time,20)||null,guests,assist,shareAccessibility,requests,note}));
+  const record = await transaction(db=>{
+    if(requestId){const previous=db.bookings.find(x=>x.ownerId===user.id&&x.requestId===requestId);if(previous){if(previous.requestHash!==requestHash)fail(409,"Mã yêu cầu đã được dùng với nội dung khác.");return previous;}}
+    const booking = insert(db,"bookings",{ownerId:user.id,isDemo:true,...(requestId?{requestId,requestHash}:{}),itemId:item.id,itemName:item.name,businessId,date:body.date || null,time:cleanText(body.time,20)||null,guests,assist,shareAccessibility,price:item.price || null,status:businessId?"pending":"demo"});
+    if (assist && businessId) {
+      insert(db,"requests",{ownerId:user.id,bookingId:booking.id,businessId,itemName:item.name,shareAccessibility:true,content:requests.length?requests.join(", "):note,status:"pending"});
+      insert(db,"notifications",{ownerId:user.id,role:"business",businessId,type:"accessibility_request",message:`Yêu cầu hỗ trợ mới cho "${item.name}"`});
+    }
+    if (businessId) insert(db,"notifications",{ownerId:user.id,role:"business",businessId,type:"new_booking",message:`Đặt chỗ DEMO mới: ${item.name}`});
+    return booking;
   });
+  return json(record,201);
+}, ["traveler"], { guest: true });
 
-  // Nếu khách cần hỗ trợ → tạo accessibility request cho doanh nghiệp xử lý
-  if (body.assist && businessId) {
-    await add("requests", {
-      bookingId: record.id,
-      businessId,
-      itemName: body.itemName,
-      content: Array.isArray(body.accessibilityRequests) && body.accessibilityRequests.length
-        ? body.accessibilityRequests.map((x) => cleanText(x, 100)).filter(Boolean).join(", ")
-        : (cleanText(body.requestNote) || "Có Accessibility Request"),
-      status: "pending",
-    });
-    await add("notifications", {
-      role: "business",
-      businessId,
-      type: "accessibility_request",
-      message: `Yêu cầu hỗ trợ mới cho "${body.itemName}"`,
-    });
-  }
-  if (businessId) {
-    await add("notifications", {
-      role: "business",
-      businessId,
-      type: "new_booking",
-      message: `Đặt chỗ mới: ${body.itemName}${body.date ? ` (${body.date})` : ""}`,
-    });
-  }
-
-  return NextResponse.json(record, { status: 201 });
-}
-
-
-export async function PATCH(req) {
-  const body = await readJson(req);
-  if (!body?.id || !["confirmed", "rejected", "cancelled"].includes(body?.status)) {
-    return badRequest("Thiếu id hoặc trạng thái không hợp lệ");
-  }
-  const current = (await list("bookings")).find((b) => b.id === body.id);
-  if (!current) return NextResponse.json({ error: "Không tìm thấy booking" }, { status: 404 });
-  if (!canTransitionBooking(current.status, body.status)) {
-    return NextResponse.json({ error: `Không thể chuyển booking từ "${current.status}" sang "${body.status}"` }, { status: 409 });
-  }
-  const updated = await update("bookings", body.id, { status: body.status });
-  if (!updated) return NextResponse.json({ error: "Không tìm thấy booking" }, { status: 404 });
-  await add("notifications", {
-    role: "traveler",
-    type: "booking_status",
-    message: `Booking "${updated.itemName}" đã được ${body.status === "confirmed" ? "xác nhận" : body.status === "rejected" ? "từ chối" : "hủy"}.`,
+export const PATCH = secured(async (req,user)=>{
+  const body=await readJson(req);
+  if(!body?.id || !["confirmed","rejected","cancelled"].includes(body.status)) fail(400,"Thiếu id hoặc trạng thái không hợp lệ.");
+  const result=await transaction(db=>{
+    const record=findVisible(user,db.bookings,body.id);
+    if(user.role === "traveler" && body.status !== "cancelled") fail(403,"Traveler chỉ được hủy đặt chỗ của mình.");
+    if(record.status===body.status)return record;
+    if(!canTransitionBooking(record.status,body.status)) fail(409,"Không thể chuyển trạng thái đặt chỗ này.");
+    Object.assign(record,{status:body.status,updatedAt:new Date().toISOString()});
+    insert(db,"notifications",{ownerId:record.ownerId,role:"traveler",type:"booking_status",message:`Booking DEMO "${record.itemName}": ${body.status === "confirmed" ? "đã xác nhận trong hệ thống demo" : body.status === "rejected" ? "đã từ chối" : "đã hủy"}.`});
+    return record;
   });
-  return NextResponse.json(updated);
-}
+  return json(result);
+},["traveler","business","admin"]);

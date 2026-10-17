@@ -10,3 +10,12 @@ npm-debug.log*
 
 # Dữ liệu runtime của prototype (tạo tự động từ data/db.seed.json)
 /data/db.json
+/data/db.json.lock/
+/data/db.json.*.tmp
+
+# Cấu hình riêng (secret, tài khoản)
+.env
+.env.*
+!.env.example
+
+/data/db.json.initialized

@@ -70,8 +70,20 @@ npm run build  # Build production
 
 ## Dữ liệu demo
 - `data/db.seed.json` là dữ liệu mẫu được commit. Khi chạy, API ghi vào `data/db.json` (đã có trong `.gitignore`), nên dữ liệu test không bị commit nhầm. Xóa `data/db.json` để reset về dữ liệu mẫu.
-- Trên Vercel, file system chỉ đọc nên dữ liệu chỉ nằm trong bộ nhớ: dữ liệu mất khi server khởi động lại và không đồng bộ giữa các instance. Muốn demo ổn định cần một database thật (ví dụ Vercel Postgres, Supabase).
-- Đăng nhập Guide chỉ ở mức prototype (cờ `sessionStorage`), không phải cơ chế bảo mật. Portal Business/Admin chưa có đăng nhập.
+- Trên Vercel, dữ liệu chỉ lưu tạm trong bộ nhớ: mất khi instance khởi động lại và không đồng bộ giữa các instance. Website hiện dải cảnh báo "lưu tạm" ở đầu trang và API trả header `X-WayEcho-Storage: memory`. Muốn demo ổn định cần một database thật (ví dụ Vercel Postgres, Supabase).
+
+## Đăng nhập và phân quyền
+- **Traveler** không cần tài khoản: lần đầu dùng API, server cấp một *phiên khách* (cookie ký, HttpOnly) gắn với trình duyệt. Mỗi phiên khách chỉ thấy đặt chỗ, chuyến đi, địa điểm đã lưu của chính mình.
+- **Business / Guide / Admin** dùng tài khoản được cấp; portal `/business`, `/admin`, `/guide` được chặn ở server (`proxy.js`). Chưa có tự đăng ký hay khôi phục mật khẩu.
+- Yêu cầu hỗ trợ tiếp cận chỉ được gửi cho Business khi Traveler bật quyền chia sẻ trong từng lần đặt (mặc định tắt, kiểm tra ở server).
+- Cấu hình xem `.env.example`. Tối thiểu cho production/Vercel: `WAYECHO_SESSION_SECRET` (≥ 32 ký tự). Tạo tài khoản:
+  ```bash
+  # Ghi vào store JSON khi chạy local (nhập mật khẩu qua stdin)
+  node scripts/provision-user.mjs biz@example.com business b1
+  # In một mục JSON để dán vào biến WAYECHO_USERS trên Vercel
+  node scripts/provision-user.mjs --env biz@example.com business b1
+  ```
+- Giới hạn còn lại: phiên ký không thu hồi được từng phiên (đăng xuất xóa cookie; đổi mật khẩu hoặc khóa tài khoản làm mọi phiên cũ hết hiệu lực); giới hạn số lần đăng nhập trên Vercel chỉ tính theo từng instance. **Chưa đủ điều kiện production** cho tới khi có database thật.
 
 ## Nguyên tắc dữ liệu
 - Không dùng rating, hotline, availability, “real-time hazard”, accessibility facilities hoặc đối tác thật nếu chưa có nguồn/verification.
