@@ -34,11 +34,14 @@ function sourceHeaders(){const time=String(Date.now()),source="127.0.0.1";return
 async function request(url,{method="GET",body,user,headers={}}={}){return fetch(base+url,{redirect:"manual",method,headers:{...sourceHeaders(),Origin:base,"Content-Type":"application/json",...(user?{Cookie:cookies[user]}:{}),...headers},...(body===undefined?{}:{body:JSON.stringify(body)})});}
 try{
  await start();
- for(const url of ["/business","/admin","/guide","/guide/profile","/my-booking","/my-trip"]){const r=await request(url);check(r.status===307,`unauthorized page ${url}`);}
- for(const name of ["bookings","requests","saved","trip","notifications","inquiries"]){check((await request(`/api/${name}`)).status===401,`unauth API ${name}`);}
+ for(const url of ["/business","/admin","/guide","/guide/profile"]){const r=await request(url);check(r.status===307,`unauthorized page ${url}`);}
+ // Traveler dùng phiên khách: trang mở được, API chỉ trả dữ liệu rỗng của chính phiên đó.
+ for(const url of ["/my-booking","/my-trip"]){check((await request(url)).status===200,`traveler page ${url}`);}
+ for(const name of ["bookings","requests","saved","trip","notifications"]){const r=await request(`/api/${name}`);check(r.status===200&&/^we_session=[^;]+; HttpOnly/.test(r.headers.get("set-cookie")||""),`guest API ${name}`);check((await r.json()).length===0,`guest API empty ${name}`);}
+ check((await request("/api/inquiries")).status===401,"unauth API inquiries");
  for(const [id,role]of[["t1","traveler"],["t2","traveler"],["b1","business"],["b2","business"],["a1","admin"],["g1","guide"]]){
   const res=await request("/api/auth/login",{method:"POST",body:{email:`${id}@test.invalid`,password}});check(res.status===200,`login ${role}`);
-  const cookie=res.headers.get("set-cookie");check(cookie?.includes("HttpOnly")&&cookie.includes("SameSite=Strict")&&cookie.includes("Secure"),`cookie ${role}`);cookies[id]=cookie.split(";")[0];
+  const cookie=res.headers.get("set-cookie");check(cookie?.includes("HttpOnly")&&cookie.includes("SameSite=Lax")&&cookie.includes("Secure"),`cookie ${role}`);cookies[id]=cookie.split(";")[0];
   const own={traveler:"/my-booking",business:"/business",admin:"/admin",guide:"/guide"}[role];check((await request(own,{user:id})).status===200,`own portal ${role}`);
   check((await request(role==="admin"?"/guide":"/admin",{user:id})).status===403,`foreign portal ${role}`);
  }
@@ -62,6 +65,8 @@ try{
  const proposal={kind:"business",name:"HTTP Contact",contact:"contact@test.invalid",organization:"HTTP fixture",service:"Travel",message:"Đề xuất kiểm thử HTTP được lưu trong temporary DB.",consent:true};
  res=await request("/api/inquiries",{method:"POST",body:proposal});check(res.status===201,"inquiry saves");const receipt=await res.json();res=await request("/api/inquiries",{method:"POST",body:proposal});check(res.status===200&&(await res.json()).id===receipt.id,"inquiry dedupe");check((await request("/api/inquiries",{user:"b1"})).status===403,"inquiry private");check((await request("/api/inquiries",{user:"a1"})).status===200,"admin inbox");
  await stop();await start();check((await request("/api/auth/session",{user:"t1"})).status===200,"session persists restart");res=await request("/api/bookings",{user:"t1"});check((await res.json()).some(x=>x.id===booking.id&&x.status==="confirmed"),"booking persists restart");
- check((await request("/api/auth/logout",{method:"POST",user:"t1"})).status===200,"logout persisted");check((await request("/api/auth/session",{user:"t1"})).status===401,"revoked token");
+ res=await request("/api/auth/logout",{method:"POST",user:"t1"});check(res.status===200&&/Max-Age=0/.test(res.headers.get("set-cookie")||""),"logout clears cookie");
+ // Phiên ký không thu hồi từng phiên; khóa tài khoản phải vô hiệu mọi phiên cũ.
+ await transaction(db=>{db.users.find(u=>u.id==="t1").active=false;});check((await request("/api/auth/session",{user:"t1"})).status===401,"deactivated account revokes token");
  console.log(JSON.stringify({checks,passed:checks,scope:"HTTP on localhost; temporary DB; server restart; no browser/GPS/AI/provider tests"}));
 }finally{await stop();await fs.rm(folder,{recursive:true,force:true});}
