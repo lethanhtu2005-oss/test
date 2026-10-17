@@ -4,6 +4,6 @@ export const metadata = { robots:{index:false,follow:false}, title: { default: "
 
 export default function BusinessLayout({ children }) {
   return (
-    <BusinessShell>{children}</BusinessShell>
+    <div className="pb-24 md:pb-20"><BusinessShell>{children}</BusinessShell></div>
   );
 }
