@@ -24,6 +24,13 @@ export default function CameraCapture() {
     setPhoto((p) => { if (p?.objectUrl) URL.revokeObjectURL(p.url); return null; });
   }
   useEffect(() => () => { streamRef.current?.getTracks().forEach((t) => t.stop()); }, []);
+  // Gắn luồng camera khi thẻ video đã xuất hiện (không phụ thuộc animation frame, vẫn chạy khi tab bị ẩn).
+  useEffect(() => {
+    if (live && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.play?.().catch(() => {});
+    }
+  }, [live]);
 
   function report(text, isError = false) {
     if (isError) { setError(text); setStatus(""); } else { setStatus(text); setError(""); }
@@ -38,7 +45,6 @@ export default function CameraCapture() {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
       streamRef.current = stream;
       setLive(true);
-      requestAnimationFrame(() => { if (videoRef.current) { videoRef.current.srcObject = stream; videoRef.current.play?.().catch(() => {}); } });
       report("Camera đã mở. Hướng camera về phía cần xem rồi bấm Chụp ảnh.");
     } catch (e) {
       stopCamera();
