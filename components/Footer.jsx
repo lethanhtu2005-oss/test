@@ -17,7 +17,7 @@ export default function Footer() {
 
   return (
     <footer className="mt-0 bg-[#07121f] text-white" aria-label="Chân trang WayEcho">
-      <div className="container-page py-10 sm:py-12">
+      <div className="container-page pb-20 pt-10 sm:pt-12">
         <div className="grid gap-9 lg:grid-cols-[1.25fr_.8fr_1fr_1fr_1fr]">
           <section className="lg:pr-8" aria-labelledby="footer-brand-title">
             <h2 id="footer-brand-title" className="sr-only">WayEcho</h2>

@@ -39,7 +39,7 @@ export default function Header() {
         </div>
       </div>
       {open && (
-        <div id="mobile-menu" className="border-t border-line bg-white px-4 py-4 hc-surface hc-border xl:hidden">
+        <div id="mobile-menu" className="max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain border-t border-line bg-white px-4 pb-40 pt-4 hc-surface hc-border xl:hidden">
           <div className="container-page !px-0">
             <nav aria-label="Điều hướng chính trên điện thoại">{renderNavLinks(true)}</nav>
             <div className="mt-3 grid grid-cols-2 gap-2">
