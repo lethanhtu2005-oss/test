@@ -5,7 +5,7 @@ export default function StorageNotice() {
   if (storageModeName() !== "memory") return null;
   return (
     <p role="note" className="bg-amber-100 px-4 py-2 text-center text-sm font-semibold text-amber-950">
-      Bản demo trực tuyến: đặt chỗ, chuyến đi và đánh giá chỉ được lưu tạm trên máy chủ và có thể mất bất cứ lúc nào.
+      Bản demo: đặt chỗ, chuyến đi và đánh giá chỉ lưu tạm, có thể mất bất cứ lúc nào.
     </p>
   );
 }
