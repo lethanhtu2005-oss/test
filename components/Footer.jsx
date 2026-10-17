@@ -44,7 +44,7 @@ export default function Footer() {
           <section aria-labelledby="footer-connect-title">
             <h2 id="footer-connect-title" className="mb-4 text-lg font-bold text-primary">Kết nối với chúng tôi</h2>
             <div className="flex flex-wrap gap-2" aria-label="Các kênh mạng xã hội minh họa"><SocialBadge label="Facebook">f</SocialBadge><SocialBadge label="YouTube">▶</SocialBadge><SocialBadge label="Instagram">◎</SocialBadge><SocialBadge label="TikTok">♪</SocialBadge><SocialBadge label="LinkedIn">in</SocialBadge></div>
-            <Link href="/sos" className="mt-6 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#ff5b2f] px-5 py-3 font-bold text-white transition hover:bg-[#ff7048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"><PhoneIcon /> Mở SOS demo <span aria-hidden="true">›</span></Link>
+            <Link href="/sos" className="mt-6 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#c2410c] px-5 py-3 font-bold text-white transition hover:bg-[#9a3412] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"><PhoneIcon /> Mở SOS demo <span aria-hidden="true">›</span></Link>
             <p className="mt-3 text-center text-xs text-neutral-400">Chưa kết nối đầu nhận hoặc tự gọi cứu hộ</p>
           </section>
         </div>
@@ -52,7 +52,7 @@ export default function Footer() {
         <div className="mt-9 border-t border-neutral-700 pt-5">
           <div className="flex flex-col gap-3 text-xs text-neutral-400 lg:flex-row lg:items-center lg:justify-between">
             <p>© 2026 WayEcho. Mọi quyền được bảo lưu.</p>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 lg:justify-end"><Link href="/privacy" className="hover:text-primary hover:underline">Chính sách bảo mật</Link><span aria-hidden="true">|</span><Link href="/terms" className="hover:text-primary hover:underline">Điều khoản sử dụng</Link><span aria-hidden="true">|</span><Link href="/help#credits" className="hover:text-primary hover:underline">Nguồn hình ảnh</Link><span aria-hidden="true">|</span><Link href="/staff" className="text-neutral-500 hover:text-neutral-300 hover:underline">Staff</Link></div>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 lg:justify-end"><Link href="/privacy" className="hover:text-primary hover:underline">Chính sách bảo mật</Link><span aria-hidden="true">|</span><Link href="/terms" className="hover:text-primary hover:underline">Điều khoản sử dụng</Link><span aria-hidden="true">|</span><Link href="/help#credits" className="hover:text-primary hover:underline">Nguồn hình ảnh</Link><span aria-hidden="true">|</span><Link href="/staff" className="text-neutral-400 hover:text-neutral-200 hover:underline">Staff</Link></div>
           </div>
         </div>
       </div>

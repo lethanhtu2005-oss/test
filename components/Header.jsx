@@ -34,7 +34,7 @@ export default function Header() {
           <SOSLink />
           <button type="button" onClick={toggleContrast} aria-pressed={contrast} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><ContrastIcon size={18} /> Tương phản</button>
           <button type="button" onClick={toggleLargeText} aria-pressed={largeText} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><TextSizeIcon size={18} /> Chữ lớn</button>
-          <Link href="/login" className="hidden min-h-[44px] items-center gap-2 rounded-full border-2 border-[#ef6d28] px-4 font-semibold text-[#c94d1b] hover:bg-[#fff2e9] lg:inline-flex"><UserIcon size={18} /> Đăng nhập</Link>
+          <Link href="/login" className="hidden min-h-[44px] items-center gap-2 rounded-full border-2 border-[#ef6d28] px-4 font-semibold text-[#b8461a] hover:bg-[#fff2e9] lg:inline-flex"><UserIcon size={18} /> Đăng nhập</Link>
           <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="mobile-menu" className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white hc-surface hc-border xl:hidden" aria-label={open ? "Đóng menu" : "Mở menu"}><MenuIcon size={22} /></button>
         </div>
       </div>

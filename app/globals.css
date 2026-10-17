@@ -216,6 +216,9 @@ html[data-theme="dark"]:not([data-contrast="high"]) :is(.bg-neutral-100,.bg-neut
 html[data-theme="dark"]:not([data-contrast="high"]) :is(.hc-muted,.text-ink-soft) { color: #b6c1d0; }
 html[data-theme="dark"]:not([data-contrast="high"]) :is(p[role="alert"],.border-red-700) { color: #ffc3cf; border-color: #ff9db1; }
 html[data-theme="dark"]:not([data-contrast="high"]) .text-primary { color: #ffd084; }
+/* Chữ đỏ (SOS, cảnh báo) và nút nền đen phải đọc được trên nền tối. */
+html[data-theme="dark"]:not([data-contrast="high"]) :is(.text-red-700,.text-red-800,.text-red-900) { color: #ff9db1; }
+html[data-theme="dark"]:not([data-contrast="high"]) .btn-dark { color: #edf2f8; border-color: #8396ae; }
 html[data-theme="dark"]:not([data-contrast="high"]) .leaflet-popup-content-wrapper,
 html[data-theme="dark"]:not([data-contrast="high"]) .leaflet-popup-tip { background: #172233; color: #edf2f8; }
 html[data-contrast="high"] { --focus: #f8ae38; color-scheme: dark; }
@@ -223,7 +226,7 @@ html[data-contrast="high"] { --focus: #f8ae38; color-scheme: dark; }
 
 html[data-theme="dark"]:not([data-contrast="high"]) :is(.btn-primary,.bg-primary) { background-color: #f8ae38 !important; color: #171c23 !important; }
 html[data-theme="dark"]:not([data-contrast="high"]) [class*="text-[#1267a5]"] { color: #a8d2ff; }
-html[data-theme="dark"]:not([data-contrast="high"]) [class*="text-[#c94d1b]"] { color: #ffd1a8; }
+html[data-theme="dark"]:not([data-contrast="high"]) [class*="text-[#b8461a]"] { color: #ffd1a8; }
 html:not([data-theme="dark"]) .btn-ghost:hover { color: #1d68a7; }
 html[data-contrast="high"] { color-scheme: dark !important; }
 
