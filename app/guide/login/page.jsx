@@ -28,8 +28,8 @@ export default function GuideLoginPage() {
       return;
     }
     try { await startGuideSession(email, password); } catch (e) { setError(e.message); return; }
-    router.refresh();
     const next = new URLSearchParams(window.location.search).get("next");
+    router.refresh();
     router.push(next && next.startsWith("/guide/") && !next.startsWith("//") ? next : "/guide");
   }
 

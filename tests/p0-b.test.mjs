@@ -14,7 +14,7 @@ delete process.env.VERCEL;delete process.env.WAYECHO_STORAGE_MODE;delete process
 const { transaction, insert, list, add }=await import("../lib/store.js");
 const { login, hashPassword, authenticate, signSession, sessionCookie, fail }=await import("../lib/auth.js");
 const { safeNext }=await import("../lib/redirect.js");
-const modules={};for(const name of ["bookings","saved","trip","requests","notifications","reviews"])modules[name]=await import(`../app/api/${name}/route.js`);
+const modules={};for(const name of ["bookings","saved","trip","requests","notifications","reviews","inquiries"])modules[name]=await import(`../app/api/${name}/route.js`);
 const password=randomBytes(24).toString("hex");
 const hash=await hashPassword(password);
 await transaction(db=>{
@@ -152,6 +152,27 @@ test("tài khoản trong WAYECHO_USERS đăng nhập được; JSON hỏng thì 
   process.env.WAYECHO_USERS="{broken";
   await assert.rejects(login("env-admin@test.invalid",password),{status:503});
  }finally{delete process.env.WAYECHO_USERS;}
+});
+test("G: tiếp nhận chỉ khi bật, có lưu trữ bền và có Admin; inbox chỉ Admin; gửi lặp trả một receipt",async()=>{
+ const payload={kind:"business",name:"Contact test",contact:"partner@test.invalid",organization:"Organization test",service:"Travel",message:"Nội dung kiểm thử tiếp nhận.",consent:true};
+ assert.equal((await call("inquiries","POST",payload,null)).status,503);
+ process.env.WAYECHO_INQUIRIES_ENABLED="1";
+ try{
+  assert.equal((await call("inquiries","POST",{...payload,consent:false},null)).status,400);
+  const before=(await list("inquiries")).length;
+  const results=await Promise.all(Array.from({length:4},()=>call("inquiries","POST",payload,null)));
+  assert.ok(results.every(r=>r.ok));
+  const receipts=await Promise.all(results.map(r=>r.json()));assert.equal(new Set(receipts.map(r=>r.id)).size,1);
+  assert.equal((await list("inquiries")).length,before+1);
+  assert.equal((await call("inquiries","GET",undefined,null)).status,401);
+  for(const who of ["t1","b1","g1"])assert.equal((await call("inquiries","GET",undefined,who)).status,403);
+  const inbox=await call("inquiries","GET",undefined,"a1");assert.equal(inbox.status,200);assert.doesNotMatch(JSON.stringify(await inbox.json()),/fingerprint/);
+  const original=fs.rename;fs.rename=async()=>{throw Object.assign(Error(),{code:"EACCES"});};
+  try{assert.equal((await call("inquiries","POST",{...payload,message:"Một đề xuất khác để thử lỗi lưu."},null)).status,503);}finally{fs.rename=original;}
+  // Chế độ lưu bộ nhớ (Vercel) không nhận hồ sơ đối tác vì sẽ mất mà vẫn báo đã nhận.
+  process.env.VERCEL="1";
+  try{assert.equal((await call("inquiries","POST",{...payload,message:"Gửi khi đang lưu bộ nhớ tạm."},null)).status,503);}finally{delete process.env.VERCEL;}
+ }finally{delete process.env.WAYECHO_INQUIRIES_ENABLED;}
 });
 test("nhiều tiến trình cùng host không ghi đè dữ liệu nhau",async()=>{
  const {spawn}=await import("node:child_process");

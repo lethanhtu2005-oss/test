@@ -1,7 +1,8 @@
+import {pageMetadata} from "@/lib/seo";
 import Link from "next/link";
 import { AccessibleIcon, PhoneIcon, MicIcon, SpeakerIcon } from "@/components/Icons";
 
-export const metadata = { title: "Hỗ trợ & giới hạn demo" };
+export const metadata=pageMetadata('Hỗ trợ và giới hạn WayEcho','Cách sử dụng WayEcho, khả năng hỗ trợ tiếp cận và giới hạn của bản demo SOS, camera, bản đồ và booking.',"/help");
 
 const STEPS = [
   ["Tạo Accessibility Profile", "Chọn Blind/Low Vision và các nhu cầu như screen reader, audio description, staff assistance."],

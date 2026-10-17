@@ -1,4 +1,7 @@
 import "./globals.css";
+import ThemeProvider from "@/components/ThemeProvider";
+import {THEME_BOOTSTRAP} from "@/lib/theme";
+import {siteOrigin} from "@/lib/seo";
 import { Barlow_Condensed, Lato, Lora } from "next/font/google";
 import A11yProvider from "@/components/A11yProvider";
 import Header from "@/components/Header";
@@ -13,6 +16,8 @@ const lato = Lato({ subsets: ["latin"], weight: ["400", "700"], variable: "--fon
 const lora = Lora({ subsets: ["latin", "vietnamese"], weight: ["400", "500"], style: ["italic", "normal"], variable: "--font-quote", display: "swap" });
 
 export const metadata = {
+  ...(siteOrigin() ? {metadataBase:new URL(siteOrigin())} : {}),
+  robots:{index:!!siteOrigin(),follow:true},
   title: { default: "WayEcho — Du lịch tiếp cận cho người khiếm thị", template: "%s · WayEcho" },
   description: "Nền tảng demo hỗ trợ người mù và người nhìn kém tìm thông tin tiếp cận, lập chuyến đi, đặt dịch vụ và sử dụng hỗ trợ bằng giọng nói.",
   manifest: "/manifest.webmanifest",
@@ -25,9 +30,10 @@ export const viewport = { themeColor: "#f8ae38", width: "device-width", initialS
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi" className={`${display.variable} ${lato.variable} ${lora.variable}`}>
+    <html lang="vi" suppressHydrationWarning className={`${display.variable} ${lato.variable} ${lora.variable}`}>
+      <head><script dangerouslySetInnerHTML={{__html:THEME_BOOTSTRAP}} /></head>
       <body className="pb-20 md:pb-0">
-        <A11yProvider>
+        <ThemeProvider><A11yProvider>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-black focus:px-4 focus:py-3 focus:text-white">Bỏ qua, tới nội dung chính</a>
           <StorageNotice />
           <Header />
@@ -36,7 +42,7 @@ export default function RootLayout({ children }) {
           <AccessibilityToolbar />
           <MobileNav />
           <PWARegister />
-        </A11yProvider>
+        </A11yProvider></ThemeProvider>
       </body>
     </html>
   );

@@ -12,17 +12,20 @@ export default function NotificationsPage() {
   const { speak } = useA11y();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error,setError] = useState("");
 
   useEffect(() => {
-    api.listNotifications({ role: "traveler" }).then(setItems).catch(() => {}).finally(() => setLoading(false));
+    api.listNotifications({ role: "traveler" }).then(setItems).catch(err=>setError(err.message)).finally(() => setLoading(false));
   }, []);
 
   return (
     <div className="container-page py-10">
+      {error && <p role="alert" className="mb-4 text-red-800">{error}</p>}
       <h1 className="text-4xl sm:text-5xl">Thông báo</h1>
       <p className="hc-muted mt-2 text-lg text-ink-soft">Cập nhật về đặt chỗ và yêu cầu hỗ trợ của bạn.</p>
 
-      {loading ? <p className="mt-8 text-ink-soft">Đang tải…</p> : items.length === 0 ? (
+      <p role="note" className="mt-3">Thông báo booking/request phản ánh xử lý trong hệ thống DEMO, chưa xác nhận cung cấp dịch vụ thực tế.</p>
+      {loading ? <p className="mt-8 text-ink-soft">Đang tải…</p> : error ? null : items.length === 0 ? (
         <div className="mt-8 rounded-[18px] border border-line bg-white p-8 text-center hc-surface hc-border">
           <p className="text-lg">Chưa có thông báo nào.</p>
           <Link href="/explore" className="btn-primary mt-4">Khám phá & đặt dịch vụ</Link>

@@ -1,9 +1,10 @@
 "use client";
+import {useBusiness} from "@/components/BusinessShell";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import SOSLink from "./SOSLink";
-import { getBusiness, DEMO_BUSINESS_ID } from "@/data/businesses";
+import { usePathname } from "next/navigation";
+import { getBusiness } from "@/data/businesses";
 import { GridIcon, CalendarIcon, AccessibleIcon, BedIcon, UserIcon, StarIcon } from "./Icons";
 
 const LINKS = [
@@ -16,8 +17,9 @@ const LINKS = [
 ];
 
 export default function BusinessNav() {
+  const {businessId}=useBusiness();
   const pathname = usePathname();
-  const biz = getBusiness(DEMO_BUSINESS_ID);
+  const biz = getBusiness(businessId);
 
   return (
     <div className="border-b border-line bg-surface-alt hc-surface hc-border">
@@ -26,7 +28,7 @@ export default function BusinessNav() {
           <div className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black text-white"><UserIcon size={22} /></span>
             <div>
-              <p className="text-sm text-ink-soft hc-muted">Cổng doanh nghiệp · đăng nhập demo</p>
+              <p className="text-sm text-ink-soft hc-muted">Cổng doanh nghiệp · phiên được kiểm tra tại server</p>
               <p className="font-display text-xl leading-none">{biz?.name}</p>
             </div>
           </div>

@@ -1,12 +1,14 @@
 "use client";
+import {useBusiness} from "@/components/BusinessShell";
 
 import { useState } from "react";
 import { useA11y } from "@/components/A11yProvider";
-import { DEMO_BUSINESS_ID, getBusiness } from "@/data/businesses";
+import { getBusiness } from "@/data/businesses";
 import { UserIcon, MapPinIcon, CheckIcon } from "@/components/Icons";
 
 export default function BusinessProfile() {
-  const biz = getBusiness(DEMO_BUSINESS_ID);
+  const {businessId}=useBusiness();
+  const biz = getBusiness(businessId);
   const { speak } = useA11y();
   const [form, setForm] = useState({
     name: biz.name, type: biz.type, area: biz.area, rep: biz.rep,
@@ -16,7 +18,7 @@ export default function BusinessProfile() {
   const [saved, setSaved] = useState(false);
 
   function set(k, v) { setForm((f) => ({ ...f, [k]: v })); setSaved(false); }
-  function submit(e) { e.preventDefault(); setSaved(true); speak("Đã lưu hồ sơ doanh nghiệp."); }
+  function submit(e) { e.preventDefault(); setSaved(true); speak("Đã cập nhật bản nháp trên màn hình. Chưa lưu hồ sơ lên server."); }
 
   const renderField = (label, k, type = "text") => (
     <div>
@@ -44,7 +46,7 @@ export default function BusinessProfile() {
             <label htmlFor="desc" className="mb-1 block font-semibold">Mô tả</label>
             <textarea id="desc" rows={4} value={form.desc} onChange={(e) => set("desc", e.target.value)} className="w-full rounded-2xl border border-line bg-white px-5 py-3 text-lg outline-none hc-surface hc-border" />
           </div>
-          <button type="submit" className="btn-primary text-lg"><CheckIcon size={22} /> {saved ? "Đã lưu" : "Lưu hồ sơ"}</button>
+          <button type="submit" className="btn-primary text-lg"><CheckIcon size={22} /> {saved ? "Bản nháp chưa lưu server" : "Xem bản nháp hồ sơ — DEMO"}</button>
         </form>
 
         <aside className="h-fit rounded-[18px] border border-line bg-white p-6 shadow-card hc-surface hc-border" aria-label="Xem trước">

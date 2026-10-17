@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import SOSLink from "./SOSLink";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
-import SOSLink from "./SOSLink";
 import { getGuide, DEMO_GUIDE_ID } from "@/data/guides";
 import { endGuideSession } from "@/lib/guideSession";
 import { GridIcon, CalendarIcon, UserIcon, CheckIcon } from "./Icons";
@@ -158,7 +158,7 @@ export default function GuideNav() {
             <div className="flex items-center gap-4">
               <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#2f95dc] text-3xl font-bold text-white">{g.avatar}</span>
               <div>
-                <p className="text-sm text-ink-soft hc-muted">Tài khoản hướng dẫn viên</p>
+                <p className="text-sm text-ink-soft hc-muted">Hồ sơ hướng dẫn viên minh họa — DEMO</p>
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-3xl">{g.name}</h1>
                   {g.verified && <span className="inline-flex items-center gap-1 rounded-pill bg-green-100 px-2.5 py-1 text-xs font-bold text-green-800"><CheckIcon size={14} /> Đã xác minh</span>}

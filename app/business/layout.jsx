@@ -1,12 +1,9 @@
-import BusinessNav from "@/components/BusinessNav";
+import BusinessShell from "@/components/BusinessShell";
 
-export const metadata = { title: { default: "Cổng doanh nghiệp", template: "%s · Doanh nghiệp · WayEcho" } };
+export const metadata = { robots:{index:false,follow:false}, title: { default: "Cổng doanh nghiệp", template: "%s · Doanh nghiệp · WayEcho" } };
 
 export default function BusinessLayout({ children }) {
   return (
-    <div>
-      <BusinessNav />
-      {children}
-    </div>
+    <BusinessShell>{children}</BusinessShell>
   );
 }

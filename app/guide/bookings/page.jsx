@@ -11,7 +11,7 @@ export default function GuideBookings() {
 
   function decide(id, status) {
     setItems((xs) => xs.map((a) => (a.id === id ? { ...a, status } : a)));
-    speak(status === "accepted" ? "Đã nhận lịch hỗ trợ." : "Đã từ chối lịch.");
+    speak(status === "accepted" ? "DEMO: đổi sang đã nhận trên màn hình, chưa lưu server." : "DEMO: đổi sang từ chối trên màn hình, chưa lưu server.");
   }
 
   return (

@@ -20,6 +20,8 @@ self.addEventListener("fetch", (event) => {
   // Trang cá nhân/portal không lưu cache, để máy dùng chung không lộ dữ liệu của người trước.
   if (/^\/(business|admin|guide|my-booking|my-trip|notifications|login|booking|profile)(\/|$)/.test(url.pathname)) return;
 
+  if (/^\/(business|admin|guide|my-booking|my-trip|notifications|login|booking|profile)(\/|$)/.test(url.pathname)) return;
+
   if (event.request.mode === "navigate") {
     event.respondWith(fetch(event.request).then((response) => {
       const copy = response.clone();
