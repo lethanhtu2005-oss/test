@@ -40,3 +40,14 @@ test("Vercel: nguồn đăng nhập lấy từ IP do nền tảng đặt; thiế
   assert.throws(()=>trustedLoginSource(new Request("https://site.invalid",{headers:{"x-real-ip":"not-an-ip"}})),{status:503});
  }finally{if(previous===undefined)delete process.env.VERCEL;else process.env.VERCEL=previous;}
 });
+
+test("Tự host sau proxy tin cậy (Cloudflare Tunnel): lấy IP từ header đã cấu hình; thiếu hoặc sai thì từ chối",()=>{
+ const prevH=process.env.WAYECHO_TRUSTED_IP_HEADER,prevEnv=process.env.NODE_ENV;
+ process.env.WAYECHO_TRUSTED_IP_HEADER="cf-connecting-ip";process.env.NODE_ENV="production";
+ try{
+  const a=trustedLoginSource(new Request("https://site.invalid",{headers:{"cf-connecting-ip":"198.51.100.7"}}));
+  assert.ok(a);assert.doesNotMatch(a,/198\.51/);
+  assert.throws(()=>trustedLoginSource(new Request("https://site.invalid",{headers:{"x-forwarded-for":"198.51.100.7"}})),{status:503});
+  assert.throws(()=>trustedLoginSource(new Request("https://site.invalid",{headers:{"cf-connecting-ip":"bad"}})),{status:503});
+ }finally{if(prevH===undefined)delete process.env.WAYECHO_TRUSTED_IP_HEADER;else process.env.WAYECHO_TRUSTED_IP_HEADER=prevH;if(prevEnv===undefined)delete process.env.NODE_ENV;else process.env.NODE_ENV=prevEnv;}
+});
