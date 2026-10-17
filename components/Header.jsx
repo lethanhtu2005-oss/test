@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useA11y } from "./A11yProvider";
 import Logo from "./Logo";
+import SOSLink from "./SOSLink";
 import { ContrastIcon, TextSizeIcon, MenuIcon, UserIcon } from "./Icons";
 
 const NAV = [
@@ -48,6 +49,7 @@ export default function Header() {
         <Link href="/" aria-label="WayEcho — về trang chủ" className="flex items-center"><Logo height={31} /></Link>
         <nav aria-label="Điều hướng chính" className="hidden xl:block">{renderNavLinks()}</nav>
         <div className="flex items-center gap-2" role="group" aria-label="Tùy chọn truy cập và tài khoản">
+          <SOSLink />
           <button type="button" onClick={toggleContrast} aria-pressed={contrast} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><ContrastIcon size={18} /> Tương phản</button>
           <button type="button" onClick={toggleLargeText} aria-pressed={largeText} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><TextSizeIcon size={18} /> Chữ lớn</button>
           <Link href="/profile" className="hidden min-h-[44px] items-center gap-2 rounded-full border-2 border-[#ef6d28] px-4 font-semibold text-[#c94d1b] hover:bg-[#fff2e9] lg:inline-flex"><UserIcon size={18} /> Đăng nhập</Link>

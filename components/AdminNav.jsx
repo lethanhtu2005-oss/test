@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SOSLink from "./SOSLink";
 import { GridIcon, UserIcon, StarIcon, AccessibleIcon } from "./Icons";
 
 const LINKS = [
@@ -23,7 +24,10 @@ export default function AdminNav() {
               <p className="font-display text-xl leading-none">WayEcho Admin</p>
             </div>
           </div>
-          <Link href="/" className="rounded-pill border border-neutral-600 px-4 py-2 text-sm font-semibold hover:bg-neutral-800">← Về trang Traveler</Link>
+          <div className="flex items-center gap-2">
+            <SOSLink />
+            <Link href="/" className="rounded-pill border border-neutral-600 px-4 py-2 text-sm font-semibold hover:bg-neutral-800">← Về trang Traveler</Link>
+          </div>
         </div>
         <nav aria-label="Điều hướng quản trị" className="mt-4 flex flex-wrap gap-2">
           {LINKS.map((l) => {

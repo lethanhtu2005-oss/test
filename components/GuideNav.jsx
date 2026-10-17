@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
+import SOSLink from "./SOSLink";
 import { getGuide, DEMO_GUIDE_ID } from "@/data/guides";
 import { endGuideSession } from "@/lib/guideSession";
 import { GridIcon, CalendarIcon, UserIcon, CheckIcon } from "./Icons";
@@ -86,11 +87,11 @@ export default function GuideNav() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur hc-surface hc-border">
-        <div className="container-page flex min-h-[68px] items-center justify-between gap-4">
+        <div className="container-page flex min-h-[68px] items-center justify-between gap-2 sm:gap-4">
           <div className="flex items-center gap-4">
             <Link href="/guide" aria-label="WayEcho Guide Portal - Tổng quan"><Logo height={36} /></Link>
-            <span className="hidden h-7 w-px bg-line sm:block" aria-hidden="true" />
-            <span className="hidden font-semibold sm:inline">Guide Portal</span>
+            <span className="hidden h-7 w-px bg-line sm:block lg:hidden xl:block" aria-hidden="true" />
+            <span className="hidden font-semibold sm:inline lg:hidden xl:inline">Guide Portal</span>
           </div>
 
           <nav aria-label="Điều hướng Guide Portal" className="hidden lg:block">
@@ -114,7 +115,8 @@ export default function GuideNav() {
           </nav>
 
           <div className="flex items-center gap-2" ref={menuRef}>
-            <button type="button" className="relative flex h-11 w-11 items-center justify-center rounded-full hover:bg-surface-alt" aria-label="Thông báo">
+            <SOSLink />
+            <button type="button" className="relative hidden h-11 w-11 items-center justify-center rounded-full hover:bg-surface-alt sm:flex" aria-label="Thông báo">
               <BellIcon />
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
             </button>

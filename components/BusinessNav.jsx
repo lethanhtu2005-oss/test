@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SOSLink from "./SOSLink";
 import { getBusiness, DEMO_BUSINESS_ID } from "@/data/businesses";
 import { GridIcon, CalendarIcon, AccessibleIcon, BedIcon, UserIcon, StarIcon } from "./Icons";
 
@@ -29,7 +30,10 @@ export default function BusinessNav() {
               <p className="font-display text-xl leading-none">{biz?.name}</p>
             </div>
           </div>
-          <Link href="/" className="btn-ghost hc-border !py-2 text-sm">← Về trang Traveler</Link>
+          <div className="flex items-center gap-2">
+            <SOSLink />
+            <Link href="/" className="btn-ghost hc-border !py-2 text-sm">← Về trang Traveler</Link>
+          </div>
         </div>
         <nav aria-label="Điều hướng doanh nghiệp" className="mt-4 flex flex-wrap gap-2">
           {LINKS.map((l) => {
