@@ -41,3 +41,9 @@ test("SOS không tự xin vị trí khi mount; link desktop/portal và mobile/fo
 
 import {emergencyPhone} from "../lib/sos.js";
 test("P9 SOS chỉ mở số người dùng đã lưu, bỏ chuỗi mơ hồ hoặc nhiều số",()=>{assert.equal(emergencyPhone("Liên hệ +1 (202) 555-0123"),"+12025550123");assert.equal(emergencyPhone("Chưa có"),null);assert.equal(emergencyPhone("+12025550123 / +12025550124"),null);assert.equal(emergencyPhone("123"),null);});
+
+import {requestStatus} from "../lib/bookingStatus.js";
+test("SV09 trạng thái yêu cầu hỗ trợ hiển thị đúng, không tự coi là đã chấp nhận",()=>{
+ assert.match(requestStatus("pending"),/đang chờ/);assert.match(requestStatus("accepted"),/chấp nhận/);assert.match(requestStatus("rejected"),/từ chối/);
+ for(const s of ["unknown",undefined,null])assert.doesNotMatch(requestStatus(s),/chấp nhận/);
+});

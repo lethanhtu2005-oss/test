@@ -3,20 +3,24 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useA11y } from "@/components/A11yProvider";
-import { bookingStatus } from "@/lib/bookingStatus";
+import { bookingStatus, requestStatus } from "@/lib/bookingStatus";
 import { api } from "@/lib/api";
 import { CalendarIcon, SpeakerIcon } from "@/components/Icons";
 
 export default function MyBookingPage() {
   const { speak } = useA11y();
   const [bookings, setBookings] = useState([]);
+  const [requests, setRequests] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    api.listBookings().then(setBookings).catch(() => setError("Không tải được đặt chỗ. Hãy kiểm tra kết nối rồi thử lại.")).finally(() => setLoading(false));
+    // Lỗi tải yêu cầu hỗ trợ không được che danh sách đặt chỗ.
+    Promise.all([api.listBookings(), api.listRequests().catch(() => null)])
+      .then(([list, reqs]) => { setBookings(list); setRequests(reqs); })
+      .catch(() => setError("Không tải được đặt chỗ. Hãy kiểm tra kết nối rồi thử lại.")).finally(() => setLoading(false));
   }, [attempt]);
   function retry() { setLoading(true); setError(""); setAttempt((n) => n + 1); }
 
@@ -36,7 +40,7 @@ export default function MyBookingPage() {
         </div>
       ) : (
         <ul className="mt-8 space-y-4">
-          {bookings.map((b) => (
+          {bookings.map((b) => { const req = requests?.find((r) => r.bookingId === b.id); const reqText = b.assist ? (req ? requestStatus(req.status) : requests ? "Có yêu cầu hỗ trợ" : "Có yêu cầu hỗ trợ (chưa tải được trạng thái)") : ""; return (
             <li key={b.id} className="card hc-surface hc-border flex flex-col gap-3 p-5 sm:flex-row sm:items-center">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-surface-alt text-ink"><CalendarIcon size={24} /></span>
               <div className="flex-1">
@@ -44,17 +48,18 @@ export default function MyBookingPage() {
                 <p className="hc-muted flex flex-wrap items-center gap-x-3 text-ink-soft">
                   <span className="flex items-center gap-1"><CalendarIcon size={15} /> {b.date || "—"} · {b.time || "—"}</span>
                   <span>{b.guests} khách</span>
-                  {b.assist && <span className="font-semibold text-accent-dark">Có yêu cầu hỗ trợ</span>}
+                  {reqText && <span className="font-semibold text-accent-dark">{reqText}</span>}
                   {b.price && <span className="font-bold text-ink">{b.price}</span>}
                 </p>
+                {req?.note && <p className="mt-1 text-sm">Ghi chú của doanh nghiệp: {req.note}</p>}
               </div>
               <span className={`chip hc-surface hc-border ${bookingStatus(b.status)[1]}`}>{bookingStatus(b.status)[0]}</span>
               <button
-                onClick={() => speak(`${b.itemName}, ${b.time || ""} ${b.date || ""}, ${b.guests} khách. ${bookingStatus(b.status)[0]}${b.assist ? ", có yêu cầu hỗ trợ" : ""}.`)}
+                onClick={() => speak(`${b.itemName}, ${b.time || ""} ${b.date || ""}, ${b.guests} khách. ${bookingStatus(b.status)[0]}. ${reqText}${req?.note ? `. Ghi chú: ${req.note}` : ""}.`)}
                 className="btn-ghost hc-border !min-h-[40px] !p-2" aria-label={`Nghe lại đơn ${b.itemName}`}
               ><SpeakerIcon size={18} /></button>
             </li>
-          ))}
+          ); })}
         </ul>
       )}
     </div>
