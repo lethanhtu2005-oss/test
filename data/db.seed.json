@@ -6,5 +6,6 @@
   "requests": [],
   "notifications": [],
   "sessions": [],
-  "sos_alerts": []
+  "sos_alerts": [],
+  "support_calls": []
 }
