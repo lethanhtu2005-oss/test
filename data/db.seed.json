@@ -4,5 +4,6 @@
   "trip": [],
   "reviews": [],
   "requests": [],
-  "notifications": []
+  "notifications": [],
+  "sessions": []
 }
