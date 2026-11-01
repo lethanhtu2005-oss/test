@@ -7,5 +7,6 @@
   "notifications": [],
   "sessions": [],
   "sos_alerts": [],
-  "support_calls": []
+  "support_calls": [],
+  "escrow_transactions": []
 }
