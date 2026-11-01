@@ -16,10 +16,10 @@ const GROUPS = [
   {
     title: "2. Thông tin & nội dung",
     items: [
-      ["Chi tiết điểm đến", "/destination?d=ho-guom"], ["Lưu trú Phố Cổ", "/item?id=la-siesta-classic-ma-may"],
+      ["Điểm đến Phố Cổ (Hồ Gươm)", "/diem-den/ho-guom"], ["Lưu trú Phố Cổ", "/item?id=la-siesta-classic-ma-may"],
       ["Ăn uống Phố Cổ", "/item?id=ca-phe-giang-nguyen-huu-huan"], ["Di chuyển Phố Cổ", "/item?id=xich-lo-tro-nang-pho-co"],
       ["Chi tiết vé", "/item?id=ve-mua-roi-thang-long"], ["Tuyến bộ âm thanh", "/item?id=tuyen-bo-hang-bac-ma-may"],
-      ["Trợ lý tại điểm đến", "/assistant"], ["Tải app", "/app"], ["SOS", "/sos"], ["Giới thiệu", "/help"], ["Cẩm nang", "/articles"], ["Chó dẫn đường", "/services/guide-dogs"],
+      ["Trợ lý tại điểm đến", "/assistant"], ["Tải app PWA", "/app"], ["SOS", "/sos"], ["Cẩm nang Phố Cổ (Pillar)", "/articles/cam-nang-du-lich-pho-co"], ["Cẩm nang chung", "/articles"], ["Chó dẫn đường", "/services/guide-dogs"],
       ["Cách hoạt động", "/help"], ["Tuyên bố tiếp cận", "/help"],
     ],
   },
