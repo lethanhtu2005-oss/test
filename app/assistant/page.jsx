@@ -9,7 +9,7 @@ import { CameraIcon, SpeakerIcon, PhoneIcon, WaveIcon } from "@/components/Icons
 const SCENES = [
   { img: "/assets/images/old-quarter-street.jpg", alt: "Phố hẹp trong khu phố cổ Hà Nội với xe máy và hàng quán hai bên.", desc: "Demo mô tả: hình ảnh cho thấy một tuyến phố hẹp, có xe máy và hàng quán hai bên. Hệ thống không thể xác nhận khoảng cách hay vật cản thực tế chỉ từ ảnh demo.", confidence: "Trung bình" },
   { img: "/assets/images/cafe-street.jpg", alt: "Khu vực quán cà phê mặt phố với bàn ghế đặt gần lối đi.", desc: "Demo mô tả: có bàn ghế đặt gần khu vực lối đi. AI cần camera trực tiếp và vẫn có thể bỏ sót chướng ngại nhỏ hoặc vật đang chuyển động.", confidence: "Trung bình" },
-  { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Temple_of_Literature%2C_Hanoi_by_Xiquinho_Silva_02.jpg/1280px-Temple_of_Literature%2C_Hanoi_by_Xiquinho_Silva_02.jpg", fallback: "/assets/images/location-image-unavailable.svg", alt: "Khuôn viên Văn Miếu – Quốc Tử Giám với kiến trúc mái ngói truyền thống và sân lát gạch.", desc: "Demo mô tả: đây là ảnh Văn Miếu – Quốc Tử Giám. AI có thể mô tả kiến trúc và cảnh quan nhìn thấy, nhưng không được tự kết luận lối đi có an toàn hoặc accessible hay không.", confidence: "Cao về nhận diện địa điểm, thấp về an toàn tuyến đi" },
+  { img: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Huc_Bridge.jpg", fallback: "/assets/images/location-image-unavailable.svg", alt: "Cầu Thê Húc dẫn vào Đền Ngọc Sơn tại Hồ Gươm, Phố Cổ Hà Nội.", desc: "Demo mô tả: đây là Cầu Thê Húc dẫn vào Đền Ngọc Sơn. AI có thể nhận diện cảnh quan kiến trúc, nhưng không được tự kết luận độ dốc cầu hoặc bậc tam cấp có an toàn cho người dùng hay không.", confidence: "Cao về nhận diện địa điểm, thấp về an toàn lối đi thực tế" },
 ];
 
 export default function AssistantPage() {
@@ -46,8 +46,14 @@ export default function AssistantPage() {
             <p className="flex items-center gap-2 text-sm font-semibold text-accent-dark"><SpeakerIcon size={18} /> Kết quả mô tả</p>
             <p className="mt-2 min-h-[6rem] text-xl leading-relaxed" aria-live="polite">{described ? current.desc : "Nhấn “Mô tả ảnh demo” để xem cách hệ thống phản hồi."}</p>
             {described && <><p className="mt-3 rounded-xl bg-amber-50 p-3 text-sm font-semibold text-amber-950">Nhãn minh họa, không do mô hình tính: {current.confidence}</p><button onClick={() => speak(`${current.desc} Nhãn minh họa viết sẵn: ${current.confidence}.`)} className="btn-ghost hc-border mt-3"><SpeakerIcon size={18} /> Nghe lại</button></>}
+            <div className="mt-5 border-t border-line pt-4">
+              <a href="tel:19001000" className="btn-primary flex min-h-[56px] w-full items-center justify-center gap-2 text-base font-bold shadow-md">
+                <PhoneIcon size={22} /> 📞 Kết nối cuộc gọi Tư vấn viên WayEcho từ xa
+              </a>
+              <p className="hc-muted mt-2 text-center text-xs text-ink-soft">Tư vấn viên con người sẵn sàng hỗ trợ mô tả không gian thực tế và định hướng khi AI không chắc chắn.</p>
+            </div>
           </div>
-          <div className="mt-5 rounded-[18px] bg-black p-6 text-white"><h2 className="text-2xl">AI không chắc? Chuyển sang người thật.</h2><p className="mt-2 text-neutral-300">Trong sản phẩm thật, Human Support có thể nhận request và chỉ nhận location/thông tin khi Traveler cấp quyền.</p><a href="/help" className="btn-primary mt-4 w-full text-lg"><PhoneIcon size={22} /> Mở kênh hỗ trợ</a></div>
+          <div className="mt-5 rounded-[18px] bg-black p-6 text-white"><h2 className="text-2xl">AI không chắc? Chuyển sang người thật.</h2><p className="mt-2 text-neutral-300">Trong sản phẩm thật, Human Support có thể nhận request và chỉ nhận location/thông tin khi Traveler cấp quyền.</p><a href="tel:19001000" className="btn-primary mt-4 flex min-h-[56px] w-full items-center justify-center gap-2 text-lg font-bold"><PhoneIcon size={22} /> 📞 Gọi trực tiếp Tư vấn viên từ xa</a></div>
         </div>
       </div>
     </div>

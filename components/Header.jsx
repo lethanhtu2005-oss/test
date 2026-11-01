@@ -29,17 +29,17 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur hc-surface hc-border">
       <div className="container-page flex min-h-[72px] items-center justify-between gap-3 py-2">
         <Link href="/" aria-label="WayEcho — về trang chủ" className="flex items-center"><Logo height={31} /></Link>
-        <nav aria-label="Điều hướng chính" className="hidden xl:block">{renderNavLinks()}</nav>
+        <nav aria-label="Điều hướng chính" className="hidden lg:block">{renderNavLinks()}</nav>
         <div className="flex items-center gap-2" role="group" aria-label="Tùy chọn truy cập và tài khoản">
           <SOSLink />
           <button type="button" onClick={toggleContrast} aria-pressed={contrast} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><ContrastIcon size={18} /> Tương phản</button>
           <button type="button" onClick={toggleLargeText} aria-pressed={largeText} className="hidden min-h-[44px] items-center gap-2 rounded-full border border-line bg-white px-4 font-semibold hc-surface hc-border lg:flex"><TextSizeIcon size={18} /> Chữ lớn</button>
           <Link href="/login" className="hidden min-h-[44px] items-center gap-2 rounded-full border-2 border-[#ef6d28] px-4 font-semibold text-[#b8461a] hover:bg-[#fff2e9] lg:inline-flex"><UserIcon size={18} /> Đăng nhập</Link>
-          <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="mobile-menu" className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white hc-surface hc-border xl:hidden" aria-label={open ? "Đóng menu" : "Mở menu"}><MenuIcon size={22} /></button>
+          <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="mobile-menu" className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white hc-surface hc-border lg:hidden" aria-label={open ? "Đóng menu" : "Mở menu"}><MenuIcon size={22} /></button>
         </div>
       </div>
       {open && (
-        <div id="mobile-menu" className="max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain border-t border-line bg-white px-4 pb-40 pt-4 hc-surface hc-border xl:hidden">
+        <div id="mobile-menu" className="max-h-[calc(100dvh-9rem)] overflow-y-auto overscroll-contain border-t border-line bg-white px-4 pb-40 pt-4 hc-surface hc-border lg:hidden">
           <div className="container-page !px-0">
             <nav aria-label="Điều hướng chính trên điện thoại">{renderNavLinks(true)}</nav>
             <div className="mt-3 grid grid-cols-2 gap-2">

@@ -14,7 +14,7 @@ const GROUPS = [
 const DEFAULT_PREFS = { screenReader: true, audioDescription: true, staff: true, navigation: true };
 
 export default function ProfilePage() {
-  const { speak, contrast, largeText, setContrastEnabled, setLargeTextEnabled, speechRate, setSpeechRate } = useA11y();
+  const { speak, contrast, largeText, minimalDom, setContrastEnabled, setLargeTextEnabled, setMinimalDomEnabled, applyVisualProfile, speechRate, setSpeechRate } = useA11y();
   const [userType, setUserType] = useState("lowvision");
   const [emergency, setEmergency] = useState("");
   const [prefs, setPrefs] = useState(DEFAULT_PREFS);
@@ -23,13 +23,28 @@ export default function ProfilePage() {
 
   useEffect(() => {
     try {
-      setUserType(localStorage.getItem("we-usertype") || "lowvision");
+      const savedType = localStorage.getItem("we-usertype") || "lowvision";
+      setUserType(savedType);
       setEmergency(localStorage.getItem("we-emergency") || "");
       const savedPrefs = JSON.parse(localStorage.getItem("we-access-prefs") || "null");
       if (savedPrefs) setPrefs(savedPrefs);
       setShareWithBusiness(localStorage.getItem("we-share-business") === "1");
     } catch (_) {}
   }, []);
+
+  function handleUserTypeChange(id) {
+    setUserType(id);
+    setSaved(false);
+    if (id === "lowvision") {
+      setPrefs((p) => ({ ...p, largeText: true, highContrast: true }));
+      applyVisualProfile("lowvision");
+      speak("Đã chọn hồ sơ Người nhìn kém: tự động bật chữ lớn và tương phản cao.");
+    } else if (id === "blind") {
+      setPrefs((p) => ({ ...p, screenReader: true, audioDescription: true }));
+      applyVisualProfile("blind");
+      speak("Đã chọn hồ sơ Người mù: tự động tối giản cấu trúc DOM và ẩn đồ họa trang trí.");
+    }
+  }
 
   function togglePref(id) { setPrefs((p) => ({ ...p, [id]: !p[id] })); setSaved(false); }
   function save() {
@@ -57,7 +72,7 @@ export default function ProfilePage() {
         <div className="mt-4 grid gap-3 md:grid-cols-2" role="radiogroup" aria-label="Loại người dùng">
           {[["lowvision", "Low Vision — Người nhìn kém", "Ưu tiên chữ lớn, tương phản, phóng to và giọng đọc."], ["blind", "Blind — Người mù", "Ưu tiên screen reader, voice navigation, audio feedback và bàn phím."]].map(([id, label, desc]) => (
             <label key={id} className={`cursor-pointer rounded-2xl border p-4 hc-border ${userType === id ? "border-primary bg-surface-alt hc-surface" : "border-line"}`}>
-              <span className="flex items-start gap-3"><input type="radio" name="usertype" checked={userType === id} onChange={() => { setUserType(id); setSaved(false); }} className="mt-1 h-5 w-5 accent-[#f8ae38]" /><span><span className="block text-lg font-semibold">{label}</span><span className="hc-muted mt-1 block text-sm text-ink-soft">{desc}</span></span></span>
+              <span className="flex items-start gap-3"><input type="radio" name="usertype" checked={userType === id} onChange={() => handleUserTypeChange(id)} className="mt-1 h-5 w-5 accent-[#f8ae38]" /><span><span className="block text-lg font-semibold">{label}</span><span className="hc-muted mt-1 block text-sm text-ink-soft">{desc}</span></span></span>
             </label>
           ))}
         </div>
@@ -90,6 +105,13 @@ export default function ProfilePage() {
           <div className="mt-5 space-y-3">
             <label className="flex items-center justify-between rounded-xl border border-line p-3 hc-border"><span className="font-semibold">Tương phản cao</span><input type="checkbox" checked={contrast} onChange={(e) => { setContrastEnabled(e.target.checked); setPrefs((p) => ({ ...p, highContrast: e.target.checked })); setSaved(false); }} className="h-5 w-5 accent-[#f8ae38]" /></label>
             <label className="flex items-center justify-between rounded-xl border border-line p-3 hc-border"><span className="font-semibold">Chữ lớn</span><input type="checkbox" checked={largeText} onChange={(e) => { setLargeTextEnabled(e.target.checked); setPrefs((p) => ({ ...p, largeText: e.target.checked })); setSaved(false); }} className="h-5 w-5 accent-[#f8ae38]" /></label>
+            <label className="flex items-center justify-between rounded-xl border border-line p-3 hc-border">
+              <div>
+                <span className="font-semibold block">Tối giản cấu trúc (Minimal DOM)</span>
+                <span className="text-xs text-ink-soft hc-muted">Ẩn đồ họa trang trí, tối ưu luồng đọc màn hình cho người mù</span>
+              </div>
+              <input type="checkbox" checked={minimalDom} onChange={(e) => { setMinimalDomEnabled(e.target.checked); setSaved(false); }} className="h-5 w-5 accent-[#f8ae38]" />
+            </label>
           </div>
         </div>
 

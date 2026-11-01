@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi" suppressHydrationWarning className={`${display.variable} ${lato.variable} ${lora.variable}`}>
       <head><script dangerouslySetInnerHTML={{__html:THEME_BOOTSTRAP}} /></head>
-      <body className="pb-20 md:pb-0">
+      <body className="pb-20 lg:pb-0">
         <ThemeProvider><A11yProvider>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-black focus:px-4 focus:py-3 focus:text-white">Bỏ qua, tới nội dung chính</a>
           <StorageNotice />
