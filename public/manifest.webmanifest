@@ -1,7 +1,7 @@
 {
-  "name": "WayEcho — Du lịch tiếp cận",
+  "name": "WayEcho — Du lịch Phố Cổ Hà Nội cho người khiếm thị",
   "short_name": "WayEcho",
-  "description": "Nền tảng demo hỗ trợ người mù và người nhìn kém trong hành trình du lịch.",
+  "description": "Nền tảng hỗ trợ người mù và người nhìn kém khám phá Phố Cổ Hà Nội bằng giọng nói.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

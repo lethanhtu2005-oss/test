@@ -29,9 +29,22 @@ function MapFocus({ center, zoom }) {
   return null;
 }
 
-export default function MapView({ points = [], route = [], center = [21.0287, 105.8524], zoom = 14 }) {
+// Khung giới hạn hiển thị bao quanh toàn bộ Phố Cổ Hoàn Kiếm
+const OLD_QUARTER_BOUNDS = [
+  [21.0220, 105.8420],
+  [21.0430, 105.8630],
+];
+
+export default function MapView({ points = [], route = [], center = [21.0335, 105.8525], zoom = 15 }) {
   return (
-    <MapContainer center={center} zoom={zoom} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
+    <MapContainer
+      center={center}
+      zoom={zoom}
+      minZoom={14}
+      maxBounds={OLD_QUARTER_BOUNDS}
+      scrollWheelZoom={false}
+      style={{ height: "100%", width: "100%" }}
+    >
       <MapFocus center={center} zoom={zoom} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'

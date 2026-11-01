@@ -20,7 +20,7 @@ import {
   UserIcon,
 } from "@/components/Icons";
 
-export const metadata=pageMetadata("WayEcho — Du lịch Hà Nội cho người khiếm thị","Tìm hiểu điểm đến Hà Nội, đối chiếu dữ liệu tiếp cận và chuẩn bị hành trình theo nhu cầu của bạn. Công cụ SOS, camera và booking có giới hạn demo.","/");
+export const metadata=pageMetadata("WayEcho — Du lịch Phố Cổ Hà Nội cho người khiếm thị","Tìm hiểu điểm đến Phố Cổ Hà Nội, đối chiếu dữ liệu tiếp cận và chuẩn bị hành trình theo nhu cầu của bạn. Công cụ SOS, camera và booking có giới hạn demo.","/");
 
 const FALLBACK = "/assets/images/location-image-unavailable.svg";
 
@@ -35,19 +35,19 @@ const HOME_IMAGES = {
   },
   pho: {
     src: "https://upload.wikimedia.org/wikipedia/commons/9/95/Ph%E1%BB%9F_b%C3%A1t_%C4%91%C3%A1.jpg",
-    alt: "Một suất phở bát đá chụp tại Hà Nội, gồm nước dùng nóng, bánh phở, thịt bò, rau và gia vị ăn kèm.",
+    alt: "Một suất phở bát đá chụp tại Phố Cổ Hà Nội, gồm nước dùng nóng, bánh phở, thịt bò, rau và gia vị ăn kèm.",
   },
   trainStreet: {
     src: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Hanoi_train_street.jpg",
-    alt: "Phố đường tàu Hà Nội với đường ray chạy giữa khu dân cư, cây xanh, quán nhỏ và cờ Việt Nam treo bên lối đi.",
+    alt: "Phố đường tàu Phố Cổ Hà Nội với đường ray chạy giữa khu dân cư, cây xanh, quán nhỏ và cờ Việt Nam treo bên lối đi.",
   },
-  vanMieu: {
-    src: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Temple_of_Literature%2C_Hanoi_by_Xiquinho_Silva_02.jpg",
-    alt: "Khuôn viên Văn Miếu – Quốc Tử Giám tại Hà Nội với cổng kiến trúc truyền thống, mái ngói và cây xanh.",
+  nhaCoMaMay: {
+    src: "/assets/images/pho-co-alley.jpg",
+    alt: "Không gian Nhà cổ 87 Mã Mây với kiến trúc nhà ống truyền thống của Phố Cổ Hà Nội.",
   },
-  westLake: {
-    src: "https://upload.wikimedia.org/wikipedia/commons/0/09/West_Lake_Hanoi.jpg",
-    alt: "Mặt nước Hồ Tây nhìn từ khu vực Phủ Tây Hồ, phía xa là dải đô thị Hà Nội dưới bầu trời sáng.",
+  choDongXuan: {
+    src: "/assets/images/wet-market.jpg",
+    alt: "Khuôn viên Chợ Đồng Xuân tấp nập tại trung tâm thương mại lịch sử Phố Cổ Hà Nội.",
   },
   navigation: {
     src: "https://upload.wikimedia.org/wikipedia/commons/4/43/Smartphone_with_navigation_map_app.jpg",
@@ -129,7 +129,7 @@ const processSteps = [
   { n: "1", icon: SearchIcon, title: "Khám phá", desc: "Tìm kiếm điểm đến, xem thông tin và hình ảnh bằng giọng nói." },
   { n: "2", icon: AccessibleIcon, title: "Kiểm tra tiếp cận", desc: "Xem mức độ tiếp cận, lối đi phù hợp và các tiện ích hỗ trợ tại điểm đến." },
   { n: "3", icon: MuseumIcon, title: "Đặt dịch vụ & hỗ trợ", desc: "Đặt vé, đặt Guide/Assistant hoặc các dịch vụ hỗ trợ cần thiết." },
-  { n: "4", icon: MapPinIcon, title: "Trải nghiệm điểm đến", desc: "Tự tin khám phá, tận hưởng văn hóa, ẩm thực và những điều tuyệt vời của Hà Nội." },
+  { n: "4", icon: MapPinIcon, title: "Trải nghiệm điểm đến", desc: "Tự tin khám phá, tận hưởng văn hóa, ẩm thực và những điều tuyệt vời của Phố Cổ Hà Nội." },
 ];
 
 const stories = [
@@ -141,13 +141,13 @@ const stories = [
   },
   {
     initial: "T",
-    quote: "“Tôi nhìn kém nên thường lo lắng khi đi chỗ lạ. WayEcho giúp tôi kiểm tra trước mức độ tiếp cận và đặt hỗ trợ khi cần. Nhờ vậy, tôi tự tin khám phá Hà Nội hơn rất nhiều.”",
+    quote: "“Tôi nhìn kém nên thường lo lắng khi đi chỗ lạ. WayEcho giúp tôi kiểm tra trước mức độ tiếp cận và đặt hỗ trợ khi cần. Nhờ vậy, tôi tự tin khám phá Phố Cổ Hà Nội hơn rất nhiều.”",
     name: "Thu Hà",
     role: "Người nhìn kém",
   },
   {
     initial: "H",
-    quote: "“Là thành viên cộng đồng, tôi rất vui khi thấy WayEcho tạo ra một cầu nối ý nghĩa. Tôi đã có cơ hội đồng hành cùng nhiều bạn, cùng khám phá Hà Nội theo cách trọn vẹn hơn.”",
+    quote: "“Là thành viên cộng đồng, tôi rất vui khi thấy WayEcho tạo ra một cầu nối ý nghĩa. Tôi đã có cơ hội đồng hành cùng nhiều bạn, cùng khám phá Phố Cổ Hà Nội theo cách trọn vẹn hơn.”",
     name: "Anh Hùng",
     role: "Thành viên cộng đồng",
   },
@@ -165,35 +165,35 @@ export default function HomePage() {
           <div>
             <span className="chip hc-surface hc-border"><AccessibleIcon size={16} /> Thiết kế cho người khiếm thị</span>
             <h1 className="mt-5 max-w-[650px] text-5xl leading-[.98] sm:text-6xl lg:text-[68px]">
-              Du lịch Hà Nội,<br />dẫn lối <span className="text-[#eb5d27]">bằng giọng nói</span>
+              Du lịch Phố Cổ Hà Nội,<br />dẫn lối <span className="text-[#eb5d27]">bằng giọng nói</span>
             </h1>
             <p className="hc-muted mt-5 max-w-[650px] text-[18px] leading-8 text-ink-soft">
-              WayEcho giúp người khiếm thị khám phá Hà Nội dễ dàng hơn bằng giọng nói. Bạn có thể tìm kiếm thông tin, xem khả năng tiếp cận, đặt dịch vụ, nhờ hỗ trợ và trải nghiệm các điểm đến tại Hà Nội cùng những công cụ hỗ trợ phù hợp.
+              WayEcho giúp người khiếm thị khám phá Phố Cổ Hà Nội dễ dàng hơn bằng giọng nói. Bạn có thể tìm kiếm thông tin, xem khả năng tiếp cận, đặt dịch vụ, nhờ hỗ trợ và trải nghiệm các điểm đến tại Phố Cổ Hà Nội cùng những công cụ hỗ trợ phù hợp.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link href="/search" className="btn-primary text-base sm:text-lg"><MicIcon size={22} /> Bắt đầu bằng giọng nói</Link>
               <Link href="/assistant" className="btn-ghost hc-border text-base sm:text-lg"><CameraIcon size={22} /> Mở trợ lý camera</Link>
             </div>
-            <p className="hc-muted mt-5 flex items-center gap-3 text-sm italic text-ink-soft"><span aria-hidden="true" className="inline-block h-[4px] w-10 rounded-full bg-primary" /> Hà Nội gần hơn, cho mọi người</p>
+            <p className="hc-muted mt-5 flex items-center gap-3 text-sm italic text-ink-soft"><span aria-hidden="true" className="inline-block h-[4px] w-10 rounded-full bg-primary" /> Phố Cổ Hà Nội gần hơn, cho mọi người</p>
           </div>
 
-          <div className="grid min-h-[430px] grid-cols-2 grid-rows-2 gap-3" aria-label="Một số hình ảnh thật về Hà Nội">
+          <div className="grid min-h-[430px] grid-cols-2 grid-rows-2 gap-3" aria-label="Một số hình ảnh thật về Phố Cổ Hà Nội">
             <Link href="/destination?d=ho-guom" className="group relative row-span-1 overflow-hidden rounded-[24px] shadow-card lg:row-span-2">
               <VerifiedImage src={HOME_IMAGES.hoGuom.src} fallback={FALLBACK} alt={HOME_IMAGES.hoGuom.alt} priority className="h-full min-h-[250px] w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
-              <span className="absolute inset-x-4 bottom-4 rounded-2xl bg-black/60 px-4 py-3 text-white backdrop-blur-sm"><span className="flex items-center gap-2 font-bold"><MapPinIcon size={18} /> Hồ Gươm</span><span className="block pl-6 text-xs text-white/85">Biểu tượng của Hà Nội</span></span>
+              <span className="absolute inset-x-4 bottom-4 rounded-2xl bg-black/60 px-4 py-3 text-white backdrop-blur-sm"><span className="flex items-center gap-2 font-bold"><MapPinIcon size={18} /> Hồ Gươm</span><span className="block pl-6 text-xs text-white/85">Biểu tượng của Phố Cổ Hà Nội</span></span>
             </Link>
-            <Link href="/destination?d=pho-co" className="group relative overflow-hidden rounded-[24px] shadow-card">
-              <VerifiedImage src={HOME_IMAGES.oldQuarter.src} fallback={FALLBACK} alt={HOME_IMAGES.oldQuarter.alt} className="h-full min-h-[205px] w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
-              <span className="absolute inset-x-3 bottom-3 rounded-2xl bg-black/60 px-3 py-2.5 text-white backdrop-blur-sm"><span className="flex items-center gap-2 font-bold"><MapPinIcon size={17} /> Phố cổ Hà Nội</span><span className="block pl-6 text-[11px] text-white/85">Nét xưa giữa lòng thành phố</span></span>
+            <Link href="/destination?d=nha-co-ma-may" className="group relative overflow-hidden rounded-[24px] shadow-card">
+              <VerifiedImage src={HOME_IMAGES.nhaCoMaMay.src} fallback={FALLBACK} alt={HOME_IMAGES.nhaCoMaMay.alt} className="h-full min-h-[205px] w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
+              <span className="absolute inset-x-3 bottom-3 rounded-2xl bg-black/60 px-3 py-2.5 text-white backdrop-blur-sm"><span className="flex items-center gap-2 font-bold"><MapPinIcon size={17} /> Nhà cổ Mã Mây</span><span className="block pl-6 text-[11px] text-white/85">Nét xưa giữa lòng phố cổ</span></span>
             </Link>
             <div className="grid grid-cols-2 gap-3">
               <figure className="relative overflow-hidden rounded-[22px] shadow-card">
                 <VerifiedImage src={HOME_IMAGES.pho.src} fallback={FALLBACK} alt={HOME_IMAGES.pho.alt} className="h-full min-h-[205px] w-full object-cover" />
-                <figcaption className="absolute inset-x-2 bottom-2 rounded-xl bg-black/60 px-2.5 py-2 text-white backdrop-blur-sm"><span className="font-bold">Ẩm thực Hà Nội</span><span className="block text-[10px] text-white/85">Hương vị làm say lòng người</span></figcaption>
+                <figcaption className="absolute inset-x-2 bottom-2 rounded-xl bg-black/60 px-2.5 py-2 text-white backdrop-blur-sm"><span className="font-bold">Ẩm thực Phố Cổ</span><span className="block text-[10px] text-white/85">Hương vị làm say lòng người</span></figcaption>
               </figure>
               <figure className="relative overflow-hidden rounded-[22px] shadow-card">
                 <VerifiedImage src={HOME_IMAGES.trainStreet.src} fallback={FALLBACK} alt={HOME_IMAGES.trainStreet.alt} className="h-full min-h-[205px] w-full object-cover" />
-                <figcaption className="absolute inset-x-2 bottom-2 rounded-xl bg-black/60 px-2.5 py-2 text-white backdrop-blur-sm"><span className="font-bold">Đường tàu Hà Nội</span><span className="block text-[10px] text-white/85">Trải nghiệm độc đáo</span></figcaption>
+                <figcaption className="absolute inset-x-2 bottom-2 rounded-xl bg-black/60 px-2.5 py-2 text-white backdrop-blur-sm"><span className="font-bold">Đường tàu Phố Cổ</span><span className="block text-[10px] text-white/85">Trải nghiệm độc đáo</span></figcaption>
               </figure>
             </div>
           </div>
@@ -202,18 +202,18 @@ export default function HomePage() {
 
       <section className="container-page pb-7">
         <div className="rounded-[22px] border border-line bg-white p-5 shadow-card hc-surface hc-border sm:p-7">
-          <h2 className="text-3xl">Bạn muốn khám phá Hà Nội như thế nào?</h2>
+          <h2 className="text-3xl">Bạn muốn khám phá Phố Cổ Hà Nội như thế nào?</h2>
           <p className="hc-muted mt-1 text-ink-soft">Nhận trợ giúp bằng giọng nói, tìm thông tin, kiểm tra khả năng tiếp cận và đặt dịch vụ phù hợp với nhu cầu của bạn.</p>
           <div className="mt-4 flex items-center gap-2">
             <Link href="/search" className="flex min-h-[54px] flex-1 items-center gap-3 rounded-2xl border border-line bg-white px-4 text-left text-ink-soft shadow-sm hc-surface hc-border">
-              <SearchIcon size={21} /> <span>Bạn muốn đi đâu, làm gì ở Hà Nội?</span>
+              <SearchIcon size={21} /> <span>Bạn muốn đi đâu, làm gì ở Phố Cổ Hà Nội?</span>
             </Link>
             <Link href="/search" aria-label="Tìm bằng giọng nói" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary text-ink shadow-card"><MicIcon size={22} /></Link>
             <Link href="/assistant" aria-label="Mở trợ lý camera" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f4ead7] text-ink shadow-card"><CameraIcon size={22} /></Link>
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
             <span className="font-semibold">Gợi ý nhanh:</span>
-            {["Hồ Gươm", "Văn Miếu", "Phố cổ", "Quán cà phê", "Bảo tàng", "Nhà hàng", "Khách sạn"].map((label) => <Link key={label} href={`/search?q=${encodeURIComponent(label)}`} className="rounded-full bg-surface-alt px-4 py-2 font-semibold hover:underline">{label}</Link>)}
+            {["Hồ Gươm", "Nhà cổ Mã Mây", "Chợ Đồng Xuân", "Ô Quan Chưởng", "Cà phê Giảng", "Đền Bạch Mã", "Đình Kim Ngân"].map((label) => <Link key={label} href={`/search?q=${encodeURIComponent(label)}`} className="rounded-full bg-surface-alt px-4 py-2 font-semibold hover:underline">{label}</Link>)}
           </div>
         </div>
       </section>
@@ -236,7 +236,7 @@ export default function HomePage() {
       <section className="border-y border-line bg-[#fffaf2] py-12 hc-surface hc-border" aria-labelledby="discover-heading">
         <div className="container-page">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-            <div><h2 id="discover-heading" className="text-4xl">Gợi ý khám phá Hà Nội</h2><p className="hc-muted mt-1 text-ink-soft">Một vài điểm đến phù hợp để bắt đầu hành trình của bạn.</p></div>
+            <div><h2 id="discover-heading" className="text-4xl">Gợi ý khám phá Phố Cổ Hà Nội</h2><p className="hc-muted mt-1 text-ink-soft">Một vài điểm đến phù hợp để bắt đầu hành trình của bạn.</p></div>
             <Link href="/destination" className="btn-ghost hc-border !min-h-[42px] !px-5 !py-2 text-sm">Xem thêm điểm đến ›</Link>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -259,7 +259,7 @@ export default function HomePage() {
 
       <section className="container-page py-12" aria-labelledby="help-heading">
         <h2 id="help-heading" className="text-4xl">WayEcho giúp bạn như thế nào?</h2>
-        <p className="hc-muted mt-1 text-ink-soft">Những tính năng được thiết kế để hành trình khám phá Hà Nội của bạn dễ dàng và chủ động hơn.</p>
+        <p className="hc-muted mt-1 text-ink-soft">Những tính năng được thiết kế để hành trình khám phá Phố Cổ Hà Nội của bạn dễ dàng và chủ động hơn.</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {featureCards.map(({ icon: Icon, title, desc, tone }) => (
             <article key={title} className="rounded-2xl border border-line bg-white p-5 shadow-card hc-surface hc-border">
@@ -279,7 +279,7 @@ export default function HomePage() {
       <section className="border-y border-line bg-[#fffdf8] py-12 hc-surface hc-border" aria-labelledby="assistant-heading">
         <div className="container-page">
           <h2 id="assistant-heading" className="text-5xl">Trợ lý <span className="text-[#eb5d27]">trong hành trình</span></h2>
-          <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">Công nghệ và con người cùng đồng hành, giúp bạn tự tin khám phá Hà Nội theo cách của riêng mình.</p>
+          <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">Công nghệ và con người cùng đồng hành, giúp bạn tự tin khám phá Phố Cổ Hà Nội theo cách của riêng mình.</p>
           <div className="mt-6 grid gap-5 lg:grid-cols-3">
             {journeyAssist.map(({ image, icon: Icon, title, desc, href }) => (
               <article key={title} className="overflow-hidden rounded-[22px] border border-line bg-white shadow-card hc-surface hc-border">
@@ -295,7 +295,7 @@ export default function HomePage() {
 
           <div className="mt-6 rounded-[22px] border border-line bg-white p-5 shadow-card hc-surface hc-border sm:p-7">
             <h2 className="text-4xl">Hành trình với <span className="text-[#eb5d27]">WayEcho</span></h2>
-            <p className="hc-muted mt-1 text-ink-soft">Chỉ 4 bước đơn giản để bắt đầu hành trình khám phá Hà Nội dễ dàng hơn.</p>
+            <p className="hc-muted mt-1 text-ink-soft">Chỉ 4 bước đơn giản để bắt đầu hành trình khám phá Phố Cổ Hà Nội dễ dàng hơn.</p>
             <ol className="mt-6 grid gap-5 lg:grid-cols-4">
               {processSteps.map(({ n, icon: Icon, title, desc }) => (
                 <li key={n} className="relative flex gap-4 lg:block">
@@ -328,13 +328,13 @@ export default function HomePage() {
           <div className="grid items-center gap-8 p-7 lg:grid-cols-[1.05fr_.95fr] lg:p-10">
             <div>
               <h2 id="download-heading" className="text-5xl">Tải ứng dụng <span className="text-[#eb5d27]">WayEcho</span></h2>
-              <p className="mt-2 text-2xl font-semibold">Khám phá Hà Nội đồng hành trên điện thoại của bạn.</p>
-              <p className="hc-muted mt-4 max-w-2xl text-ink-soft">Tải ngay ứng dụng WayEcho để khám phá Hà Nội dễ dàng hơn với tìm kiếm bằng giọng nói, lưu hành trình yêu thích và nhận hỗ trợ nhanh chóng khi cần.</p>
+              <p className="mt-2 text-2xl font-semibold">Khám phá Phố Cổ Hà Nội đồng hành trên điện thoại của bạn.</p>
+              <p className="hc-muted mt-4 max-w-2xl text-ink-soft">Tải ngay ứng dụng WayEcho để khám phá Phố Cổ Hà Nội dễ dàng hơn với tìm kiếm bằng giọng nói, lưu hành trình yêu thích và nhận hỗ trợ nhanh chóng khi cần.</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href="/app" aria-label="Xem hướng dẫn cài WayEcho trên iPhone hoặc iPad" className="rounded-xl bg-black px-5 py-3 text-white"><span className="block text-[10px] uppercase tracking-wider">Tải về trên</span><span className="text-xl font-bold"> App Store</span></Link>
                 <Link href="/app" aria-label="Xem hướng dẫn cài WayEcho trên Android" className="rounded-xl bg-black px-5 py-3 text-white"><span className="block text-[10px] uppercase tracking-wider">Tải nội dung trên</span><span className="text-xl font-bold">▶ Google Play</span></Link>
               </div>
-              <p className="hc-muted mt-5 flex items-center gap-3 italic text-ink-soft"><span aria-hidden="true" className="inline-block h-[4px] w-10 rounded-full bg-primary" /> Cùng WayEcho, Hà Nội gần hơn, cho mọi người!</p>
+              <p className="hc-muted mt-5 flex items-center gap-3 italic text-ink-soft"><span aria-hidden="true" className="inline-block h-[4px] w-10 rounded-full bg-primary" /> Cùng WayEcho, Phố Cổ Hà Nội gần hơn, cho mọi người!</p>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-[1fr_230px] sm:items-center">
@@ -346,9 +346,9 @@ export default function HomePage() {
               <div className="relative mx-auto w-[220px] rounded-[34px] border-[8px] border-[#111827] bg-white p-3 shadow-2xl" aria-label="Mô phỏng giao diện ứng dụng WayEcho trên điện thoại">
                 <div className="mx-auto mb-3 h-2 w-20 rounded-full bg-[#1f2937]" />
                 <div className="flex items-center gap-2 text-sm font-black"><span className="text-[#ef6d28]">⌖</span> Way<span className="text-[#ef6d28]">Echo</span></div>
-                <div className="mt-3 rounded-xl border border-line bg-white p-2 text-[10px] shadow-sm">Bạn muốn khám phá Hà Nội điều gì? <span className="float-right rounded-full bg-primary p-1"><MicIcon size={12} /></span></div>
+                <div className="mt-3 rounded-xl border border-line bg-white p-2 text-[10px] shadow-sm">Bạn muốn khám phá Phố Cổ Hà Nội điều gì? <span className="float-right rounded-full bg-primary p-1"><MicIcon size={12} /></span></div>
                 <div className="mt-3 grid grid-cols-4 gap-1 text-center text-[8px]"><span>♿<br />Điểm đến</span><span>🍴<br />Ẩm thực</span><span>🏛<br />Văn hóa</span><span>🧭<br />Bản đồ</span></div>
-                <div className="mt-3 text-[10px] font-bold">Khám phá Hà Nội</div>
+                <div className="mt-3 text-[10px] font-bold">Khám phá Phố Cổ Hà Nội</div>
                 <div className="mt-1 overflow-hidden rounded-xl"><VerifiedImage src={HOME_IMAGES.hoGuom.src} fallback={FALLBACK} alt="Ảnh Cầu Thê Húc tại Hồ Hoàn Kiếm hiển thị trong mô phỏng màn hình ứng dụng WayEcho." className="h-28 w-full object-cover" /></div>
               </div>
             </div>
@@ -357,7 +357,7 @@ export default function HomePage() {
 
         <div className="mt-5 rounded-[22px] border border-line bg-white p-6 shadow-card hc-surface hc-border">
           <div className="grid gap-5 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-            <div><h2 className="text-4xl">Cần hỗ trợ thêm?</h2><p className="hc-muted mt-1 text-ink-soft">Chúng tôi luôn sẵn sàng đồng hành cùng bạn trong hành trình khám phá Hà Nội.</p></div>
+            <div><h2 className="text-4xl">Cần hỗ trợ thêm?</h2><p className="hc-muted mt-1 text-ink-soft">Chúng tôi luôn sẵn sàng đồng hành cùng bạn trong hành trình khám phá Phố Cổ Hà Nội.</p></div>
             <div className="grid gap-3 sm:grid-cols-3">
               <Link href="/help" className="flex gap-3 rounded-2xl border border-line p-4 hover:bg-surface-alt hc-border"><RoundIcon className="bg-[#dceaff] text-[#3d73bc]"><span aria-hidden="true" className="text-xl">▤</span></RoundIcon><div><h3 className="text-base">Xem hướng dẫn sử dụng</h3><p className="hc-muted mt-1 text-xs text-ink-soft">Tìm hiểu cách sử dụng WayEcho dễ dàng và nhanh chóng.</p></div></Link>
               <Link href="/help#contact" className="flex gap-3 rounded-2xl border border-line p-4 hover:bg-surface-alt hc-border"><RoundIcon className="bg-[#dff4e5] text-[#238a4d]"><HeadphonesIcon size={21} /></RoundIcon><div><h3 className="text-base">Liên hệ hỗ trợ</h3><p className="hc-muted mt-1 text-xs text-ink-soft">Đặt câu hỏi hoặc nhận hỗ trợ từ đội ngũ của chúng tôi.</p></div></Link>
