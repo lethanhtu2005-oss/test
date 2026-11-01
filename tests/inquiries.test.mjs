@@ -1,0 +1,3 @@
+import test from "node:test";import assert from "node:assert/strict";import {validateInquiry} from "../lib/inquiryValidation.js";
+const valid={kind:"business",name:"Người liên hệ thử",contact:"contact@test.invalid",organization:"Đơn vị thử",service:"Lưu trú",message:"Nội dung đề xuất dùng kiểm thử.",consent:true};
+test("G: validation liên hệ/loại/giới hạn/consent rõ ràng",()=>{assert.ok(validateInquiry(valid).value);assert.ok(validateInquiry({...valid,contact:"+84 912 345 678"}).value);for(const patch of [{consent:false},{consent:undefined},{contact:"no"},{name:""},{organization:""},{message:"x"},{message:"x".repeat(1501)},{kind:"admin"}])assert.ok(validateInquiry({...valid,...patch}).error);assert.ok(validateInquiry({...valid,kind:"guide",organization:""}).value);});

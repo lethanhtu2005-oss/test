@@ -1,0 +1,3 @@
+"use client";
+import {useTheme} from "./ThemeProvider";
+export default function ThemeControl(){const theme=useTheme();if(!theme)return null;return <div><label htmlFor="wayecho-theme" className="block font-semibold">Giao diện sáng/tối</label><select id="wayecho-theme" value={theme.preference} onChange={event=>theme.setTheme(event.target.value)} className="mt-2 w-full rounded-xl border border-line bg-white px-3 py-3 text-ink hc-surface hc-border"><option value="system">Theo thiết bị</option><option value="light">Sáng</option><option value="dark">Tối</option></select><p className="mt-2 text-sm hc-muted">Tương phản cao là tùy chọn riêng và được ưu tiên khi bật.</p>{theme.error&&<p role="status" className="mt-2 text-sm">{theme.error}</p>}</div>;}

@@ -1,0 +1,67 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useA11y } from "@/components/A11yProvider";
+import { bookingStatus, requestStatus } from "@/lib/bookingStatus";
+import { api } from "@/lib/api";
+import { CalendarIcon, SpeakerIcon } from "@/components/Icons";
+
+export default function MyBookingPage() {
+  const { speak } = useA11y();
+  const [bookings, setBookings] = useState([]);
+  const [requests, setRequests] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const [attempt, setAttempt] = useState(0);
+
+  useEffect(() => {
+    // Lỗi tải yêu cầu hỗ trợ không được che danh sách đặt chỗ.
+    Promise.all([api.listBookings(), api.listRequests().catch(() => null)])
+      .then(([list, reqs]) => { setBookings(list); setRequests(reqs); })
+      .catch(() => setError("Không tải được đặt chỗ. Hãy kiểm tra kết nối rồi thử lại.")).finally(() => setLoading(false));
+  }, [attempt]);
+  function retry() { setLoading(true); setError(""); setAttempt((n) => n + 1); }
+
+  return (
+    <div className="container-page py-10">
+      <h1 className="text-4xl sm:text-5xl">Đặt chỗ của tôi</h1>
+      <p className="hc-muted mt-3 max-w-2xl text-lg text-ink-soft">
+        Các bản ghi đặt chỗ của bạn. Chưa có nhà cung cấp, tồn chỗ hoặc thanh toán thật; xác nhận trong demo không bảo đảm dịch vụ thực tế. Nếu chưa đăng nhập, đặt chỗ gắn với trình duyệt này; xóa cookie hoặc đổi thiết bị sẽ không xem lại được.
+      </p>
+
+      {loading ? (
+        <p className="mt-8 text-ink-soft">Đang tải…</p>
+      ) : error ? (<div className="mt-8" role="alert"><p className="text-red-800">{error}</p><button type="button" onClick={retry} className="btn-ghost hc-border mt-3">Thử lại</button></div>) : bookings.length === 0 ? (
+        <div className="mt-8 rounded-[18px] border border-line bg-white p-8 text-center hc-surface hc-border">
+          <p className="text-lg">Bạn chưa có đặt chỗ nào.</p>
+          <Link href="/explore" className="btn-primary mt-4">Khám phá dịch vụ</Link>
+        </div>
+      ) : (
+        <ul className="mt-8 space-y-4">
+          {bookings.map((b) => { const req = requests?.find((r) => r.bookingId === b.id); const reqText = b.assist ? (req ? requestStatus(req.status) : requests ? "Có yêu cầu hỗ trợ" : "Có yêu cầu hỗ trợ (chưa tải được trạng thái)") : ""; return (
+            <li key={b.id} className="card hc-surface hc-border flex flex-col gap-3 p-5 sm:flex-row sm:items-center">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-surface-alt text-ink"><CalendarIcon size={24} /></span>
+              <div className="flex-1">
+                <p className="text-xl font-semibold">{b.itemName}</p>
+                <p className="hc-muted flex flex-wrap items-center gap-x-3 text-ink-soft">
+                  <span className="flex items-center gap-1"><CalendarIcon size={15} /> {b.date || "—"} · {b.time || "—"}</span>
+                  <span>{b.guests} khách</span>
+                  {reqText && <span className="font-semibold text-accent-dark">{reqText}</span>}
+                  {b.price && <span className="font-bold text-ink">{b.price}</span>}
+                </p>
+                {req?.note && <p className="mt-1 text-sm">Ghi chú của doanh nghiệp: {req.note}</p>}
+              </div>
+              <span className={`chip hc-surface hc-border ${bookingStatus(b.status)[1]}`}>{bookingStatus(b.status)[0]}</span>
+              <button
+                onClick={() => speak(`${b.itemName}, ${b.time || ""} ${b.date || ""}, ${b.guests} khách. ${bookingStatus(b.status)[0]}. ${reqText}${req?.note ? `. Ghi chú: ${req.note}` : ""}.`)}
+                className="btn-ghost hc-border !min-h-[40px] !p-2" aria-label={`Nghe lại đơn ${b.itemName}`}
+              ><SpeakerIcon size={18} /></button>
+            </li>
+          ); })}
+        </ul>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound(){return <div className="container-page py-16"><h1 className="text-4xl">Không tìm thấy nội dung</h1><p className="mt-4">Đường dẫn không khớp dữ liệu hiện có. Không có điểm đến hay dịch vụ khác được tự thay thế.</p><div className="mt-5 flex flex-wrap gap-3"><Link href="/explore" className="btn-primary">Khám phá</Link><Link href="/articles" className="btn-ghost">Cẩm nang</Link><Link href="/sos" className="btn-ghost">SOS — DEMO</Link></div></div>;}

@@ -1,0 +1,7 @@
+import {pageMetadata} from "@/lib/seo";
+import Link from "next/link";
+import {articles} from "@/data/articles";
+import {getDestination} from "@/data/destinations";
+import VerifiedImage from "@/components/VerifiedImage";
+export const metadata=pageMetadata("Cẩm nang du lịch tiếp cận","Hướng dẫn chuẩn bị hành trình, đọc dữ liệu tiếp cận và kiểm soát chia sẻ thông tin khi sử dụng WayEcho.","/articles");
+export default function Articles(){return <div className="container-page py-10"><h1 className="text-4xl sm:text-5xl">Cẩm nang du lịch tiếp cận</h1><p className="mt-3 max-w-3xl text-lg text-ink-soft hc-muted">Chuẩn bị chuyến đi theo nhu cầu của bạn. Các bài hướng dẫn không thay thế thông tin được điểm đến xác nhận hoặc khảo sát thực địa.</p><div className="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{articles.map(a=>{const d=getDestination(a.destinationSlugs[0]);return <article key={a.slug} className="card hc-surface hc-border overflow-hidden border border-line">{d&&<VerifiedImage src={d.image} fallback={d.imageFallback} alt={d.alt} className="aspect-[4/3] w-full object-cover"/>}<div className="p-5"><p className="text-sm">{a.category}</p><h2 className="mt-2 text-2xl"><Link href={`/articles/${a.slug}`} className="underline">{a.title}</Link></h2><p className="mt-3">{a.summary}</p></div></article>;})}</div><Link className="btn-ghost mt-6" href="/services/guide-dogs">Tìm hiểu chó dẫn đường</Link></div>;}
