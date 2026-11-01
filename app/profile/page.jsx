@@ -14,7 +14,23 @@ const GROUPS = [
 const DEFAULT_PREFS = { screenReader: true, audioDescription: true, staff: true, navigation: true };
 
 export default function ProfilePage() {
-  const { speak, contrast, largeText, minimalDom, setContrastEnabled, setLargeTextEnabled, setMinimalDomEnabled, applyVisualProfile, speechRate, setSpeechRate } = useA11y();
+  const {
+    speak,
+    contrast,
+    largeText,
+    minimalDom,
+    audioFeedback,
+    hapticFeedback,
+    setContrastEnabled,
+    setLargeTextEnabled,
+    setMinimalDomEnabled,
+    setAudioFeedbackEnabled,
+    setHapticFeedbackEnabled,
+    applyVisualProfile,
+    speechRate,
+    setSpeechRate,
+    feedback,
+  } = useA11y();
   const [userType, setUserType] = useState("lowvision");
   const [emergency, setEmergency] = useState("");
   const [prefs, setPrefs] = useState(DEFAULT_PREFS);
@@ -57,6 +73,7 @@ export default function ProfilePage() {
     setContrastEnabled(!!prefs.highContrast);
     setLargeTextEnabled(!!prefs.largeText);
     setSaved(true);
+    feedback?.success();
     speak("Đã lưu và áp dụng hồ sơ tiếp cận. Bạn vẫn có thể thay đổi các tùy chọn bất kỳ lúc nào.");
   }
 
@@ -112,6 +129,25 @@ export default function ProfilePage() {
               </div>
               <input type="checkbox" checked={minimalDom} onChange={(e) => { setMinimalDomEnabled(e.target.checked); setSaved(false); }} className="h-5 w-5 accent-[#f8ae38]" />
             </label>
+            <label className="flex items-center justify-between rounded-xl border border-line p-3 hc-border">
+              <div>
+                <span className="font-semibold block">Âm thanh phản hồi (Web Audio Earcon)</span>
+                <span className="text-xs text-ink-soft hc-muted">Phát tiếng chirp khi nhận lệnh, ding-dong khi hoàn tất</span>
+              </div>
+              <input type="checkbox" checked={audioFeedback} onChange={(e) => { setAudioFeedbackEnabled(e.target.checked); setSaved(false); }} className="h-5 w-5 accent-[#f8ae38]" />
+            </label>
+            <label className="flex items-center justify-between rounded-xl border border-line p-3 hc-border">
+              <div>
+                <span className="font-semibold block">Rung phản hồi (Haptic feedback)</span>
+                <span className="text-xs text-ink-soft hc-muted">Rung nhẹ khi thao tác trên thiết bị hỗ trợ</span>
+              </div>
+              <input type="checkbox" checked={hapticFeedback} onChange={(e) => { setHapticFeedbackEnabled(e.target.checked); setSaved(false); }} className="h-5 w-5 accent-[#f8ae38]" />
+            </label>
+          </div>
+          <div className="mt-4 flex gap-2">
+            <button type="button" onClick={() => feedback?.action()} className="btn-ghost hc-border text-xs !py-1 !px-3">Thử tiếng Chirp</button>
+            <button type="button" onClick={() => feedback?.success()} className="btn-ghost hc-border text-xs !py-1 !px-3">Thử tiếng Ding-dong</button>
+            <button type="button" onClick={() => feedback?.warning()} className="btn-ghost hc-border text-xs !py-1 !px-3">Thử tiếng Cảnh báo</button>
           </div>
         </div>
 
