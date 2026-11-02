@@ -18,11 +18,11 @@ function bestMatch(text, samples) {
 }
 
 export default function VoiceBar({
-  title = "Bạn muốn đi đâu ở Hà Nội?",
+  title = "Bạn muốn đi đâu ở Phố Cổ Hà Nội?",
   hint = "Nhấn nút micro và nói, hoặc chọn một câu mẫu bên dưới.",
   samples = [],
 }) {
-  const { speak } = useA11y();
+  const { speak, feedback } = useA11y();
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
   const [simListening, setSimListening] = useState(false);
@@ -30,10 +30,19 @@ export default function VoiceBar({
 
   function handleResult(text) {
     setTranscript(text);
-    const m = bestMatch(text, samples);
-    const response = m
-      ? m.response
-      : `Bạn vừa nói: “${text}”. Tôi có thể giúp tìm điểm đến, đặt dịch vụ hoặc chỉ đường. Bạn muốn làm gì?`;
+    feedback?.success();
+    const lower = text.toLowerCase();
+    let response = "";
+    if (lower.includes("sos") || lower.includes("cứu")) {
+      response = "Nếu bạn cần trợ giúp khẩn cấp tại Phố Cổ, hãy chuyển sang trang SOS hoặc gọi ngay 115.";
+    } else if (lower.includes("camera") || lower.includes("chụp") || lower.includes("mô tả")) {
+      response = "Mở trợ lý camera tại mục Trợ lý để xem mô tả không gian và đọc văn bản OCR tại Phố Cổ.";
+    } else {
+      const m = bestMatch(text, samples);
+      response = m
+        ? m.response
+        : `Bạn vừa nói: “${text}”. Tôi có thể giúp bạn tìm điểm đến, đặt dịch vụ hoặc chỉ đường tại Phố Cổ Hà Nội. Bạn muốn làm gì?`;
+    }
     setReply(response);
     speak(response);
   }
@@ -44,6 +53,7 @@ export default function VoiceBar({
   function respond(utterance, response) {
     setTranscript(utterance);
     setReply(response);
+    feedback?.success();
     speak(response);
   }
 
@@ -51,6 +61,7 @@ export default function VoiceBar({
     if (listening) return;
     setReply("");
     setTranscript("");
+    feedback?.chirp();
     if (supported) {
       speak("WayEcho đang nghe.");
       start();

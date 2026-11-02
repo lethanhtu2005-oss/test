@@ -39,10 +39,16 @@ function NavigationContent() {
       {target.message && <p role="status" className="mt-4 rounded-xl bg-surface-alt p-4">{target.message}</p>}
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         <div>
-          <div className="h-[360px] overflow-hidden rounded-[18px] border border-line shadow-card hc-border" role="region" aria-label="Bản đồ OpenStreetMap các điểm đến Hà Nội; tuyến nét đứt là tuyến minh họa, không phải chỉ dẫn an toàn."><MapView points={POINTS} route={to ? [] : ROUTE} center={target.center} zoom={target.zoom} /></div>
+          <div className="h-[360px] overflow-hidden rounded-[18px] border border-line shadow-card hc-border" role="region" aria-label="Bản đồ OpenStreetMap các điểm đến Phố Cổ Hà Nội; tuyến nét đứt là tuyến minh họa, không phải chỉ dẫn an toàn."><MapView points={POINTS} route={to ? [] : ROUTE} center={target.center} zoom={target.zoom} /></div>
           <p className="hc-muted mt-2 text-xs text-ink-soft">Nguồn nền bản đồ: OpenStreetMap. Nhãn accessibility trên pin phản ánh trạng thái dữ liệu của WayEcho, không phải chứng nhận an toàn.</p>
-          <button onClick={startGuide} className="btn-primary mt-4 text-lg"><CompassIcon size={22} /> Nghe cách điều hướng hoạt động</button>
+          <button onClick={startGuide} className="btn-primary mt-4 min-h-[56px] text-lg"><CompassIcon size={22} /> Nghe cách điều hướng hoạt động</button>
           <div className="mt-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-amber-950" role="alert"><strong>Quan trọng:</strong> bản demo không biết xe đang tới, đèn tín hiệu đang hoạt động hay phía trước có vật cản. Không dùng các bước minh họa này để qua đường.</div>
+          <div className="mt-4">
+            <a href="tel:19001000" className="btn-primary flex min-h-[56px] w-full items-center justify-center gap-2 text-base font-bold shadow-md">
+              📞 Kết nối cuộc gọi Tư vấn viên WayEcho từ xa
+            </a>
+            <p className="hc-muted mt-2 text-center text-xs text-ink-soft">Tư vấn viên con người hỗ trợ kiểm tra tuyến đường thực địa tại Phố Cổ khi điều hướng AI gặp chướng ngại.</p>
+          </div>
         </div>
 
         <div>

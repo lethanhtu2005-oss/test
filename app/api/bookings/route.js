@@ -23,17 +23,20 @@ export const POST = secured(async (req, user) => {
   const shareAccessibility = body.shareAccessibility === true;
   const requests = shareAccessibility && Array.isArray(body.accessibilityRequests) ? body.accessibilityRequests.slice(0,20).filter(x=>typeof x === "string").map(x=>cleanText(x,100)).filter(Boolean) : [];
   const note = shareAccessibility ? cleanText(body.requestNote) : "";
-  const assist = shareAccessibility && body.assist === true && !!(requests.length || note);
+  const voiceNote = typeof body.voiceNote === "string" ? cleanText(body.voiceNote, 500) : "";
+  const meetupPoint = typeof body.meetupPoint === "string" ? cleanText(body.meetupPoint, 150) : "";
+  const assist = shareAccessibility && body.assist === true && !!(requests.length || note || voiceNote);
   const businessId = businessIdForItem(item.id);
   const requestId=body.requestId;
   if(requestId!==undefined&&(typeof requestId!=="string"||!/^[A-Za-z0-9_-]{16,128}$/.test(requestId)))fail(400,"Mã yêu cầu không hợp lệ.");
-  const requestHash=digest(JSON.stringify({itemId:item.id,date:body.date||null,time:cleanText(body.time,20)||null,guests,assist,shareAccessibility,requests,note}));
+  const requestHash=digest(JSON.stringify({itemId:item.id,date:body.date||null,time:cleanText(body.time,20)||null,guests,assist,shareAccessibility,requests,note,voiceNote,meetupPoint}));
   const record = await transaction(db=>{
     if(requestId){const previous=db.bookings.find(x=>x.ownerId===user.id&&x.requestId===requestId);if(previous){if(previous.requestHash!==requestHash)fail(409,"Mã yêu cầu đã được dùng với nội dung khác.");return previous;}}
-    const booking = insert(db,"bookings",{ownerId:user.id,isDemo:true,...(requestId?{requestId,requestHash}:{}),itemId:item.id,itemName:item.name,businessId,date:body.date || null,time:cleanText(body.time,20)||null,guests,assist,shareAccessibility,price:item.price || null,status:businessId?"pending":"demo"});
+    const booking = insert(db,"bookings",{ownerId:user.id,isDemo:true,...(requestId?{requestId,requestHash}:{}),itemId:item.id,itemName:item.name,businessId,date:body.date || null,time:cleanText(body.time,20)||null,guests,assist,shareAccessibility,meetupPoint:meetupPoint||null,voiceNote:voiceNote||null,price:item.price || null,status:businessId?"pending":"demo"});
     if (assist && businessId) {
-      insert(db,"requests",{ownerId:user.id,bookingId:booking.id,businessId,itemName:item.name,shareAccessibility:true,content:requests.length?requests.join(", "):note,status:"pending"});
-      insert(db,"notifications",{ownerId:user.id,role:"business",businessId,type:"accessibility_request",message:`Yêu cầu hỗ trợ mới cho "${item.name}"`});
+      const fullNote = [note, voiceNote ? `[Ghi chú giọng nói]: ${voiceNote}` : "", meetupPoint ? `[Điểm hẹn]: ${meetupPoint}` : ""].filter(Boolean).join(" | ");
+      insert(db,"requests",{ownerId:user.id,bookingId:booking.id,businessId,itemName:item.name,shareAccessibility:true,content:requests.length ? `${requests.join(", ")}${fullNote ? ` (${fullNote})` : ""}` : fullNote,meetupPoint:meetupPoint||null,voiceNote:voiceNote||null,status:"pending"});
+      insert(db,"notifications",{ownerId:user.id,role:"business",businessId,type:"accessibility_request",message:`Yêu cầu hỗ trợ mới cho "${item.name}" tại Phố Cổ`});
     }
     if (businessId) insert(db,"notifications",{ownerId:user.id,role:"business",businessId,type:"new_booking",message:`Đặt chỗ DEMO mới: ${item.name}`});
     return booking;

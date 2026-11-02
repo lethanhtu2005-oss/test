@@ -6,6 +6,7 @@ import { Barlow_Condensed, Lato, Lora } from "next/font/google";
 import A11yProvider from "@/components/A11yProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AccessibilityToolbar from "@/components/AccessibilityToolbar";
 import PWARegister from "@/components/PWARegister";
 import MobileNav from "@/components/MobileNav";
 import StorageNotice from "@/components/StorageNotice";
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
           <Header />
           <main id="main">{children}</main>
           <Footer />
+          <AccessibilityToolbar />
           <MobileNav />
           <PWARegister />
         </A11yProvider></ThemeProvider>
@@ -45,4 +47,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-

@@ -4,5 +4,9 @@
   "trip": [],
   "reviews": [],
   "requests": [],
-  "notifications": []
+  "notifications": [],
+  "sessions": [],
+  "sos_alerts": [],
+  "support_calls": [],
+  "escrow_transactions": []
 }

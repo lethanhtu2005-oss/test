@@ -61,6 +61,15 @@ html[data-contrast="high"] .hc-border {
   border-color: #ffffff !important;
 }
 
+/* Chế độ Tối giản cấu trúc (Minimal DOM) cho người mù/dùng screen reader:
+   Ẩn các đồ họa trang trí, banner phụ, mockup điện thoại; thu gọn luồng đọc */
+html[data-minimal="true"] [data-decorative="true"],
+html[data-minimal="true"] .decorative-graphic,
+html[data-minimal="true"] [aria-label*="Mô phỏng"],
+html[data-minimal="true"] figure img:not([alt]) {
+  display: none !important;
+}
+
 @layer components {
   .container-page {
     @apply mx-auto max-w-content px-4 sm:px-6 lg:px-12;
