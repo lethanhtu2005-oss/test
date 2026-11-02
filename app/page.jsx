@@ -109,7 +109,7 @@ const featureCards = [
   {
     icon: UserIcon,
     title: "Trợ lý tại điểm đến",
-    desc: "Hướng dẫn chi tiết, gợi ý trải nghiệm phù hợp và hỗ trợ nhanh khi bạn cần giúp đỡ.",
+    desc: "Xem quy trình Guide & Assistant ở chế độ demo; hiện chưa có nhân sự được phân công hỗ trợ thực tế.",
     tone: "bg-[#8a5bd2]",
   },
 ];
@@ -126,14 +126,14 @@ const journeyAssist = [
     image: HOME_IMAGES.camera,
     icon: CameraIcon,
     title: "Trợ lý camera / AI Vision",
-    desc: "Mô tả hình ảnh và đọc văn bản OCR mẫu tại Phố Cổ. Luôn có nút chuyển sang tư vấn viên khi AI không chắc chắn.",
+    desc: "Xem mô tả ảnh mẫu. Bản hiện tại chưa có AI/OCR thật hoặc tư vấn viên trực.",
     href: "/assistant",
   },
   {
     image: HOME_IMAGES.humanSupport,
     icon: UserIcon,
-    title: "Hỗ trợ con người tại điểm hẹn",
-    desc: "Điểm hẹn thực địa tại 28 Hàng Buồm, Tượng đài Cảm Tử, Nhà cổ Mã Mây với hướng dẫn viên và trợ lý tiếp cận.",
+    title: "Điểm hẹn Guide & Assistant — DEMO",
+    desc: "Xem các điểm hẹn minh họa tại Phố cổ; hiện chưa có hướng dẫn viên hoặc trợ lý được phân công thực tế.",
     href: "/item?id=demo-guide-tour",
   },
 ];
@@ -483,8 +483,8 @@ export default function HomePage() {
                 <Link href="/sos" className="flex gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 hover:bg-red-100 hc-border">
                   <RoundIcon className="bg-red-600 text-white"><PhoneIcon size={20} /></RoundIcon>
                   <div>
-                    <h3 className="text-base font-bold text-red-900">SOS khẩn cấp</h3>
-                    <p className="mt-1 text-xs text-red-800">Tọa độ GPS và gọi trợ giúp Phố Cổ.</p>
+                    <h3 className="text-base font-bold text-red-900">SOS demo</h3>
+                    <p className="mt-1 text-xs text-red-800">Chỉ lưu tín hiệu demo; không gọi cứu hộ.</p>
                   </div>
                 </Link>
                 <Link href="/guide/login" className="flex gap-3 rounded-2xl border border-line p-4 hover:bg-surface-alt hc-border">
