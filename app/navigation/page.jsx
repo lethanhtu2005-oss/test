@@ -44,10 +44,10 @@ function NavigationContent() {
           <button onClick={startGuide} className="btn-primary mt-4 min-h-[56px] text-lg"><CompassIcon size={22} /> Nghe cách điều hướng hoạt động</button>
           <div className="mt-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-amber-950" role="alert"><strong>Quan trọng:</strong> bản demo không biết xe đang tới, đèn tín hiệu đang hoạt động hay phía trước có vật cản. Không dùng các bước minh họa này để qua đường.</div>
           <div className="mt-4">
-            <a href="tel:19001000" className="btn-primary flex min-h-[56px] w-full items-center justify-center gap-2 text-base font-bold shadow-md">
-              📞 Kết nối cuộc gọi Tư vấn viên WayEcho từ xa
+            <a href="/help#contact" className="btn-primary flex min-h-[56px] w-full items-center justify-center gap-2 text-base font-bold shadow-md">
+              Xem thông tin hỗ trợ
             </a>
-            <p className="hc-muted mt-2 text-center text-xs text-ink-soft">Tư vấn viên con người hỗ trợ kiểm tra tuyến đường thực địa tại Phố Cổ khi điều hướng AI gặp chướng ngại.</p>
+            <p className="hc-muted mt-2 text-center text-xs text-ink-soft">Bản demo chưa có tư vấn viên trực hoặc tuyến đường đã khảo sát.</p>
           </div>
         </div>
 
@@ -63,3 +63,4 @@ function NavigationContent() {
 }
 
 export default function NavigationPage() { return <Suspense fallback={<p className="container-page py-10">Đang tải bản đồ…</p>}><NavigationContent /></Suspense>; }
+

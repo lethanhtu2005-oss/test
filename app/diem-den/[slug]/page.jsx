@@ -199,22 +199,22 @@ export default async function DiemDenPage({ params }) {
           </div>
 
           <div className="rounded-[22px] border border-primary/40 bg-[#fffaf2] p-6 shadow-card hc-surface hc-border">
-            <h3 className="text-xl font-bold">Hỗ trợ khẩn cấp tại Phố Cổ</h3>
+            <h3 className="text-xl font-bold">Thông tin hỗ trợ</h3>
             <p className="hc-muted mt-1 text-sm text-ink-soft">
-              Nếu gặp khó khăn trong quá trình tiếp cận điểm đến, hãy kết nối ngay với tư vấn viên từ xa hoặc trạm SOS.
+              WayEcho chưa có nhân viên trực tại điểm đến. SOS trong bản demo chỉ lưu tín hiệu, không gọi cứu hộ.
             </p>
             <div className="mt-4 space-y-3">
               <a
-                href="tel:19001000"
+                href="/help#contact"
                 className="btn-primary flex min-h-[52px] w-full items-center justify-center gap-2 font-bold"
               >
-                <PhoneIcon size={20} /> 📞 Tư vấn viên Phố Cổ
+                <PhoneIcon size={20} /> Xem trang hỗ trợ
               </a>
               <Link
                 href="/sos"
                 className="btn-ghost hc-border flex min-h-[52px] w-full items-center justify-center font-bold text-red-800"
               >
-                Kích hoạt SOS khẩn cấp
+                Mở SOS demo
               </Link>
             </div>
           </div>
@@ -243,3 +243,4 @@ export default async function DiemDenPage({ params }) {
     </article>
   );
 }
+

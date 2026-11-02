@@ -344,7 +344,7 @@ export default function HomePage() {
             <p className="mt-2 text-ink-soft hc-muted">Tìm hiểu cách đọc dữ liệu tiếp cận, chọn thông tin muốn chia sẻ và chuẩn bị câu hỏi cho điểm đến Phố Cổ.</p>
             <div className="mt-4 flex flex-wrap gap-4">
               <Link className="btn-primary min-h-[48px] px-5 font-bold" href="/articles">Đọc cẩm nang Phố Cổ</Link>
-              
+
             </div>
           </div>
         </div>
@@ -354,7 +354,7 @@ export default function HomePage() {
       <section id="home-camera" aria-label="Vùng 3: Trợ lý Camera & Điều hướng" className="container-page py-12">
         <h2 className="text-4xl font-bold">Trợ lý <span className="text-[#eb5d27]">trong hành trình</span></h2>
         <p className="hc-muted mt-2 max-w-2xl text-lg text-ink-soft">Công nghệ và con người cùng đồng hành, giúp bạn tự tin khám phá Phố Cổ Hà Nội theo cách của riêng mình.</p>
-        
+
         <div className="mt-6 grid gap-5 lg:grid-cols-3">
           {journeyAssist.map(({ image, icon: Icon, title, desc, href }) => (
             <article key={title} className="overflow-hidden rounded-[22px] border border-line bg-white shadow-card hc-surface hc-border">
@@ -379,7 +379,7 @@ export default function HomePage() {
             <div>
               <h3 className="text-2xl font-bold">AI không chắc chắn về môi trường thực tế?</h3>
               <p className="mt-1 text-sm text-amber-900">
-                Camera và điều hướng chỉ là công cụ hỗ trợ. Bất cứ khi nào bạn gặp vật cản hoặc ngõ hẹp tại Phố Cổ, hãy kết nối ngay với tư vấn viên từ xa.
+                Camera và điều hướng chỉ là công cụ hỗ trợ. Bản demo chưa có tư vấn viên trực; tín hiệu SOS không được chuyển tới lực lượng cứu hộ.
               </p>
             </div>
             <Link href="/sos" className="btn-primary min-h-[56px] px-6 text-base font-bold shrink-0 shadow-md">
@@ -502,3 +502,4 @@ export default function HomePage() {
     </div>
   );
 }
+
