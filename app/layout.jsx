@@ -6,7 +6,6 @@ import { Barlow_Condensed, Lato, Lora } from "next/font/google";
 import A11yProvider from "@/components/A11yProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AccessibilityToolbar from "@/components/AccessibilityToolbar";
 import PWARegister from "@/components/PWARegister";
 import MobileNav from "@/components/MobileNav";
 import StorageNotice from "@/components/StorageNotice";
@@ -32,14 +31,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi" suppressHydrationWarning className={`${display.variable} ${lato.variable} ${lora.variable}`}>
       <head><script dangerouslySetInnerHTML={{__html:THEME_BOOTSTRAP}} /></head>
-      <body className="pb-20 md:pb-0">
+      <body className="pb-20 lg:pb-0">
         <ThemeProvider><A11yProvider>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-black focus:px-4 focus:py-3 focus:text-white">Bỏ qua, tới nội dung chính</a>
           <StorageNotice />
           <Header />
           <main id="main">{children}</main>
           <Footer />
-          <AccessibilityToolbar />
           <MobileNav />
           <PWARegister />
         </A11yProvider></ThemeProvider>
@@ -47,3 +45,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+

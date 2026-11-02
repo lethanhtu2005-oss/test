@@ -16,7 +16,7 @@ export default function MobileNav() {
   const pathname = usePathname();
   if (pathname.startsWith("/guide")) return null;
   return (
-    <nav aria-label="Điều hướng ứng dụng trên điện thoại" className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 px-2 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden hc-surface hc-border">
+    <nav aria-label="Điều hướng ứng dụng trên điện thoại" className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 px-2 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 backdrop-blur lg:hidden hc-surface hc-border">
       <ul className="grid grid-cols-5 gap-1">
         {ITEMS.map((item) => {
           const active = pathname.startsWith(item.href);
@@ -40,3 +40,4 @@ export default function MobileNav() {
     </nav>
   );
 }
+

@@ -72,7 +72,7 @@ const needCards = [
   { icon: UserIcon, label: "Guide &\nAssistant", href: "/item?id=demo-guide-tour", tone: "bg-[#eea22e]" },
 ];
 
-const destinationCards = destinations.slice(0,4).map(d => ({title:d.name,area:d.area,image:{src:d.image,alt:d.alt},facts:[d.access.status],badge:d.access.level,badgeClass:"bg-amber-100 text-amber-950",href:`/destination?d=${d.slug}`}));
+const destinationCards = destinations.slice(0,4).map(d => ({...d,title:d.name,area:d.area,image:{src:d.image,alt:d.alt},facts:[d.access.status],badge:d.access.level,badgeClass:"bg-amber-100 text-amber-950",href:`/destination?d=${d.slug}`}));
 
 const featureCards = [
   {
@@ -160,19 +160,21 @@ function RoundIcon({ children, className = "" }) {
 export default function HomePage() {
   return (
     <div className="home-page hc-surface">
-      <section className="container-page pb-8 pt-8 lg:pb-10 lg:pt-10">
+      <section className="relative overflow-hidden bg-[radial-gradient(ellipse_at_80%_10%,#f9ddb0_0%,transparent_38%),linear-gradient(135deg,#fffaf0_0%,#fffdf9_56%,#f7eee0_100%)] pb-10 pt-8 lg:pb-14 lg:pt-12 hc-surface">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-12 h-72 w-72 rounded-full border border-[#e9c78d]/50 lg:right-[8%]" />
+        <div className="container-page relative">
         <div className="grid items-center gap-8 lg:grid-cols-[.92fr_1.08fr] lg:gap-12">
           <div>
-            <span className="chip hc-surface hc-border"><AccessibleIcon size={16} /> Thiết kế cho người khiếm thị</span>
-            <h1 className="mt-5 max-w-[650px] text-5xl leading-[.98] sm:text-6xl lg:text-[68px]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#e9d8bd] bg-white/80 px-4 py-2 text-sm font-bold text-[#8d4b20] shadow-sm"><AccessibleIcon size={16} /> Hà Nội, theo cách của bạn</span>
+            <h1 className="mt-5 max-w-[650px] text-5xl leading-[.96] tracking-tight sm:text-6xl lg:text-[72px]">
               Du lịch Hà Nội,<br />dẫn lối <span className="text-[#eb5d27]">bằng giọng nói</span>
             </h1>
-            <p className="hc-muted mt-5 max-w-[650px] text-[18px] leading-8 text-ink-soft">
-              WayEcho giúp người khiếm thị khám phá Hà Nội dễ dàng hơn bằng giọng nói. Bạn có thể tìm kiếm thông tin, xem khả năng tiếp cận, đặt dịch vụ, nhờ hỗ trợ và trải nghiệm các điểm đến tại Hà Nội cùng những công cụ hỗ trợ phù hợp.
+            <p className="hc-muted mt-5 max-w-[620px] text-lg leading-8 text-ink-soft">
+              Khám phá điểm đến, kiểm tra thông tin tiếp cận và chuẩn bị hành trình trong một nơi. WayEcho giúp bạn chủ động chọn cách tìm hiểu phù hợp — bằng giọng nói, hình ảnh hoặc văn bản.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/search" className="btn-primary text-base sm:text-lg"><MicIcon size={22} /> Bắt đầu bằng giọng nói</Link>
-              <Link href="/assistant" className="btn-ghost hc-border text-base sm:text-lg"><CameraIcon size={22} /> Mở trợ lý camera</Link>
+              <Link href="/search" className="btn-primary min-h-[54px] rounded-full px-6 text-base shadow-card sm:text-lg"><MicIcon size={22} /> Khám phá ngay</Link>
+              <Link href="/destination" className="btn-ghost min-h-[54px] rounded-full bg-white/80 px-6 text-base hc-border sm:text-lg"><CompassIcon size={22} /> Xem điểm đến</Link>
             </div>
             <p className="hc-muted mt-5 flex items-center gap-3 text-sm italic text-ink-soft"><span aria-hidden="true" className="inline-block h-[4px] w-10 rounded-full bg-primary" /> Hà Nội gần hơn, cho mọi người</p>
           </div>
@@ -197,6 +199,7 @@ export default function HomePage() {
               </figure>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -233,25 +236,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-[#fffaf2] py-12 hc-surface hc-border" aria-labelledby="discover-heading">
+      <section className="border-y border-[#eadfcd] bg-[#fffaf2] py-14 hc-surface hc-border" aria-labelledby="discover-heading">
         <div className="container-page">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-            <div><h2 id="discover-heading" className="text-4xl">Gợi ý khám phá Hà Nội</h2><p className="hc-muted mt-1 text-ink-soft">Một vài điểm đến phù hợp để bắt đầu hành trình của bạn.</p></div>
+            <div><span className="text-xs font-extrabold uppercase tracking-[.18em] text-[#ba5a23]">Lên kế hoạch dễ dàng</span><h2 id="discover-heading" className="mt-2 text-4xl sm:text-5xl">Điểm đến được gợi ý</h2><p className="hc-muted mt-2 max-w-2xl text-ink-soft">Xem nhanh mô tả và tình trạng thông tin tiếp cận trước khi chọn điểm đến.</p></div>
             <Link href="/destination" className="btn-ghost hc-border !min-h-[42px] !px-5 !py-2 text-sm">Xem thêm điểm đến ›</Link>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {destinationCards.map((card) => (
-              <Link key={card.title} href={card.href} className="overflow-hidden rounded-[20px] border border-line bg-white shadow-card transition hover:-translate-y-0.5 hover:shadow-card-hover hc-surface hc-border">
-                <VerifiedImage src={card.image.src} fallback={FALLBACK} alt={card.image.alt} className="h-48 w-full object-cover" />
-                <div className="p-4">
-                  <h3 className="text-[24px]">{card.title}</h3>
-                  <p className="hc-muted mt-2 flex items-center gap-2 text-sm text-ink-soft"><MapPinIcon size={17} /> {card.area}</p>
-                  <ul className="hc-muted mt-2 space-y-1 text-sm text-ink-soft">
-                    {card.facts.map((f) => <li key={f} className="flex items-center gap-2"><AccessibleIcon size={17} /> {f}</li>)}
-                  </ul>
-                  <span className={`mt-4 inline-flex rounded-full px-3 py-1.5 text-sm font-bold ${card.badgeClass}`}>{card.badge}</span>
+            {destinationCards.map((card, index) => (
+              <article key={card.title} className="group overflow-hidden rounded-[24px] border border-[#e9dece] bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover hc-surface hc-border">
+                <Link href={card.href} className="relative block overflow-hidden">
+                  <VerifiedImage src={card.image.src} fallback={FALLBACK} alt={card.image.alt} className="h-56 w-full object-cover transition duration-500 group-hover:scale-[1.04]" />
+                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-[#7b481f] shadow">Gợi ý {String(index + 1).padStart(2,"0")}</span>
+                </Link>
+                <div className="p-5">
+                  <p className="flex items-center gap-2 text-sm font-semibold text-ink-soft"><MapPinIcon size={16} /> {card.area}</p>
+                  <h3 className="mt-1 text-[25px] leading-tight"><Link href={card.href} className="hover:text-[#bd4e1e]">{card.title}</Link></h3>
+                  <span className={`mt-3 inline-flex rounded-full px-3 py-1.5 text-xs font-extrabold ${card.badgeClass}`}>{card.badge}</span>
+                  <details className="mt-4 border-t border-line pt-3">
+                    <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 font-bold"><span className="flex items-center gap-2"><AccessibleIcon size={18} /> Thông tin tiếp cận</span><span aria-hidden="true" className="text-xl text-[#b65523]">＋</span></summary>
+                    <p className="mt-2 text-sm leading-6 text-ink-soft hc-muted">{card.access.status}</p>
+                    <p className="mt-2 text-xs leading-5 text-ink-soft hc-muted">{card.access.note}</p>
+                  </details>
+                  <Link href={card.href} className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-full bg-[#fff2dc] px-4 font-bold text-[#713d1d] transition hover:bg-[#ffe5ba]">Xem chi tiết <span aria-hidden="true" className="ml-2">→</span></Link>
                 </div>
-              </Link>
+              </article>
             ))}
           </div>
         </div>
@@ -369,3 +378,4 @@ export default function HomePage() {
     </div>
   );
 }
+
