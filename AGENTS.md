@@ -55,7 +55,7 @@ docs/                (chỉ trên nhánh docs) báo cáo nâng cấp A–G, bài
 | `/assistant` | Camera thật (chụp/chọn ảnh, không gửi đi) + ví dụ mô tả bằng ảnh mẫu |
 | `/sos` | SOS DEMO: xin vị trí khi bấm, xử lý từ chối/timeout/offline, `tel:` liên hệ khẩn cấp |
 | `/articles`, `/articles/[slug]` | Cẩm nang (`data/articles.js`) |
-| `/services/guide-dogs` | Thông tin chó dẫn đường (chỉ thông tin, không có dịch vụ) |
+
 | `/partners/[kind]` | `business` · `guide` · `cooperate`: giới thiệu + form "quan tâm hợp tác" |
 | `/help`, `/app`, `/privacy`, `/terms`, `/sitemap`, `/staff`, `/login` | Hỗ trợ, cài PWA, pháp lý, sơ đồ trang, đăng nhập tài khoản được cấp |
 

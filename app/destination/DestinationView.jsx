@@ -139,7 +139,7 @@ function DestinationContent() {
         </aside>
       </section>
 
-      <section className="mt-8 max-w-3xl"><h2 className="text-3xl">Trước khi đến</h2><p className="mt-3">WayEcho chưa có tuyến phương tiện và điểm đón trả đã khảo sát cho {d.name}. Hãy hỏi đơn vị quản lý về lối vào đang sử dụng, hình thức thuyết minh, người hỗ trợ và điều kiện tham quan vào ngày bạn đi. Nguồn địa chỉ hoặc giá vé không xác nhận các tiện ích này.</p><h3 className="mt-5 text-2xl">Cẩm nang liên quan</h3><ul className="mt-3 space-y-2">{articles.filter(a=>a.destinationSlugs.includes(d.slug)).map(a=><li key={a.slug}><Link className="underline" href={`/articles/${a.slug}`}>{a.title}</Link></li>)}</ul><Link className="mt-4 inline-block underline" href="/services/guide-dogs">Thông tin về chó dẫn đường</Link></section>
+      <section className="mt-8 max-w-3xl"><h2 className="text-3xl">Trước khi đến</h2><p className="mt-3">WayEcho chưa có tuyến phương tiện và điểm đón trả đã khảo sát cho {d.name}. Hãy hỏi đơn vị quản lý về lối vào đang sử dụng, hình thức thuyết minh, người hỗ trợ và điều kiện tham quan vào ngày bạn đi. Nguồn địa chỉ hoặc giá vé không xác nhận các tiện ích này.</p><h3 className="mt-5 text-2xl">Cẩm nang liên quan</h3><ul className="mt-3 space-y-2">{articles.filter(a=>a.destinationSlugs.includes(d.slug)).map(a=><li key={a.slug}><Link className="underline" href={`/articles/${a.slug}`}>{a.title}</Link></li>)}</ul></section>
       <div className="mt-8 flex flex-wrap gap-3">
         <Link href={`/booking?item=${d.slug}`} className="btn-primary text-lg"><CalendarIcon size={22} /> Tạo yêu cầu / đặt dịch vụ</Link>
         <Link href={`/navigation?to=${d.slug}`} className="btn-ghost hc-border text-lg"><CompassIcon size={22} /> Mở bản đồ demo</Link>

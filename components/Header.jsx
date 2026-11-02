@@ -10,7 +10,7 @@ import { ContrastIcon, TextSizeIcon, MenuIcon, UserIcon } from "./Icons";
 
 const NAV = [
  {href:"/explore",label:"Khám phá",links:[["Danh sách điểm đến","/destination"],["Tìm kiếm","/search"],["Bản đồ demo","/navigation"]]},
- {href:"/explore?cat=accommodation",label:"Dịch vụ",links:[["Lưu trú — DEMO","/explore?cat=accommodation"],["Di chuyển — DEMO","/explore?cat=transport"],["Guide & Assistant — DEMO","/item?id=demo-guide-tour"],["Thông tin chó dẫn đường","/services/guide-dogs"],["Thử đặt chỗ DEMO","/booking"],["Đặt chỗ của tôi","/my-booking"],["Chuyến đi của tôi","/my-trip"]]},
+ {href:"/explore?cat=accommodation",label:"Dịch vụ",links:[["Lưu trú — DEMO","/explore?cat=accommodation"],["Di chuyển — DEMO","/explore?cat=transport"],["Guide & Assistant — DEMO","/item?id=demo-guide-tour"],["Thử đặt chỗ DEMO","/booking"],["Đặt chỗ của tôi","/my-booking"],["Chuyến đi của tôi","/my-trip"]]},
  {href:"/articles",label:"Cẩm nang"},
  {href:"/help",label:"Hỗ trợ",links:[["Hồ sơ và trợ năng","/profile"],["SOS — DEMO","/sos"]]},
  {href:"/partners/business",label:"Đối tác",links:[["Doanh nghiệp","/partners/business"],["Guide & Assistant","/partners/guide"],["Hợp tác cùng WayEcho","/partners/cooperate"]]},

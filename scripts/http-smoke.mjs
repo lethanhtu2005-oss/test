@@ -49,7 +49,7 @@ try{
  check((await request("/api/bookings",{method:"PATCH",user:"t2",body:{id:booking.id,status:"cancelled"}})).status===404,"IDOR traveler");
  check((await request("/api/bookings",{method:"PATCH",user:"b2",body:{id:booking.id,status:"confirmed"}})).status===404,"IDOR business");
  check((await request("/api/bookings",{method:"PATCH",user:"b1",body:{id:booking.id,status:"confirmed"}})).status===200,"business update");
- for(const url of ["/","/explore","/search?q=van%20mieu","/navigation","/navigation?to=ho-guom","/navigation?to=bad","/navigation?to=hoang-thanh-thang-long","/destination","/destination?d=ho-guom","/destination?d=hoang-thanh-thang-long","/articles","/articles/chuan-bi-hanh-trinh","/services/guide-dogs","/partners/business","/partners/guide","/partners/cooperate","/guide/register","/sos","/assistant","/profile"]){const r=await request(url);const html=await r.text();publicPages.set(url,html);check(r.status===200,`public status ${url}`);check(/<title>/.test(html),`title ${url}`);check(/<h1[\s>]/.test(html),`h1 ${url}`);}
+ for(const url of ["/","/explore","/search?q=van%20mieu","/navigation","/navigation?to=ho-guom","/navigation?to=bad","/navigation?to=hoang-thanh-thang-long","/destination","/destination?d=ho-guom","/destination?d=hoang-thanh-thang-long","/articles","/articles/chuan-bi-hanh-trinh","/partners/business","/partners/guide","/partners/cooperate","/guide/register","/sos","/assistant","/profile"]){const r=await request(url);const html=await r.text();publicPages.set(url,html);check(r.status===200,`public status ${url}`);check(/<title>/.test(html),`title ${url}`);check(/<h1[\s>]/.test(html),`h1 ${url}`);}
  const links=new Set();
  for(const [url,html] of publicPages){
   for(const match of html.matchAll(/href="([^"]+)"/g)){

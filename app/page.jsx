@@ -274,7 +274,7 @@ export default function HomePage() {
       </section>
 
       <DestinationGallery destinations={destinations} />
-      <section className="container-page pb-12" aria-labelledby="read-more-heading"><h2 id="read-more-heading" className="text-3xl">Chuẩn bị trước khi đi</h2><p className="mt-3 max-w-3xl">Tìm hiểu cách đọc dữ liệu tiếp cận, chọn thông tin muốn chia sẻ và chuẩn bị câu hỏi cho điểm đến.</p><div className="mt-4 flex flex-wrap gap-3"><Link className="btn-primary" href="/articles">Đọc cẩm nang</Link><Link className="btn-ghost" href="/services/guide-dogs">Tìm hiểu chó dẫn đường</Link></div></section>
+      <section className="container-page pb-12" aria-labelledby="read-more-heading"><h2 id="read-more-heading" className="text-3xl">Chuẩn bị trước khi đi</h2><p className="mt-3 max-w-3xl">Tìm hiểu cách đọc dữ liệu tiếp cận, chọn thông tin muốn chia sẻ và chuẩn bị câu hỏi cho điểm đến.</p><div className="mt-4 flex flex-wrap gap-3"><Link className="btn-primary" href="/articles">Đọc cẩm nang</Link></div></section>
 
       <section className="border-y border-line bg-[#fffdf8] py-12 hc-surface hc-border" aria-labelledby="assistant-heading">
         <div className="container-page">
